@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+
+	<name>hypeInteractions</name>
+	<id>hypeInteractions</id>
+	<version>3.0.0</version>
+
+	<description>Feature-rich social interactions for Elgg</description>
+	<category>social</category>
+
+	<author>Ismayil Khayredinov (ismayil.khayredinov@gmail.com)</author>
+	<website>http://hypeJunction.com</website>
+	<copyright>2011-2014 (c) Ismayil Khayredinov</copyright>
+	<license>GNU Public License version 2</license>
+
+	<requires>
+		<type>elgg_release</type>
+		<version>1.9</version>
+	</requires>
+
+	<suggests>
+		<type>plugin</type>
+		<name>hypeLists</name>
+	</suggests>
+	<suggests>
+		<type>plugin</type>
+		<name>likes</name>
+	</suggests>
+
+</plugin_manifest>

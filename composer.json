@@ -1,0 +1,38 @@
+{
+	"name": "hypejunction/hypeinteractions",
+	"type": "elgg-plugin",
+	"description": "hypeInteractions Elgg Plugin",
+	"homepage": "http://hypejunction.com/",
+	"keywords": [
+		"elgg", "plugin", "hypejunction", "hypeinteractions", "comments", "likes", "stream", "feed", "ajax"
+	],
+	"license": "GPL-2.0",
+	"authors": [{
+			"name": "Ismayil Khayredinov",
+			"email": "ismayil.khayredinov@gmail.com"
+		}],
+	"extra": {
+		"installer-name": "hypeInteractions"
+	},
+	"config": {
+		"vendor-dir": "vendors",
+		"preferred-install": "dist"
+	},
+	"require": {
+		"php": ">=5.4",
+		"ext-json": "*",
+		"ext-xml": "*",
+		"ext-curl": "*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "4.*",
+		"elgg/sniffs": "dev-master",
+		"squizlabs/php_codesniffer": "1.5.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"hypeJunction\\": ["classes/hypeJunction/", "tests/phpunit/classes/hypeJunction"]
+		}
+	}
+}
+
