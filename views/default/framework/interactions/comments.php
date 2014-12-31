@@ -52,7 +52,7 @@ if (HYPEINTERACTIONS_COMMENTS_ORDER == 'asc') {
 
 $options = array(
 	'types' => 'object',
-	'subtypes' => array(Comment::SUBTYPE),
+	'subtypes' => array(Comment::SUBTYPE, 'hjcomment'),
 	'container_guid' => $entity->guid,
 	'list_id' => "interactions-comments-{$entity->guid}",
 	'list_class' => 'interactions-comments-list',

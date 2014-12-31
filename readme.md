@@ -1,10 +1,10 @@
 hypeInteractions
 ================
 
-Feature-rich social interactions for Elgg
+Enhanced commenting and liking UX for Elgg
 
-* Real-time comments and likes
-* Threaded comments
+## Features
 
-
+* Real-time comments and likes (requires hypeLists)
+* Multi-level comment threads
 

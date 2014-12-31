@@ -30,7 +30,7 @@ class Thread {
 	 */
 	public function getFilterOptions(array $options = array()) {
 		$options['types'] = Comment::TYPE;
-		$options['subtypes'] = Comment::SUBTYPE;
+		$options['subtypes'] = array(Comment::SUBTYPE, 'hjcomment');
 		$options['container_guids'] = $this->comment->container_guid;
 		if (!isset($options['order_by'])) {
 			$options['order_by'] = 'e.guid ASC';

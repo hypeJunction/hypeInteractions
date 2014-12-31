@@ -1,13 +1,7 @@
 <?php
 
-/**
- * @todo: reverse attached relationship
- * @todo: change river view 'framework/river/interactions/comment' to 'river/object/comment/create'
- * @todo: change river action_type 'stream:reply', 'stream:comment' to 'comment'
- * @todo: subscribed relationship to elgg_add_subscription()
- */
-
 run_function_once('interactions_20141227a');
+run_function_once('interactions_20141231a');
 
 /**
  * Import relevant hypeAlive plugin settings
@@ -32,4 +26,34 @@ function interactions_20141227a() {
 			}
 		}
 	}
+}
+
+/**
+ * Reverses 'attached' relationship for old comments
+ * @return void
+ */
+function interactions_20141231a() {
+
+	$comments = new \ElggBatch('elgg_get_entities', array(
+		'types' => 'object',
+		'subtypes' => 'hjcomment',
+		'limit' => 0,
+		'callback' => false,
+	));
+
+	foreach ($comments as $comment) {
+
+		$attachments = new \ElggBatch('elgg_get_entities_from_relationship', array(
+			'relationship' => 'attached',
+			'relationship_guid' => $comment->guid,
+			'inverse_relationship' => true,
+			'limit' => 0,
+			'callback' => false,
+		));
+
+		foreach ($attachments as $attachment) {
+			add_entity_relationship($comment->guid, 'attached', $attachment->guid);
+		}
+	}
+
 }

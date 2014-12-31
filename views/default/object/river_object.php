@@ -2,8 +2,6 @@
 
 namespace hypeJunction\Interactions;
 
-use ElggRiverItem;
-
 $entity = elgg_extract('entity', $vars);
 /* @var RiverObject $entity */
 

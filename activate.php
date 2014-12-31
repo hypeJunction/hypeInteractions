@@ -7,6 +7,12 @@ require_once __DIR__ . '/vendors/autoload.php';
 $plugin_id = basename(__DIR__);
 
 $defaults = array(
+	'max_comment_depth' => 1,
+	'comment_form_position' => 'after',
+	'comments_order' => 'asc',
+	'comments_load_style' => 'load_older',
+	'comments_limit' => 3,
+	'comments_load_limit' => 100,
 );
 
 foreach ($defaults as $name => $value) {

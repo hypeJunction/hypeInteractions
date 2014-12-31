@@ -8,8 +8,7 @@ if (!$handler) {
 }
 define('HYPEINTERACTIONS_HANDLER', $handler);
 
-//define('HYPEINTERACTIONS_MAX_COMMENT_DEPTH', (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions'));
-define('HYPEINTERACTIONS_MAX_COMMENT_DEPTH', 3);
+define('HYPEINTERACTIONS_MAX_COMMENT_DEPTH', (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions'));
 define('HYPEINTERACTIONS_COMMENT_FORM_POSITION', elgg_get_plugin_setting('comment_form_position', 'hypeInteractions'));
 define('HYPEINTERACTIONS_COMMENTS_ORDER', elgg_get_plugin_setting('comments_order', 'hypeInteractions'));
 define('HYPEINTERACTIONS_COMMENTS_LOAD_STYLE', elgg_get_plugin_setting('comments_load_style', 'hypeInteractions'));

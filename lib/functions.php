@@ -59,7 +59,7 @@ function get_river_object(ElggRiverItem $river) {
 	$ia = elgg_set_ignore_access(true);
 	$objects = elgg_get_entities_from_metadata(array(
 		'types' => RiverObject::TYPE,
-		'subtypes' => RiverObject::SUBTYPE,
+		'subtypes' => array(RiverObject::SUBTYPE, 'hjstream'),
 		'metadata_name_value_pairs' => array(
 			'name' => 'river_id',
 			'value' => $river->id,
