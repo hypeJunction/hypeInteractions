@@ -28,11 +28,26 @@ if (is_null($offset)) {
 		$thread = new Thread($comment);
 		$offset = $thread->getOffset($limit);
 	} else {
-		$offset = $count - $limit;
-		if ($offset < 0) {
+		if ((HYPEINTERACTIONS_COMMENTS_ORDER == 'asc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_older')
+				|| (HYPEINTERACTIONS_COMMENTS_ORDER == 'desc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_newer')) {
+			// show last page
+			$offset = $count - $limit;
+			if ($offset < 0) {
+				$offset = 0;
+			}
+		} else {
+			// show first page
 			$offset = 0;
 		}
 	}
+}
+
+if (HYPEINTERACTIONS_COMMENTS_ORDER == 'asc') {
+	$order_by = 'e.time_created ASC';
+	$reversed = true;
+} else {
+	$order_by = 'e.time_created DESC';
+	$reversed = true;
 }
 
 $options = array(
@@ -42,14 +57,14 @@ $options = array(
 	'list_id' => "interactions-comments-{$entity->guid}",
 	'list_class' => 'interactions-comments-list',
 	'base_url' => "$handler/comments/$entity->guid",
-	'order_by' => "e.time_created ASC",
+	'order_by' => $order_by,
 	'limit' => $limit,
 	'offset' => $offset,
 	'offset_key' => $offset_key,
 	'pagination' => true,
 	'pagination_type' => 'infinite',
 	'lazy_load' => 3,
-	'reversed' => true,
+	'reversed' => $reversed,
 	'auto_refresh' => 30,
 );
 $options['items'] = elgg_get_entities($options);
