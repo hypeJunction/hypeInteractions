@@ -103,33 +103,52 @@ if ($comment->save()) {
 				}
 			}
 
-			$subject = elgg_echo('generic_comment:email:subject', array(), $owner->language);
-			$message = elgg_echo('generic_comment:email:body', array(
-				$entity->title,
-				$user->name,
-				$comment_text,
-				$entity->getURL(),
-				$user->name,
-				$user->getURL()
-					), $owner->language);
+			if ($entity instanceof Comment) {
+				$original_entity = $entity->getOriginalContainer();
+				$subject = elgg_echo('interactions:reply:email:subject', array(), $owner->language);
+				$message = elgg_echo('interactions:reply:email:body', array(
+					$original_entity->getDisplayName(),
+					$user->name,
+					$comment_text,
+					$original_entity->getURL(),
+					$user->name,
+					$user->getURL()
+						), $owner->language);
+
+				$river_action_type = 'comment:reply';
+				$river_target_guid = $original_entity->guid;
+			} else {
+				$subject = elgg_echo('generic_comment:email:subject', array(), $owner->language);
+				$message = elgg_echo('generic_comment:email:body', array(
+					$entity->getDisplayName(),
+					$user->name,
+					$comment_text,
+					$entity->getURL(),
+					$user->name,
+					$user->getURL()
+						), $owner->language);
+
+				$river_action_type = 'comment';
+				$river_target_guid = $entity->guid;
+			}
 
 			notify_user($owner->guid, $user->guid, $subject, $message, array(
 				'object' => $comment,
 				'action' => 'create',
-					)
-			);
-		}
+			));
 
-		// Add to river
-		elgg_create_river_item(array(
-			'view' => 'river/object/comment/create',
-			'action_type' => 'comment',
-			'subject_guid' => $user->guid,
-			'object_guid' => $guid,
-			'target_guid' => $entity_guid,
-		));
+			// Add to river
+			elgg_create_river_item(array(
+				'view' => 'river/object/comment/create',
+				'action_type' => $river_action_type,
+				'subject_guid' => $user->guid,
+				'object_guid' => $guid,
+				'target_guid' => $river_target_guid,
+			));
+			
+		}
 	}
-	
+
 	if (elgg_is_xhr()) {
 		if ($comment_guid) {
 			$view = elgg_view_entity($comment);

@@ -2,8 +2,6 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg_Notifications_Event;
-use Elgg_Notifications_Notification;
 use ElggAnnotation;
 use ElggMenuItem;
 
@@ -185,11 +183,17 @@ function url_handler($hook, $type, $url, $params) {
 
 	if ($entity instanceof Comment) {
 		return elgg_normalize_url(implode('/', array(
-					'interactions',
+					HYPEINTERACTIONS_HANDLER,
 					'comments',
 					$entity->container_guid,
 					$entity->guid,
 				))) . "#elgg-object-$entity->guid";
+	} else if ($entity instanceof RiverObject) {
+		return elgg_normalize_url(implode('/', array(
+					'activity',
+					'view',
+					$entity->river_id,
+				))) . "#item-river-$entity->guid";
 	}
 
 	return $url;
@@ -215,7 +219,7 @@ function icon_url_handler($hook, $type, $url, $params) {
 		return $entity->getOwnerEntity()->getIconURL($size);
 	}
 
-	return $return;
+	return $url;
 }
 
 /**
@@ -259,62 +263,4 @@ function can_edit_annotation($hook, $type, $permission, $params) {
 	}
 
 	return $permission;
-}
-
-/**
- * Prepare notification message
- *
- * @param string                          $hook         "prepare"
- * @param string                          $type         "notification:create:after:object:comment"
- * @param Elgg_Notifications_Notification $notification A notification to prepare
- * @param array                           $params       Hook params
- * @return Elgg_Notifications_Notification
- */
-function prepare_comment_notification($hook, $type, $notification, $params) {
-
-	$event = elgg_extract('event', $params);
-	/* @var $event Elgg_Notifications_Event */
-
-	$recipient = elgg_extract('recipient', $params);
-	$language = elgg_extract('language', $params);
-	$method = elgg_extract('method', $params);
-
-	$entity = $event->getObject();
-
-	if (!$entity instanceof Message) {
-		return $notification;
-	}
-
-	$sender = $entity->getSender();
-	$message_type = $entity->getMessageType();
-	$message_hash = $entity->getHash();
-
-	$config = new Config;
-	$ruleset = $config->getRuleset($message_type);
-	$type_label = $ruleset->getSingularLabel($language);
-
-	$body = array_filter(array(
-		($ruleset->hasSubject()) ? $entity->subject : '',
-		$entity->getBody(),
-	));
-
-	$notification_body = implode(PHP_EOL, $body);
-
-	$notification->subject = elgg_echo('inbox:notification:subject', array($type_label), $language);
-	$notification->body = elgg_echo('inbox:notification:body', array(
-		$type_label,
-		$sender->name,
-		$notification_body,
-		elgg_view('output/url', array(
-			'href' => $entity->getURL(),
-		)),
-		$sender->name,
-		elgg_view('output/url', array(
-			'href' => elgg_normalize_url("messages/thread/$message_hash#reply")
-		)),
-			), $language);
-
-	$notification->summary = elgg_echo('inbox:notification:summary', array($type_label), $language);
-
-	return $notification;
 }

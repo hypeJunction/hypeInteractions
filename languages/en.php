@@ -34,7 +34,6 @@ $english = array(
 	'interactions:reply:create' => 'Reply',
 	'interactions:likes:before' => 'Like',
 	'interactions:likes:after' => 'Unlike',
-	'interactions:comment:placeholder' => 'Write a comment...',
 	'interactions:comment:subject' => 'comment by %s',
 	'interactions:comment:body' => '%s<span>: </span>%s',
 	'interactions:comment:upload' => 'Upload a file',
@@ -42,6 +41,22 @@ $english = array(
 	 * NOTIFICATIONS
 	 */
 	'interactions:attachments:labelled' => 'Attachments: ',
+	'interactions:reply:email:subject' => 'You have a new reply to your comment!',
+	'interactions:reply:email:body' => "You have a new reply to a comment made on \"%s\" from %s. It reads:
+
+
+%s
+
+
+To reply or view the original item, click here:
+
+%s
+
+To view %s's profile, click here:
+
+%s
+
+Please do not reply to this email.",
 	/**
 	 * ACTIONS
 	 */

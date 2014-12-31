@@ -36,7 +36,7 @@ $body = elgg_view('input/plaintext', array(
 	'name' => 'generic_comment',
 	'value' => $comment->description,
 	'rows' => 2,
-	'placeholder' => elgg_echo('interactions:comment:placeholder'),
+	'placeholder' => elgg_echo('generic_comments:add'),
 		));
 
 $footer_controls = array();
@@ -67,7 +67,7 @@ if ($comment instanceof Comment) {
 }
 
 $footer_controls['submit'] = elgg_view('input/submit', array(
-	'value' => elgg_echo('save'),
+	'value' => elgg_echo('generic_comments:post'),
 		));
 
 $controls = '';

@@ -5,6 +5,8 @@ namespace hypeJunction\Interactions;
 $subtypes = array(
 	Comment::SUBTYPE,
 	RiverObject::SUBTYPE,
+	'hjcoment',
+	'hjstream',
 );
 
 foreach ($subtypes as $subtype) {
