@@ -27,4 +27,9 @@
 		<name>likes</name>
 	</suggests>
 
+	<conflicts>
+		<type>plugin</type>
+		<name>hypeAlive</name>
+	</conflicts>
+	
 </plugin_manifest>

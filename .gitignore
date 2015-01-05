@@ -2,6 +2,5 @@
 .DS_Store
 .htaccess
 robots.txt
-/nbproject/private/
+/nbproject/
 /.sass-cache/
-composer.lock
