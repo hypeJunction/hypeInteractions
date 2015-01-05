@@ -7,13 +7,13 @@ $english = array(
 	 * SETTINGS
 	 */
 	'interactions:settings:max_comment_depth' => 'Comment tree depth',
-	'interactions:settings:max_comment_depth:hint' => 'How deep can replies to comments go? 1 = no replies, 5 = replies allowed up to 4th descendant',
+	'interactions:settings:max_comment_depth:help' => 'How deep can replies to comments go? 1 = no replies, 5 = replies allowed up to 4th descendant',
 	'interactions:settings:comment_form_position' => 'Position of the comments form',
-	'interactions:settings:comment_form_position:hint' => 'Where should the form be positioned in relation to the comments list?',
+	'interactions:settings:comment_form_position:help' => 'Where should the form be positioned in relation to the comments list?',
 	'interactions:settings:comment_form_position:before' => 'Before the list',
 	'interactions:settings:comment_form_position:after' => 'After the list',
 	'interactions:settings:comments_order' => 'Comments ordering',
-	'interactions:settings:comments_order:hint' => 'In which order should the comments be displayed: chronological (oldest on top, newest at the bottom) to reverse',
+	'interactions:settings:comments_order:help' => 'In which order should the comments be displayed: chronological (oldest on top, newest at the bottom) to reverse',
 	'interactions:settings:comments_order:chronological' => 'Chronological',
 	'interactions:settings:comments_order:reverse_chronological' => 'Reverse chronological',
 	'interactions:settings:comments_load_style' => 'Viewing and loading of comments',
