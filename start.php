@@ -55,7 +55,6 @@ function init() {
 	 */
 	// COMPONENTS
 	elgg_register_plugin_hook_handler('comments', 'all', __NAMESPACE__ . '\\comments_view_hook');
-	elgg_register_plugin_hook_handler('view', 'river/elements/responses', __NAMESPACE__ . '\\river_responses_view_hook');
 
 	// URLs
 	elgg_register_plugin_hook_handler('entity:url', 'object', __NAMESPACE__ . '\\url_handler');
