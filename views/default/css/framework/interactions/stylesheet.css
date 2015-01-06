@@ -26,7 +26,7 @@
 
 .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li { border-bottom: 0; }
 .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li, .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li a { -moz-border-radius-bottomleft: 0; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; -moz-border-radius-bottomright: 0; -webkit-border-bottom-right-radius: 0; border-bottom-right-radius: 0; }
-.interactions.interactions-has-active-tab > .interactions-component { border: 1px solid #eeeeee; padding: 10px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+.interactions.interactions-has-active-tab > .interactions-component { border: 1px solid #eeeeee; padding: 10px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
 .interactions.interactions-has-active-tab > .interactions-component.elgg-ajax-loader { padding: 30px; margin: 0; }
 
 .interactions-controls { *zoom: 1; height: 31px; }
@@ -42,9 +42,9 @@
 
 .elgg-menu-interactions-tabs { float: right; text-align: right; overflow: visible; margin-right: 6px; }
 .elgg-menu-interactions-tabs > li { margin: 0; font-size: 14px; border-width: 1px 1px 1px 0; border-style: solid; border-color: #eeeeee; }
-.elgg-menu-interactions-tabs > li:last-child, .elgg-menu-interactions-tabs > li:last-child a { -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
+.elgg-menu-interactions-tabs > li:last-child, .elgg-menu-interactions-tabs > li:last-child a { -moz-border-radius-topright: 0px; -webkit-border-top-right-radius: 0px; border-top-right-radius: 0px; -moz-border-radius-bottomright: 0px; -webkit-border-bottom-right-radius: 0px; border-bottom-right-radius: 0px; }
 .elgg-menu-interactions-tabs > li:first-child { border-left-width: 1px; }
-.elgg-menu-interactions-tabs > li:first-child, .elgg-menu-interactions-tabs > li:first-child a { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; }
+.elgg-menu-interactions-tabs > li:first-child, .elgg-menu-interactions-tabs > li:first-child a { -moz-border-radius-topleft: 0px; -webkit-border-top-left-radius: 0px; border-top-left-radius: 0px; -moz-border-radius-bottomleft: 0px; -webkit-border-bottom-left-radius: 0px; border-bottom-left-radius: 0px; }
 .elgg-menu-interactions-tabs > li a { position: relative; background: #fafafa; display: inline-block; }
 .elgg-menu-interactions-tabs > li a .interactions-icon { font-size: 20px; }
 .elgg-menu-interactions-tabs > li.elgg-state-selected a, .elgg-menu-interactions-tabs > li:hover a { background: white; }
