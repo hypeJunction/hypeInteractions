@@ -27,7 +27,7 @@
 .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li { border-bottom: 0; }
 .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li, .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li a { -moz-border-radius-bottomleft: 0; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; -moz-border-radius-bottomright: 0; -webkit-border-bottom-right-radius: 0; border-bottom-right-radius: 0; }
 .interactions.interactions-has-active-tab > .interactions-component { border: 1px solid #eeeeee; padding: 10px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
-.interactions.interactions-has-active-tab > .interactions-component.elgg-ajax-loader { padding: 30px; }
+.interactions.interactions-has-active-tab > .interactions-component.elgg-ajax-loader { padding: 30px; margin: 0; }
 
 .interactions-controls { *zoom: 1; height: 31px; }
 .interactions-controls:before, .interactions-controls:after { content: " "; display: table; }
@@ -54,7 +54,7 @@
 .interactions-badge .interactions-icon { font-size: 20px; color: #999999; }
 .interactions-badge .interactions-icon + span { margin-left: 5px; }
 .interactions-badge .interactions-badge-indicator { position: absolute; top: 0; right: 0; margin: -6px; color: #999999; background: #f4f4f4; padding: 2px 4px; font-size: 10px; font-weight: bold; line-height: 14px; height: 18px; min-width: 18px; text-align: center; z-index: 2; -moz-border-radius: 1000px; -webkit-border-radius: 1000px; border-radius: 1000px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-.elgg-state-selected > .interactions-badge .interactions-icon, .elgg-state-selected > .interactions-badge .interactions-badge-indicator, .interactions-badge:hover .interactions-icon, .interactions-badge:hover .interactions-badge-indicator { color: #4690d6; }
+.elgg-state-selected > .interactions-badge .interactions-icon, .elgg-state-selected > .interactions-badge .interactions-badge-indicator, .interactions-badge:hover .interactions-icon, .interactions-badge:hover .interactions-badge-indicator { color: #306eb4; }
 
 .interactions-component { display: none; background-color: white; }
 .interactions-component.elgg-state-selected { display: block; }
@@ -102,7 +102,7 @@
   .interactions-attachments > li:nth-of-type(1n) { clear: none; }
   .interactions-attachments > li:nth-of-type(4n+1) { clear: both; } }
 .interactions-attachments > li .interactions-detach-action { display: none; position: absolute; top: 0; right: 0; margin: -5px; }
-.interactions-attachments > li .interactions-detach-action .elgg-icon { color: #67080a; }
+.interactions-attachments > li .interactions-detach-action .elgg-icon { color: #e74c3c; }
 .interactions-attachments > li:hover .interactions-detach-action { display: block; }
 
 .interactions-comment .interactions-comment-body { margin: 0; }
