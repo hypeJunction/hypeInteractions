@@ -70,11 +70,13 @@ $options = array(
 $options['items'] = elgg_get_entities($options);
 $options['count'] = $count;
 
+elgg_push_context('comments');
 if (elgg_view_exists('page/components/ajax_list')) {
 	$list = elgg_view('page/components/ajax_list', $options);
 } else {
 	$list = elgg_view('page/components/list', $options);
 }
+elgg_pop_context();
 
 $form = '';
 if ($show_form) {

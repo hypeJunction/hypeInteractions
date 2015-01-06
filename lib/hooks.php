@@ -127,7 +127,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 		));
 	}
 
-	if ($entity instanceof Comment) {
+	if ($entity instanceof Comment && elgg_in_context('comments')) {
 
 		if ($entity->canEdit()) {
 			$menu[] = ElggMenuItem::factory(array(
