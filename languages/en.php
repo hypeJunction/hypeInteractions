@@ -63,6 +63,11 @@ Please do not reply to this email.",
 	'interactions:detach' => 'Detach',
 	'interactions:detach:success' => 'Item has been successfully detached',
 	'interactions:detach:error' => 'Item could not be detached',
+
+	/**
+	 * RIVER
+	 */
+	'interactions:like:object:default' => '%s liked %s',
 );
 
 add_translation("en", $english);
