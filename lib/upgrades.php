@@ -2,6 +2,7 @@
 
 run_function_once('interactions_20141227a');
 run_function_once('interactions_20141231a');
+run_function_once('interactions_20150106a');
 
 /**
  * Import relevant hypeAlive plugin settings
@@ -55,5 +56,31 @@ function interactions_20141231a() {
 			add_entity_relationship($comment->guid, 'attached', $attachment->guid);
 		}
 	}
+}
 
+/**
+ * Make sure river items have targets
+ * @return void
+ */
+function interactions_20150106a() {
+
+	$dbprefix = elgg_get_config('dbprefix');
+
+	$river = new \ElggBatch('elgg_get_river', array(
+		'action_type' => 'stream:comment',
+		'limit' => 0,
+		'callback' => false,
+	));
+
+	foreach ($river as $r) {
+		$id = $r->id;
+		$comment = get_entity($r->object_guid);
+		$target_guid = 0;
+		if ($comment) {
+			$target_guid = (int) $comment->container_guid;
+		}
+
+		$query = "UPDATE {$dbprefix}river SET target_guid=$target_guid WHERE id=$id";
+		update_data($query);
+	}
 }
