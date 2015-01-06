@@ -17,7 +17,7 @@ $subject_link = elgg_view('output/url', array(
 $object_link = elgg_view('output/url', array(
 	'href' => $object->getURL(),
 	'text' => $object->getDisplayName(),
-	'class' => 'elgg-river-target',
+	'class' => 'elgg-river-object',
 	'is_trusted' => true,
 		));
 
