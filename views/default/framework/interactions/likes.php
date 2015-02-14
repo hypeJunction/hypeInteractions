@@ -31,7 +31,7 @@ $options = array(
 	'pagination_type' => 'infinite',
 	'lazy_load' => 3,
 	'auto_refresh' => 30,
-	'data-selector-delete' => '.elgg-requires-confirmation:has(.elgg-icon-delete)',
+	'data-selector-delete' => '[data-confirm]:has(.elgg-icon-delete)',
 );
 
 $options['items'] = elgg_get_annotations($options);
