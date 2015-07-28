@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
+require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
 $plugin_id = basename(__DIR__);
 
