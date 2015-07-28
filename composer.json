@@ -15,7 +15,7 @@
 		"installer-name": "hypeInteractions"
 	},
 	"config": {
-		"vendor-dir": "/vendors/"
+		"vendor-dir": "/vendor/"
 	},
 	"require": {
 		"php": ">=5.5",
