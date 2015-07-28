@@ -145,7 +145,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 						'is_action' => true,
 						'priority' => 900,
 						'section' => 'actions',
-						'link_class' => 'elgg-requires-confirmation',
+						'confirm' => true,
 			));
 		}
 	}

@@ -5,6 +5,11 @@ namespace hypeJunction\Interactions;
 $entity = elgg_extract('entity', $vars, false);
 
 $active_tab = elgg_extract('active_tab', $vars);
+if (!$active_tab) {
+	if (elgg_extract('full_view', $vars)) {
+		$active_tab = 'comments';
+	}
+}
 
 $menu = elgg_view_menu('interactions', array(
 	'entity' => $entity,
