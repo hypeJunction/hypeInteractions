@@ -7,7 +7,7 @@
  * @package Elgg
  * @subpackage hypeJunction\Interactions
  *
- * @author Ismayil Khayredinov <ismayil.khayredinov@gmail.com>
+ * @author Ismayil Khayredinov <info@hypejunction.com>
  * @copyright Copyright (c) 2011-2014, Ismayil Khayredinov
  */
 

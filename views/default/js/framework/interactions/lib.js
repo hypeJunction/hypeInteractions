@@ -95,8 +95,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 			e.preventDefault();
 			var $form = $(this);
 			$form.ajaxSubmit($.extend({}, interactions.preloader($form), {
-				iframe: $form.is('[enctype^="multipart"]'),
-				data: {
+				headers: {
 					'X-Requested-With': 'XMLHttpRequest', // simulate XHR
 				},
 				dataType: 'json',
