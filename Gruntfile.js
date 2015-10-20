@@ -83,7 +83,7 @@ module.exports = function (grunt) {
 				tag_name: '<%= pkg.version %>',
 				target_commitish: '3.x',
 				name: 'Release <%= pkg.version %>',
-				body: grunt.file.read('readme.md'),
+				body: grunt.file.read('release.md'),
 				draft: false,
 				prerelease: false,
 				asset: {
