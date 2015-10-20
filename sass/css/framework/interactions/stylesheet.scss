@@ -72,7 +72,7 @@
 			display: inline-block;
 			color: $lighter-border-color;
 		}
-		&:last-child:after {
+		&:last-of-type:after {
 			content: "";
 		}
 		a {
@@ -99,13 +99,13 @@
 		border-width: 1px 1px 1px 0;
 		border-style: solid;
 		border-color: $lighter-border-color;
-		&:last-child {
+		&:last-of-type {
 			&, & a {
 				@include border-top-right-radius($border-radius);
 				@include border-bottom-right-radius($border-radius);
 			}
 		}
-		&:first-child {
+		&:first-of-type {
 			border-left-width: 1px;
 			&, & a {
 				@include border-top-left-radius($border-radius);
@@ -187,7 +187,7 @@
 			border: none;
 			&.elgg-discoverable {
 				border-bottom: 1px solid $lighter-border-color;
-				&:last-child {
+				&:last-of-type {
 					border-bottom: 0;
 				}
 			}
@@ -222,6 +222,7 @@
 		margin: 0;
 		padding: $comment-padding;
 		background: none;
+		border: none;
 		textarea {
 			min-height: $comment-avatar-size;
 			height: $comment-avatar-size;
@@ -283,7 +284,7 @@
 				display: inline-block;
 				padding: 0 5px;
 			}
-			&:last-child:after {
+			&:last-of-type:after {
 				display: none;
 			}
 		}
@@ -293,13 +294,13 @@
 		&.interactions-edit-comment-form {
 			padding: 0;
 		}
-		&:first-child {
+		&:first-of-type {
 			border-bottom: 1px solid $lighter-border-color;
 		}
-		&:last-child {
+		&:last-of-type {
 			border-top: 1px solid $lighter-border-color;
 		}
-		&:only-child {
+		&:only-of-type {
 			border: none;
 		}
 	}
