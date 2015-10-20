@@ -90,6 +90,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		showUploadsForm: function (e) {
 			e.preventDefault();
 			$(this).closest('form').addClass('interactions-form-has-uploads');
+			$(this).closest('form').trigger('initialize');
 		},
 		saveComment: function (e) {
 			e.preventDefault();
@@ -128,6 +129,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 				success: function (data) {
 					var $form = $(data);
 					$item.append($form);
+					$form.trigger('initialize');
 					$form.siblings().hide();
 					$form.find('[name="generic_comment"]').focus().trigger('click');
 					$form.find('.elgg-button-cancel').on('click', function () {
