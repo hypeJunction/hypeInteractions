@@ -85,6 +85,10 @@ function init() {
 	elgg_extend_view('js/elgg', 'js/framework/interactions/elgg.js');
 
 	elgg_extend_view('object/blog', 'object/blog/interactions');
+
+	// remove default likes behaviour
+	elgg_unextend_view('css/elgg', 'likes/css');
+	elgg_unextend_view('js/elgg', 'likes/js');
 }
 
 /**
