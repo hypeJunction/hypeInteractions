@@ -28,8 +28,7 @@ if (is_null($offset)) {
 		$thread = new Thread($comment);
 		$offset = $thread->getOffset($limit);
 	} else {
-		if ((HYPEINTERACTIONS_COMMENTS_ORDER == 'asc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_older')
-				|| (HYPEINTERACTIONS_COMMENTS_ORDER == 'desc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_newer')) {
+		if ((HYPEINTERACTIONS_COMMENTS_ORDER == 'asc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_older') || (HYPEINTERACTIONS_COMMENTS_ORDER == 'desc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_newer')) {
 			// show last page
 			$offset = $count - $limit;
 			if ($offset < 0) {
@@ -61,21 +60,19 @@ $options = array(
 	'limit' => $limit,
 	'offset' => $offset,
 	'offset_key' => $offset_key,
+	'full_view' => true,
 	'pagination' => true,
 	'pagination_type' => 'infinite',
 	'lazy_load' => 3,
 	'reversed' => $reversed,
 	'auto_refresh' => 30,
+	'no_results' => elgg_echo('interactions:comments:no_results'),
+	'data-guid' => $entity->guid,
+	'data-trait' => 'comments',
 );
-$options['items'] = elgg_get_entities($options);
-$options['count'] = $count;
 
 elgg_push_context('comments');
-if (elgg_view_exists('page/components/ajax_list')) {
-	$list = elgg_view('page/components/ajax_list', $options);
-} else {
-	$list = elgg_view('page/components/list', $options);
-}
+$list = elgg_list_entities($options);
 elgg_pop_context();
 
 $form = '';

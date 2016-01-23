@@ -20,6 +20,8 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 
 			$(document).on('click', '.interactions-detach-action', interactions.detach);
 
+			$(document).on('change', '.interactions-comments-list,.interactions-likes-list', interactions.listChanged);
+
 			elgg.config.interactions = true;
 		},
 		require: function () {
@@ -81,8 +83,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		},
 		toggleState: function (e) {
 			e.preventDefault();
-			elgg.action($(this).attr('href'), $.extend({}, interactions.preloader($(this)), {
-			}));
+			elgg.action($(this).attr('href'), interactions.preloader($(this)));
 		},
 		expandForm: function (e) {
 			$(this).addClass('elgg-state-expanded');
@@ -102,16 +103,10 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 				dataType: 'json',
 				success: function (response) {
 					if (response.status >= 0) {
-						if ($form.is('.interactions-add-comment-form')) {
-							if (interactions.require()) {
-								$form.siblings().find('.elgg-list').hypeList('addFetchedItems', response.output.view, null, true);
-							}
-							$form.resetForm();
-							$form.removeClass('elgg-state-expanded interactions-form-has-uploads');
-							$form.trigger('reset');
-						} else {
-							$form.parent().html($(response.output.view));
-						}
+						$form.siblings().find('.elgg-list').trigger('addFetchedItems', [response.output.view]).trigger('refresh');
+						$form.resetForm();
+						$form.removeClass('elgg-state-expanded interactions-form-has-uploads');
+						$form.trigger('reset');
 					}
 
 					if (response.system_messages) {
@@ -173,11 +168,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 				elgg.ajax($elem.attr('href'), {
 					success: function (data) {
 						$traitComponent.removeClass('elgg-ajax-loader').html(data);
-						$traitComponent.find('.elgg-list').trigger('initialize');
-						if (interactions.require()) {
-							$traitComponent.find('.elgg-list').hypeList('fetchNewItems');
-						}
-
+						$traitComponent.find('.elgg-list').trigger('refresh');
 						if ($(e.target).is('.elgg-menu-item-comments > a')) {
 							$traitComponent.children('.interactions-form').show().find('[name="generic_comment"]').focus().trigger('click');
 						}
@@ -191,10 +182,19 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 			elgg.action($elem.attr('href'), $.extend({}, interactions.preloader($elem), {
 				success: function (response) {
 					if (response.status >= 0) {
-						$elem.closest('li').remove();
+						$elem.closest('ul').trigger('removeItems', [$elem.closest('li')]);
+						if ($elem.length) {
+							// event didn't clear the item
+							$elem.closest('li').remove();
+						}
 					}
 				}
 			}));
+		},
+		listChanged: function (e, params) {
+			if (params && params.guid && params.trait) {
+				interactions.updateBadge(params.guid, params.trait, params.count || 0);
+			}
 		}
 	};
 

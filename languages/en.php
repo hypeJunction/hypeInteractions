@@ -68,6 +68,9 @@ Please do not reply to this email.",
 	 * RIVER
 	 */
 	'interactions:like:object:default' => '%s liked %s',
+
+	'interactions:comments:no_results' => 'No comments have been made yet',
+	'interactions:likes:no_results' => 'This item hasn\'t been liked yet',
 );
 
 add_translation("en", $english);

@@ -32,13 +32,9 @@ $options = array(
 	'lazy_load' => 3,
 	'auto_refresh' => 30,
 	'data-selector-delete' => '[data-confirm]:has(.elgg-icon-delete)',
+	'no_results' => elgg_echo('interactions:likes:no_results'),
+	'data-guid' => $entity->guid,
+	'data-trait' => 'likes',
 );
 
-$options['items'] = elgg_get_annotations($options);
-$options['count'] = $count;
-
-if (elgg_view_exists('page/components/ajax_list')) {
-	echo elgg_view('page/components/ajax_list', $options);
-} else {
-	echo elgg_view('page/components/list', $options);
-}
+echo elgg_list_annotations($options);
