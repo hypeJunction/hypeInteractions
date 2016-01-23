@@ -1,3 +1,13 @@
+<a name="3.3.1"></a>
+## [3.3.1](https://github.com/hypeJunction/hypeInteractions/compare/3.3.0...v3.3.1) (2016-01-23)
+
+
+### Bug Fixes
+
+* **composer:** update dependencies to allow installs with hypeApps 5.x ([e6231ee](https://github.com/hypeJunction/hypeInteractions/commit/e6231ee))
+
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/hypeJunction/hypeInteractions/compare/3.1.3...v3.3.0) (2016-01-23)
 
