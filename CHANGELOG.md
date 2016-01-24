@@ -1,3 +1,13 @@
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/hypeJunction/hypeInteractions/compare/3.3.1...v3.4.0) (2016-01-24)
+
+
+### Features
+
+* **notifications:** improve notifications ([0a5ef64](https://github.com/hypeJunction/hypeInteractions/commit/0a5ef64))
+
+
+
 <a name="3.3.1"></a>
 ## [3.3.1](https://github.com/hypeJunction/hypeInteractions/compare/3.3.0...v3.3.1) (2016-01-23)
 
