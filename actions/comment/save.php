@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-$user = elgg_get_logged_in_user_entity();
+$poster = elgg_get_logged_in_user_entity();
 
 $description = get_input('generic_comment', false);
 if (empty($description)) {
@@ -40,7 +40,7 @@ if ($comment_guid) {
 	}
 
 	$comment = new Comment();
-	$comment->owner_guid = $user->guid;
+	$comment->owner_guid = $poster->guid;
 	$comment->container_guid = $entity->guid;
 	$comment->access_id = $entity->access_id;
 }
@@ -81,8 +81,9 @@ if ($comment->save()) {
 
 	if (!$comment_guid) {
 		// Notify if poster wasn't owner
-		if ($entity->owner_guid != $user->guid) {
-			$owner = $entity->getOwnerEntity();
+		if ($entity->owner_guid != $poster->guid) {
+			$entity_owner = $entity->getOwnerEntity();
+			$language = $entity_owner->language;
 
 			$comment_text = $comment->description;
 			if (elgg_view_exists('output/linkify')) {
@@ -103,50 +104,98 @@ if ($comment->save()) {
 				}
 			}
 
+			$poster_url = elgg_view('output/url', array(
+				'text' => $poster->name,
+				'href' => $poster->getURL(),
+			));
+
 			if ($entity instanceof Comment) {
+				$target = elgg_echo('interactions:comment');
 				$original_entity = $entity->getOriginalContainer();
-				$subject = elgg_echo('interactions:reply:email:subject', array(), $owner->language);
-				$message = elgg_echo('interactions:reply:email:body', array(
-					$original_entity->getDisplayName(),
-					$user->name,
-					$comment_text,
-					$original_entity->getURL(),
-					$user->name,
-					$user->getURL()
-						), $owner->language);
-
-				$river_action_type = 'comment:reply';
-				$river_target_guid = $original_entity->guid;
+				if (is_callable(array($entity, 'getDisplayName'))) {
+					$original_entity_title = $entity->getDisplayName();
+				} else {
+					$original_entity_title = $entity->title ? : $entity->name;
+				}
+				$original_entity_url = elgg_view('output/url', array(
+					'text' => $original_entity_title,
+					'href' => elgg_http_add_url_query_elements($original_entity->getURL(), array(
+						'active_tab' => 'comments',
+					)),
+				));
+				$entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
 			} else {
-				$subject = elgg_echo('generic_comment:email:subject', array(), $owner->language);
-				$message = elgg_echo('generic_comment:email:body', array(
-					$entity->getDisplayName(),
-					$user->name,
-					$comment_text,
-					$entity->getURL(),
-					$user->name,
-					$user->getURL()
-						), $owner->language);
-
-				$river_action_type = 'comment';
-				$river_target_guid = $entity->guid;
+				$target = elgg_echo('interactions:post');
+				if (is_callable(array($entity, 'getDisplayName'))) {
+					$entity_title = $entity->getDisplayName();
+				} else {
+					$entity_title = $entity->title ? : $entity->name;
+				}
+				$entity_url = elgg_view('output/url', array(
+					'text' => $entity_title,
+					'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
+						'active_tab' => 'comments',
+					)),
+				));
+				$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $entity_url;
 			}
 
-			notify_user($owner->guid, $user->guid, $subject, $message, array(
-				'object' => $comment,
-				'action' => 'create',
+			$entity_ownership = elgg_echo('interactions:ownership:your', array($target), $language);
+			$entity_ownership_url = elgg_view('output/url', array(
+				'text' => $entity_ownership,
+				'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
+					'active_tab' => 'comments',
+				)),
 			));
 
-			// Add to river
-			elgg_create_river_item(array(
-				'view' => 'river/object/comment/create',
-				'action_type' => $river_action_type,
-				'subject_guid' => $user->guid,
-				'object_guid' => $guid,
-				'target_guid' => $river_target_guid,
-			));
+			if ($entity instanceof Comment) {
+				$summary = elgg_echo('interactions:reply:email:subject', array($poster_url, $entity_ownership_url), $language);
+				$subject = strip_tags($subject);
+				$message = elgg_echo('interactions:reply:email:body', array(
+					$poster_url,
+					$entity_url,
+					$comment_text,
+					$original_entity->getURL(),
+					$poster->name,
+					$poster->getURL()
+						), $language);
+			} else {
+				$summary = elgg_echo('interactions:comment:email:subject', array($poster_url, $entity_ownership_url), $language);
+				$subject = strip_tags($summary);
+				$message = elgg_echo('interactions:comment:email:body', array(
+					$poster_url,
+					$entity_url,
+					$comment_text,
+					$entity->getURL(),
+					$poster->name,
+					$poster->getURL()
+						), $language);
+			}
 			
+			notify_user($entity_owner->guid, $poster->guid, $subject, $message, array(
+				'object' => $comment,
+				'action' => 'create',
+				'summary' => $summary,
+			));
 		}
+
+		if ($entity instanceof Comment) {
+			$original_entity = $entity->getOriginalContainer();
+			$river_action_type = 'comment:reply';
+			$river_target_guid = $original_entity->guid;
+		} else {
+			$river_action_type = 'comment';
+			$river_target_guid = $entity->guid;
+		}
+
+		// Add to river
+		elgg_create_river_item(array(
+			'view' => 'river/object/comment/create',
+			'action_type' => $river_action_type,
+			'subject_guid' => $poster->guid,
+			'object_guid' => $guid,
+			'target_guid' => $river_target_guid,
+		));
 	}
 
 	if (elgg_is_xhr()) {

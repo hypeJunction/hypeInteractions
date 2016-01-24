@@ -71,6 +71,10 @@ function init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
 	elgg_unregister_plugin_hook_handler('register', 'menu:river', 'likes_river_menu_setup');
 
+	// NOTIFICATIONS
+	elgg_register_notification_event('object', 'comment', array('create'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', __NAMESPACE__ . '\\format_notification');
+	elgg_register_plugin_hook_handler('get', 'subscriptions', __NAMESPACE__ . '\\get_subscriptions');
 
 	/**
 	 * EVENTS

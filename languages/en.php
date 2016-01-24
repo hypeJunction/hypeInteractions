@@ -41,34 +41,56 @@ $english = array(
 	 * NOTIFICATIONS
 	 */
 	'interactions:attachments:labelled' => 'Attachments: ',
-	'interactions:reply:email:subject' => 'You have a new reply to your comment!',
-	'interactions:reply:email:body' => "You have a new reply to a comment made on \"%s\" from %s. It reads:
-
+	'interactions:reply:email:subject' => '%s replied to %s',
+	'interactions:reply:email:body' => "%s replied to %s:
 
 %s
 
-
 To reply or view the original item, click here:
-
 %s
 
 To view %s's profile, click here:
-
 %s
 
 Please do not reply to this email.",
+	'interactions:comment:email:subject' => '%s commented on %s',
+	'interactions:comment:email:body' => "%s commented on %s:
+
+%s
+
+To reply or view the original item, click here:
+%s
+
+To view %s's profile, click here:
+%s
+
+Please do not reply to this email.",
+	'interactions:likes:notifications:subject' => '%s likes %s',
+	'interactions:likes:notifications:body' =>
+	'%s likes %s
+
+See original post here:
+%s
+
+or view %s\'s profile here:
+%s
+',
+	'interactions:post' => 'post',
+	'interactions:comment' => 'comment',
+	'interactions:comment:reply_to' => 'on %s',
+	'interactions:ownership:own' => 'their %s',
+	'interactions:ownership:your' => 'your %s',
+	'interactions:ownership:owner' => '%s\'s %s',
 	/**
 	 * ACTIONS
 	 */
 	'interactions:detach' => 'Detach',
 	'interactions:detach:success' => 'Item has been successfully detached',
 	'interactions:detach:error' => 'Item could not be detached',
-
 	/**
 	 * RIVER
 	 */
 	'interactions:like:object:default' => '%s liked %s',
-
 	'interactions:comments:no_results' => 'No comments have been made yet',
 	'interactions:likes:no_results' => 'This item hasn\'t been liked yet',
 );

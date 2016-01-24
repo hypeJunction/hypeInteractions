@@ -34,16 +34,57 @@ if (!$title_str) {
 if ($entity->owner_guid != $user->guid) {
 	$site = elgg_get_site_entity();
 
-	$subject = elgg_echo('likes:notifications:subject', array(
-		$user->name,
-		$title_str
-			), $owner->language);
+	$language = $user->language;
+	$user_url = elgg_view('output/url', array(
+		'text' => $user->name,
+		'href' => $user->getURL(),
+	));
 
-	$body = elgg_echo('likes:notifications:body', array(
-		$owner->name,
-		$user->name,
-		$title_str,
-		$site->name,
+	if ($entity instanceof Comment) {
+		$target = elgg_echo('interactions:comment');
+	} else {
+		$target = elgg_echo('interactions:post');
+	}
+	if (is_callable(array($entity, 'getDisplayName'))) {
+		$entity_title = $entity->getDisplayName();
+	} else {
+		$entity_title = $entity->title ? : $entity->name;
+	}
+
+	$entity_url = elgg_view('output/url', array(
+		'text' => $entity_title,
+		'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
+			'active_tab' => 'likes',
+		)),
+	));
+	$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $entity_url;
+
+	$entity_ownership = elgg_echo('interactions:ownership:your', array($target), $language);
+	$entity_ownership_url = elgg_view('output/url', array(
+		'text' => $entity_ownership,
+		'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
+			'active_tab' => 'likes',
+		)),
+	));
+
+	$summary = elgg_echo('interactions:likes:notifications:subject', array(
+		$user_url,
+		$entity_ownership_url,
+			), $language);
+
+	$subject = strip_tags($summary);
+
+	$site_url = elgg_view('output/url', array(
+		'text' => elgg_get_site_entity()->name,
+		'href' => elgg_get_site_url(),
+	));
+
+	$owner = $entity->getOwnerEntity();
+	$owner_name = $owner->first_name ? : $owner->name;
+
+	$body = elgg_echo('interactions:likes:notifications:body', array(
+		$user_url,
+		$entity_url,
 		$entity->getURL(),
 		$user->getURL()
 			), $owner->language);
@@ -51,6 +92,7 @@ if ($entity->owner_guid != $user->guid) {
 	notify_user($entity->owner_guid, $user->guid, $subject, $body, array(
 		'action' => 'create',
 		'object' => $annotation,
+		'summary' => $summary,
 	));
 }
 
