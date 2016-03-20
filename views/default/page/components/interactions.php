@@ -3,11 +3,21 @@
 namespace hypeJunction\Interactions;
 
 $entity = elgg_extract('entity', $vars, false);
+/* @var $entity ElggEntity */
 
+$full_view = elgg_extract('full_view', $vars, false);
+
+$expand_form = $full_view;
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 if (!$active_tab) {
-	if (elgg_extract('full_view', $vars)) {
-		$active_tab = 'comments';
+	if ($entity->countComments()) {
+		if ($full_view) {
+			$active_tab = 'comments';
+			$expand_form = true;
+		} else if (elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
+			$active_tab = 'comments';
+			$expand_form = false;
+		}
 	}
 }
 
@@ -28,6 +38,9 @@ $modules = array_filter(array(
 		));
 
 if ($active_tab) {
+	if (!isset($vars['expand_form'])) {
+		$vars['expand_form'] = $expand_form;
+	}
 	$content = elgg_view("framework/interactions/$active_tab", $vars);
 	$component = elgg_format_element('div', array(
 		'class' => 'interactions-component elgg-state-selected',

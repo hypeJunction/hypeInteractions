@@ -67,3 +67,16 @@ echo elgg_view('input/text', array(
 	'value' => $entity->comments_load_limit,
 ));
 echo '</div>';
+
+echo '<div>';
+echo '<label>' . elgg_echo('interactions:settings:default_expand') . '</label>';
+echo '<div class="elgg-text-help">' . elgg_echo('interactions:settings:default_expand:help') . '</div>';
+echo elgg_view('input/dropdown', array(
+	'name' => 'params[default_expand]',
+	'value' => $entity->default_expand,
+	'options_values' => array(
+		0 => elgg_echo('option:no'),
+		1 => elgg_echo('option:yes'),
+	),
+));
+echo '</div>';

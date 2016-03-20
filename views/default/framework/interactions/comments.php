@@ -17,6 +17,7 @@ if (!elgg_instanceof($entity)) {
 $handler = HYPEINTERACTIONS_HANDLER;
 
 $show_form = elgg_extract('show_add_form', $vars, true) && $entity->canComment();
+$expand_form = elgg_extract('expand_form', $vars, true);
 
 $limit = (elgg_is_xhr()) ? HYPEINTERACTIONS_COMMENTS_LOAD_LIMIT : HYPEINTERACTIONS_COMMENTS_LIMIT;
 $offset_key = "comments_$entity->guid";
@@ -77,8 +78,15 @@ elgg_pop_context();
 
 $form = '';
 if ($show_form) {
+	$form_class = [
+		'interactions-form',
+		'interactions-add-comment-form',
+	];
+	if (!$expand_form) {
+		$form_class[] = 'hidden';
+	}
 	$form = elgg_view_form('comment/save', array(
-		'class' => 'interactions-form interactions-add-comment-form',
+		'class' => implode(' ', $form_class),
 		'data-guid' => $entity->guid,
 		'enctype' => 'multipart/form-data',
 			), array(

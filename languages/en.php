@@ -21,6 +21,9 @@ $english = array(
 	'interactions:settings:comments_load_style:load_newer' => 'Show older comments with a link to load newer comments',
 	'interactions:settings:comments_limit' => 'Number of comments to show initially',
 	'interactions:settings:comments_load_limit' => 'Number of comments to load per iteration',
+	'interactions:settings:default_expand' => 'Expand comments tab',
+	'interactions:settings:default_expand:help' => 'By default, comments are not shown in summary/river listings until user selects a tab',
+
 	/**
 	 * PAGES
 	 */
