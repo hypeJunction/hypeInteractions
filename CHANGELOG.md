@@ -1,3 +1,13 @@
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/hypeJunction/hypeInteractions/compare/3.4.0...v3.5.0) (2016-03-20)
+
+
+### Features
+
+* **ux:** add a setting to expand comments tab by default ([bf2b65b](https://github.com/hypeJunction/hypeInteractions/commit/bf2b65b))
+
+
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/hypeJunction/hypeInteractions/compare/3.3.1...v3.4.0) (2016-01-24)
 
