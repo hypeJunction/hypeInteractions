@@ -112,8 +112,8 @@ if ($comment->save()) {
 			if ($entity instanceof Comment) {
 				$target = elgg_echo('interactions:comment');
 				$original_entity = $entity->getOriginalContainer();
-				if (is_callable(array($entity, 'getDisplayName'))) {
-					$original_entity_title = $entity->getDisplayName();
+				if (is_callable(array($original_entity, 'getDisplayName'))) {
+					$original_entity_title = $original_entity->getDisplayName();
 				} else {
 					$original_entity_title = $entity->title ? : $entity->name;
 				}
