@@ -87,6 +87,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		},
 		expandForm: function (e) {
 			$(this).addClass('elgg-state-expanded');
+			$(this).closest('.elgg-list > li').children('form').find('[name="generic_comment"]').focus().trigger('click');
 		},
 		showUploadsForm: function (e) {
 			e.preventDefault();
