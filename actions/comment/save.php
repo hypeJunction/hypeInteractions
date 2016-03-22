@@ -112,6 +112,7 @@ if ($comment->save()) {
 			if ($entity instanceof Comment) {
 				$target = elgg_echo('interactions:comment');
 				$original_entity = $entity->getOriginalContainer();
+				$original_entity_owner = $original_entity->getOwnerEntity();
 				if (is_callable(array($original_entity, 'getDisplayName'))) {
 					$original_entity_title = $original_entity->getDisplayName();
 				} else {
@@ -123,7 +124,15 @@ if ($comment->save()) {
 						'active_tab' => 'comments',
 					)),
 				));
-				$entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
+				$original_entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
+
+				if ($poster->guid == $original_entity->owner_guid) {
+					$entity_url = elgg_echo('interactions:ownership:own', array($target), $language) . ' ' . $original_entity_url;
+				} else if ($poster->guid == $recipient->guid) {
+					$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $original_entity_url;
+				} else {
+					$entity_url = elgg_echo('interactions:ownership:owner', array($original_entity_owner->name, $target), $language) . ' ' . $original_entity_url;
+				}
 			} else {
 				$target = elgg_echo('interactions:post');
 				if (is_callable(array($entity, 'getDisplayName'))) {
@@ -150,7 +159,7 @@ if ($comment->save()) {
 
 			if ($entity instanceof Comment) {
 				$summary = elgg_echo('interactions:reply:email:subject', array($poster_url, $entity_ownership_url), $language);
-				$subject = strip_tags($subject);
+				$subject = strip_tags($summary);
 				$message = elgg_echo('interactions:reply:email:body', array(
 					$poster_url,
 					$entity_url,
@@ -171,7 +180,7 @@ if ($comment->save()) {
 					$poster->getURL()
 						), $language);
 			}
-			
+
 			notify_user($entity_owner->guid, $poster->guid, $subject, $message, array(
 				'object' => $comment,
 				'action' => 'create',

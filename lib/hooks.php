@@ -203,7 +203,7 @@ function url_handler($hook, $type, $url, $params) {
 
 /**
  * Replaces comment icons
- * 
+ *
  * @param string $hook   "entity:icon:url"
  * @param string $type   "object"
  * @param string $url    Current URL
@@ -226,7 +226,7 @@ function icon_url_handler($hook, $type, $url, $params) {
 
 /**
  * Disallows commenting on comments once a certain depth has been reached
- * 
+ *
  * @param string $hook       "permissions_check:comment"
  * @param string $type       "object"
  * @param bool   $permission Current permission
@@ -323,10 +323,11 @@ function format_notification($hook, $type, $notification, $params) {
 	if ($entity instanceof Comment) {
 		$target = elgg_echo('interactions:comment', array(), $language);
 		$original_entity = $entity->getOriginalContainer();
-		if (is_callable(array($entity, 'getDisplayName'))) {
-			$original_entity_title = $entity->getDisplayName();
+		$original_entity_owner = $original_entity->getOwnerEntity();
+		if (is_callable(array($original_entity, 'getDisplayName'))) {
+			$original_entity_title = $original_entity->getDisplayName();
 		} else {
-			$original_entity_title = $entity->title ? : $entity->name;
+			$original_entity_title = $original_entity->title ? : $original_entity->name;
 		}
 		$original_entity_url = elgg_view('output/url', array(
 			'text' => $original_entity_title,
@@ -334,7 +335,15 @@ function format_notification($hook, $type, $notification, $params) {
 				'active_tab' => 'comments',
 			)),
 		));
-		$entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
+		$original_entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
+
+		if ($poster->guid == $original_entity->owner_guid) {
+			$entity_url = elgg_echo('interactions:ownership:own', array($target), $language) . ' ' . $original_entity_url;
+		} else if ($poster->guid == $recipient->guid) {
+			$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $original_entity_url;
+		} else {
+			$entity_url = elgg_echo('interactions:ownership:owner', array($original_entity_owner->name, $target), $language) . ' ' . $original_entity_url;
+		}
 	} else {
 		$target = elgg_echo('interactions:post', array(), $language);
 		if (is_callable(array($entity, 'getDisplayName'))) {
@@ -376,7 +385,7 @@ function format_notification($hook, $type, $notification, $params) {
 	if ($entity instanceof Comment) {
 
 		$summary = elgg_echo('interactions:reply:email:subject', array($poster_url, $entity_ownership_url), $language);
-		$subject = strip_tags($subject);
+		$subject = strip_tags($summary);
 		$message = elgg_echo('interactions:reply:email:body', array(
 			$poster_url,
 			$entity_url,
@@ -407,7 +416,7 @@ function format_notification($hook, $type, $notification, $params) {
 
 /**
  * Subscribe users to comments based on original entity
- * 
+ *
  * @param string $hook   "get"
  * @param string $type   "subscriptions"
  * @param array  $return Subscriptions
@@ -428,6 +437,6 @@ function get_subscriptions($hook, $type, $return, $params) {
 
 	$original_container = $object->getOriginalContainer();
 	$subscriptions = elgg_get_subscriptions_for_container($original_container->container_guid);
-	
+
 	return ($return + $subscriptions);
 }
