@@ -87,7 +87,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		},
 		expandForm: function (e) {
 			$(this).addClass('elgg-state-expanded');
-			$(this).closest('.elgg-list > li').children('form').find('[name="generic_comment"]').focus().trigger('click');
+			$(this).find('[name="generic_comment"]').focus().trigger('click');
 		},
 		showUploadsForm: function (e) {
 			e.preventDefault();
@@ -160,7 +160,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 
 			if ($traitComponent.length) {
 				$traitComponent.addClass('elgg-state-selected');
-				if ($(e.target).is('.elgg-menu-item-comments > a')) {
+				if ($(e.target).parents().andSelf().is('.elgg-menu-item-comments > a')) {
 					$traitComponent.children('.interactions-form').show().find('[name="generic_comment"]').focus().trigger('click');
 				}
 			} else {
@@ -170,7 +170,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 					success: function (data) {
 						$traitComponent.removeClass('elgg-ajax-loader').html(data);
 						$traitComponent.find('.elgg-list').trigger('refresh');
-						if ($(e.target).is('.elgg-menu-item-comments > a')) {
+						if ($(e.target).parents().andSelf().is('.elgg-menu-item-comments > a')) {
 							$traitComponent.children('.interactions-form').show().find('[name="generic_comment"]').focus().trigger('click');
 						}
 					}
@@ -201,5 +201,3 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 
 	return interactions;
 });
-
-
