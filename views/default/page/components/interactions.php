@@ -28,6 +28,10 @@ $menu = elgg_view_menu('interactions', array(
 	'active_tab' => $active_tab,
 		));
 
+if (empty($menu)) {
+	return;
+}
+
 $controls = elgg_format_element('div', array(
 	'class' => 'interactions-controls',
 		), $menu);

@@ -87,46 +87,48 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 		));
 	}
 
-	// Liking and unliking
-	$likes_count = $entity->countAnnotations('likes');
-	$can_like = $entity->canAnnotate(0, 'likes');
-	$does_like = elgg_annotation_exists($entity->guid, 'likes');
+	if (elgg_is_active_plugin('likes')) {
+		// Liking and unliking
+		$likes_count = $entity->countAnnotations('likes');
+		$can_like = $entity->canAnnotate(0, 'likes');
+		$does_like = elgg_annotation_exists($entity->guid, 'likes');
 
-	if ($can_like) {
+		if ($can_like) {
 
-		$before_text = elgg_echo('interactions:likes:before');
-		$after_text = elgg_echo('interactions:likes:after');
+			$before_text = elgg_echo('interactions:likes:before');
+			$after_text = elgg_echo('interactions:likes:after');
 
-		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'likes',
-					'text' => ($does_like) ? $after_text : $before_text,
-					'href' => "action/$handler/like?guid=$entity->guid",
-					'is_action' => true,
-					'priority' => 200,
-					'section' => 'actions',
-					'link_class' => 'interactions-state-toggler',
-					// Attrs for JS toggle
-					'data-guid' => $entity->guid,
-					'data-trait' => 'likes',
-					'data-state' => ($does_like) ? 'after' : 'before',
-		));
-	}
+			$menu[] = ElggMenuItem::factory(array(
+						'name' => 'likes',
+						'text' => ($does_like) ? $after_text : $before_text,
+						'href' => "action/$handler/like?guid=$entity->guid",
+						'is_action' => true,
+						'priority' => 200,
+						'section' => 'actions',
+						'link_class' => 'interactions-state-toggler',
+						// Attrs for JS toggle
+						'data-guid' => $entity->guid,
+						'data-trait' => 'likes',
+						'data-state' => ($does_like) ? 'after' : 'before',
+			));
+		}
 
-	if ($can_like || $likes_count) {
-		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'likes:badge',
-					'text' => elgg_view('framework/interactions/elements/badge', array(
-						'entity' => $entity,
-						'icon' => 'likes',
-						'type' => 'likes',
-						'count' => $likes_count,
-					)),
-					'href' => "$handler/likes/$entity->guid",
-					'selected' => ($active_tab == 'likes'),
-					'data-trait' => 'likes',
-					'priority' => 600,
-					'section' => 'tabs',
-		));
+		if ($can_like || $likes_count) {
+			$menu[] = ElggMenuItem::factory(array(
+						'name' => 'likes:badge',
+						'text' => elgg_view('framework/interactions/elements/badge', array(
+							'entity' => $entity,
+							'icon' => 'likes',
+							'type' => 'likes',
+							'count' => $likes_count,
+						)),
+						'href' => "$handler/likes/$entity->guid",
+						'selected' => ($active_tab == 'likes'),
+						'data-trait' => 'likes',
+						'priority' => 600,
+						'section' => 'tabs',
+			));
+		}
 	}
 
 	if ($entity instanceof Comment && elgg_in_context('comments')) {
