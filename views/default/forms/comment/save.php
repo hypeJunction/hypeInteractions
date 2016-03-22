@@ -67,7 +67,7 @@ if ($comment instanceof Comment) {
 }
 
 $footer_controls['submit'] = elgg_view('input/submit', array(
-	'value' => $comment instanceof Comment ? elgg_echo('interactions:reply:create') : elgg_echo('generic_comments:post'),
+	'value' => $entity instanceof Comment ? elgg_echo('interactions:reply:create') : elgg_echo('generic_comments:post'),
 		));
 
 $controls = '';
