@@ -1,7 +1,11 @@
 <?php
 
-namespace hypeJunction\Inbox;
-
 $entity = elgg_extract('entity', $vars);
+if (!$entity instanceof ElggEntity) {
+	return;
+}
 
-echo elgg_view_entity_icon($entity, 'small');
+$owner = $entity->getOwnerEntity();
+echo elgg_view_entity_icon($owner, 'small', [
+	'use_hover' => false,
+]);
