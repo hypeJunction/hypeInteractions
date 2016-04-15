@@ -38,7 +38,20 @@ if ($full) {
 		'active_tab' => elgg_extract('active_tab', $vars),
 	));
 
-	$body = elgg_view_image_block($icon, $body . $attachments . $comments, array(
+	$poster = $comment->getOwnerEntity();
+	/* @var $owner ElggUser */
+
+	$poster_text = elgg_echo('byline', array($poster->name));
+	$date = elgg_view_friendly_time($comment->time_created);
+
+	$body = elgg_view('object/elements/summary', array(
+		'entity' => $comment,
+		'title' => false,
+		'subtitle' => "$poster_text $date",
+		'content' => $body . $attachments . $comments,
+	));
+
+	$body = elgg_view_image_block($icon, $body, array(
 		'class' => 'interactions-image-block',
 	));
 
