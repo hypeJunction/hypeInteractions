@@ -21,7 +21,7 @@ define(function (require) {
 			$(document).on('click', '.elgg-menu-interactions .elgg-menu-item-comments > a', interactions.triggerTabSwitch);
 
 			$(document).off('click', '.elgg-item-object-comment .elgg-menu-item-edit > a'); // disable core js events
-			$(document).on('click', '.elgg-menu-interactions .elgg-menu-item-edit > a', interactions.loadEditForm);
+			$(document).on('click', '.elgg-item-object-comment .elgg-menu-item-edit > a', interactions.loadEditForm);
 			$(document).on('submit', '.interactions-form', interactions.saveComment);
 
 			$(document).on('change', '.interactions-comments-list,.interactions-likes-list', interactions.listChanged);

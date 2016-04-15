@@ -63,6 +63,7 @@ function init() {
 	elgg_register_plugin_hook_handler('permissions_check', 'annotation', __NAMESPACE__ . '\\can_edit_annotation');
 
 	// MENUS
+	elgg_register_plugin_hook_handler('register', 'menu:entity', __NAMESPACE__ . '\\entity_menu_setup');
 	elgg_register_plugin_hook_handler('register', 'menu:interactions', __NAMESPACE__ . '\\interactions_menu_setup');
 	elgg_register_plugin_hook_handler('register', 'menu:river', __NAMESPACE__ . '\\river_menu_setup');
 

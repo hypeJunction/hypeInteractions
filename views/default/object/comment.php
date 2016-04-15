@@ -23,8 +23,6 @@ $full = elgg_extract('full_view', $vars, true);
 $icon = elgg_view('object/comment/elements/icon', $vars);
 
 if ($full) {
-	$metadata = $content = array();
-
 	$body = elgg_view('object/comment/elements/body', $vars);
 
 	$attachments = elgg_view('object/comment/elements/attachments', $vars);
@@ -45,11 +43,21 @@ if ($full) {
 	$poster_text = elgg_echo('byline', array($poster->name));
 	$date = elgg_view_friendly_time($comment->time_created);
 
+	$metadata = '';
+	if (!elgg_in_context('widgets')) {
+		$metadata = elgg_view_menu('entity', [
+			'entity' => $comment,
+			'sort_by' => 'priority',
+			'class' => 'elgg-menu-hz',
+		]);
+	}
+
 	$body = elgg_view('object/elements/summary', array(
 		'entity' => $comment,
 		'title' => false,
 		'subtitle' => "$poster_text $date",
 		'content' => $body . $attachments . $comments,
+		'metadata' => $metadata,
 	));
 
 	$body = elgg_view_image_block($icon, $body, array(

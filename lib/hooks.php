@@ -131,27 +131,52 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 		}
 	}
 
-	if ($entity instanceof Comment && elgg_in_context('comments')) {
+	return $menu;
+}
 
-		if ($entity->canEdit()) {
-			$menu[] = ElggMenuItem::factory(array(
-						'name' => 'edit',
-						'text' => elgg_echo('edit'),
-						'href' => "$handler/edit/$entity->guid",
-						'priority' => 800,
-						'section' => 'actions',
-			));
+/**
+ * Setups comment menu
+ *
+ * @param string $hook   "register"
+ * @param string $type   "menu:interactions"
+ * @param array  $menu   Menu
+ * @param array  $params Hook parameters
+ * @return array
+ */
+function entity_menu_setup($hook, $type, $menu, $params) {
 
-			$menu[] = ElggMenuItem::factory(array(
-						'name' => 'delete',
-						'text' => elgg_echo('delete'),
-						'href' => "action/comment/delete?guid=$entity->guid",
-						'is_action' => true,
-						'priority' => 900,
-						'section' => 'actions',
-						'confirm' => true,
-			));
-		}
+	$entity = elgg_extract('entity', $params);
+
+	if (!$entity instanceof Comment) {
+		return;
+	}
+
+	$handler = HYPEINTERACTIONS_HANDLER;
+
+	if ($entity->canEdit()) {
+		$menu[] = ElggMenuItem::factory(array(
+					'name' => 'edit',
+					'text' => elgg_echo('edit'),
+					'href' => "$handler/edit/$entity->guid",
+					'priority' => 800,
+					'data' => [
+						'icon' => 'pencil',
+					]
+		));
+	}
+
+	if ($entity->canDelete()) {
+		$menu[] = ElggMenuItem::factory(array(
+					'name' => 'delete',
+					'text' => elgg_echo('delete'),
+					'href' => "action/comment/delete?guid=$entity->guid",
+					'is_action' => true,
+					'priority' => 900,
+					'confirm' => true,
+					'data' => [
+						'icon' => 'delete',
+					]
+		));
 	}
 
 	return $menu;
