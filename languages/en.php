@@ -25,7 +25,9 @@ $english = array(
 	'interactions:settings:default_expand:help' => 'By default, comments are not shown in summary/river listings until user selects a tab',
 	'interactions:settings:enable_attachments' => 'Enable file attachments',
 	'interactions:settings:enable_attachments:help' => 'Allow users to attach files to comments',
-
+	'interactions:settings:enable_url_preview' => 'Enable URL previews',
+	'interactions:settings:enable_url_preview:help' => 'Scrape URLs from comment text and add URL previews',
+	
 	/**
 	 * PAGES
 	 */

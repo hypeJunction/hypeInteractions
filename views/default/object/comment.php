@@ -28,8 +28,9 @@ if ($full) {
 	$body = elgg_view('object/comment/elements/body', $vars);
 
 	$attachments = elgg_view('object/comment/elements/attachments', $vars);
-	if (!$attachments) {
-		$attachments = elgg_view('object/comment/elements/embeds', $vars);
+
+	if (elgg_get_plugin_setting('enable_url_previews', 'hypeInteractions')) {
+		$attachments .= elgg_view('object/comment/elements/embeds', $vars);
 	}
 
 	$comments = elgg_view_comments($comment, true, array(

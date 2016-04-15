@@ -95,3 +95,18 @@ if (elgg_is_active_plugin('hypeAttachments')) {
 	));
 	echo '</div>';
 }
+
+if (elgg_is_active_plugin('hypeScraper')) {
+	echo '<div>';
+	echo '<label>' . elgg_echo('interactions:settings:enable_url_preview') . '</label>';
+	echo '<div class="elgg-text-help">' . elgg_echo('interactions:settings:enable_url_preview:help') . '</div>';
+	echo elgg_view('input/dropdown', array(
+		'name' => 'params[enable_url_preview]',
+		'value' => $entity->enable_url_preview,
+		'options_values' => array(
+			0 => elgg_echo('option:no'),
+			1 => elgg_echo('option:yes'),
+		),
+	));
+	echo '</div>';
+}
