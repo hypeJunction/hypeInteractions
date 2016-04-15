@@ -12,7 +12,7 @@ if (empty($description)) {
 
 $comment_guid = get_input('comment_guid', null);
 $entity_guid = get_input('entity_guid', null);
-$new_comment = ($comment_guid);
+$new_comment = !$comment_guid;
 
 if (!$new_comment) {
 	$comment = get_entity($comment_guid);
