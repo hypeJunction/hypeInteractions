@@ -52,7 +52,6 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 		return $menu;
 	}
 
-	$handler = HYPEINTERACTIONS_HANDLER;
 	$active_tab = elgg_extract('active_tab', $params);
 
 	// Commenting
@@ -63,7 +62,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 		$menu[] = ElggMenuItem::factory(array(
 					'name' => 'comments',
 					'text' => ($entity instanceof Comment) ? elgg_echo('interactions:reply:create') : elgg_echo('interactions:comment:create'),
-					'href' => "$handler/comments/$entity->guid",
+					'href' => "stream/comments/$entity->guid",
 					'priority' => 100,
 					'data-trait' => 'comments',
 					'section' => 'actions',
@@ -79,7 +78,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 						'type' => 'comments',
 						'count' => $comments_count,
 					)),
-					'href' => "$handler/comments/$entity->guid",
+					'href' => "stream/comments/$entity->guid",
 					'selected' => ($active_tab == 'comments'),
 					'priority' => 500,
 					'data-trait' => 'comments',
@@ -101,7 +100,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 			$menu[] = ElggMenuItem::factory(array(
 						'name' => 'likes',
 						'text' => ($does_like) ? $after_text : $before_text,
-						'href' => "action/$handler/like?guid=$entity->guid",
+						'href' => "action/stream/like?guid=$entity->guid",
 						'is_action' => true,
 						'priority' => 200,
 						'section' => 'actions',
@@ -122,7 +121,7 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 							'type' => 'likes',
 							'count' => $likes_count,
 						)),
-						'href' => "$handler/likes/$entity->guid",
+						'href' => "stream/likes/$entity->guid",
 						'selected' => ($active_tab == 'likes'),
 						'data-trait' => 'likes',
 						'priority' => 600,
@@ -151,13 +150,11 @@ function entity_menu_setup($hook, $type, $menu, $params) {
 		return;
 	}
 
-	$handler = HYPEINTERACTIONS_HANDLER;
-
 	if ($entity->canEdit()) {
 		$menu[] = ElggMenuItem::factory(array(
 					'name' => 'edit',
 					'text' => elgg_echo('edit'),
-					'href' => "$handler/edit/$entity->guid",
+					'href' => "stream/edit/$entity->guid",
 					'priority' => 800,
 					'data' => [
 						'icon' => 'pencil',
@@ -212,7 +209,7 @@ function url_handler($hook, $type, $url, $params) {
 
 	if ($entity instanceof Comment) {
 		return elgg_normalize_url(implode('/', array(
-					HYPEINTERACTIONS_HANDLER,
+					'stream',
 					'comments',
 					$entity->container_guid,
 					$entity->guid,
@@ -268,7 +265,7 @@ function can_comment($hook, $type, $permission, $params) {
 		return $permission;
 	}
 
-	return ($entity->getDepthToOriginalContainer() < HYPEINTERACTIONS_MAX_COMMENT_DEPTH);
+	return ($entity->getDepthToOriginalContainer() < (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions'));
 }
 
 /**

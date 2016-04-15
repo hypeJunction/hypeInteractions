@@ -113,5 +113,4 @@ if (elgg_is_xhr()) {
 
 system_message(elgg_echo('likes:likes'));
 
-$handler = HYPEINTERACTIONS_HANDLER;
-forward("$handler/likes/$entity->guid");
+forward("stream/likes/$entity->guid");

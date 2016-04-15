@@ -14,12 +14,23 @@ if (!elgg_instanceof($entity)) {
 	return true;
 }
 
-$handler = HYPEINTERACTIONS_HANDLER;
-
 $show_form = elgg_extract('show_add_form', $vars, true) && $entity->canComment();
 $expand_form = elgg_extract('expand_form', $vars, true);
 
-$limit = (elgg_is_xhr()) ? HYPEINTERACTIONS_COMMENTS_LOAD_LIMIT : HYPEINTERACTIONS_COMMENTS_LIMIT;
+$order = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions') ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+$style = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions') ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+if (elgg_is_xhr()) {
+	$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
+	if (!$limit || $limit > 100) {
+		$limit = 3;
+	}
+} else {
+	$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
+	if (!$limit || $limit > 100) {
+		$limit = 100;
+	}
+}
+
 $offset_key = "comments_$entity->guid";
 $offset = get_input($offset_key, null);
 $count = $entity->countComments();
@@ -29,7 +40,7 @@ if (is_null($offset)) {
 		$thread = new Thread($comment);
 		$offset = $thread->getOffset($limit);
 	} else {
-		if ((HYPEINTERACTIONS_COMMENTS_ORDER == 'asc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_older') || (HYPEINTERACTIONS_COMMENTS_ORDER == 'desc' && HYPEINTERACTIONS_COMMENTS_LOAD_STYLE == 'load_newer')) {
+		if (($order == 'asc' && $style == 'load_older') || ($order == 'desc' && $style == 'load_newer')) {
 			// show last page
 			$offset = $count - $limit;
 			if ($offset < 0) {
@@ -42,7 +53,7 @@ if (is_null($offset)) {
 	}
 }
 
-if (HYPEINTERACTIONS_COMMENTS_ORDER == 'asc') {
+if ($order == 'asc') {
 	$order_by = 'e.time_created ASC';
 	$reversed = true;
 } else {
@@ -56,7 +67,7 @@ $options = array(
 	'container_guid' => $entity->guid,
 	'list_id' => "interactions-comments-{$entity->guid}",
 	'list_class' => 'interactions-comments-list',
-	'base_url' => "$handler/comments/$entity->guid",
+	'base_url' => "stream/comments/$entity->guid",
 	'order_by' => $order_by,
 	'limit' => $limit,
 	'offset' => $offset,
@@ -94,7 +105,8 @@ if ($show_form) {
 	));
 }
 
-if (HYPEINTERACTIONS_COMMENT_FORM_POSITION == 'before') {
+$position = elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions') ? : elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+if ($position == 'before') {
 	echo $form . $list;
 } else {
 	echo $list . $form;

@@ -11,8 +11,6 @@ if (!elgg_instanceof($entity)) {
 	return true;
 }
 
-$handler = HYPEINTERACTIONS_HANDLER;
-
 $limit = get_input('limit', 20);
 $offset_key = "likes_$entity->guid";
 $offset = get_input($offset_key, 0);
@@ -23,7 +21,7 @@ $options = array(
 	'annotation_names' => 'likes',
 	'list_id' => "interactions-likes-{$entity->guid}",
 	'list_class' => 'interactions-likes-list',
-	'base_url' => "$handler/likes/$entity->guid",
+	'base_url' => "stream/likes/$entity->guid",
 	'limit' => $limit,
 	'offset' => $offset,
 	'offset_key' => $offset_key,

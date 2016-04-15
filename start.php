@@ -15,7 +15,6 @@ namespace hypeJunction\Interactions;
 
 require_once __DIR__ . '/autoloader.php';
 
-require_once __DIR__ . "/lib/settings.php";
 require_once __DIR__ . "/lib/functions.php";
 require_once __DIR__ . "/lib/events.php";
 require_once __DIR__ . "/lib/hooks.php";
@@ -29,12 +28,10 @@ elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
  */
 function init() {
 
-	$handler = HYPEINTERACTIONS_HANDLER;
-
 	/**
 	 * PAGE HANDLERS
 	 */
-	elgg_register_page_handler($handler, __NAMESPACE__ . '\\page_handler');
+	elgg_register_page_handler('stream', __NAMESPACE__ . '\\page_handler');
 
 	/**
 	 * ACTIONS
@@ -44,7 +41,7 @@ function init() {
 	elgg_register_action('comment/save', $actions_path . 'comment/save.php');
 	elgg_register_action('comment/delete', $actions_path . 'comment/delete.php');
 
-	elgg_register_action("$handler/like", $actions_path . 'interactions/like.php');
+	elgg_register_action("stream/like", $actions_path . 'interactions/like.php');
 	elgg_register_action('likes/add', $actions_path . 'likes/add.php');
 	elgg_register_action('likes/delete', $actions_path . 'likes/delete.php');
 
