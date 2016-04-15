@@ -108,9 +108,9 @@ define(function (require) {
 						$form.trigger('reset');
 					}
 					// Hide edit form
-					if ($form.find('[name="comment_guid"]').val()) {
+					if ($form.is('.elgg-form-edit')) {
 						if (response.status >= 0) {
-							$form.siblings().first().replaceWith(response.output.view);
+							$form.siblings().replaceWith(response.output.view);
 						}
 						$form.siblings().show();
 						$form.remove();
@@ -132,7 +132,8 @@ define(function (require) {
 					$item.append($form);
 					$form.trigger('initialize');
 					$form.siblings().hide();
-					$form.find('[name="generic_comment"]').focus().trigger('click');
+					$form.find('textrea,input[type="text"]').first().focus().trigger('click');
+					$form.addClass('elgg-form-edit')
 					$form.find('.elgg-button-cancel').on('click', function () {
 						$form.siblings().show();
 						$form.remove();
