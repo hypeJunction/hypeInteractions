@@ -50,10 +50,13 @@ if ($comment instanceof Comment) {
 		'class' => 'elgg-button-cancel',
 		'href' => $comment->getURL(),
 	));
+	$submit_label = elgg_echo('interactions:reply:create');
+} else {
+	$submit_label = elgg_echo('generic_comments:post');
 }
 
 $footer .= elgg_view('input/submit', array(
-	'value' => elgg_echo('generic_comments:post'),
+	'value' => $submit_label,
 		));
 
 $footer = elgg_format_element('div', array(
