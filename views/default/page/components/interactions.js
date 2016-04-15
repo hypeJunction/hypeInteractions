@@ -1,11 +1,19 @@
-define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
+/**
+ * @module page/components/interactions
+ */
+define(function (require) {
 
+	var elgg = require('elgg');
+	var $ = require('jquery');
+	require('jquery.form');
+	var spinner = require('elgg/spinner');
+	
 	var interactions = {
+		ready: false,
 		init: function () {
-			if (elgg.config.interactions) {
-				return true;
+			if (interactions.ready) {
+				return;
 			}
-
 			$(document).on('click', '.interactions-form:not(.elgg-state-expanded)', interactions.expandForm);
 			$(document).on('click', '.interactions-state-toggler', interactions.toggleState);
 
@@ -18,7 +26,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 
 			$(document).on('change', '.interactions-comments-list,.interactions-likes-list', interactions.listChanged);
 
-			elgg.config.interactions = true;
+			interactions.ready = true;
 		},
 		require: function () {
 			if (!require.defined('hypeList')) {
@@ -29,11 +37,11 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		preloader: function ($elem) {
 			return {
 				beforeSend: function () {
-					$('body').addClass('elgg-state-loading');
+					spinner.start();
 					$elem.find('[type="submit"]').prop('disabled', true).addClass('elgg-state-disabled');
 				},
 				complete: function () {
-					$('body').removeClass('elgg-state-loading');
+					spinner.stop();
 					$elem.find('[type="submit"]').prop('disabled', false).removeClass('elgg-state-disabled');
 				}
 			};
@@ -99,7 +107,14 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 						$form.resetForm();
 						$form.trigger('reset');
 					}
-
+					// Hide edit form
+					if ($form.find('[name="comment_guid"]').val()) {
+						if (response.status >= 0) {
+							$form.siblings().first().replaceWith(response.output.view);
+						}
+						$form.siblings().show();
+						$form.remove();
+					}
 					if (response.system_messages) {
 						elgg.register_error(response.system_messages.error);
 						elgg.system_message(response.system_messages.success);
@@ -167,21 +182,6 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 				});
 			}
 		},
-		detach: function (e) {
-			e.preventDefault();
-			var $elem = $(this);
-			elgg.action($elem.attr('href'), $.extend({}, interactions.preloader($elem), {
-				success: function (response) {
-					if (response.status >= 0) {
-						$elem.closest('ul').trigger('removeItems', [$elem.closest('li')]);
-						if ($elem.length) {
-							// event didn't clear the item
-							$elem.closest('li').remove();
-						}
-					}
-				}
-			}));
-		},
 		listChanged: function (e, params) {
 			if (params && params.guid && params.trait) {
 				interactions.updateBadge(params.guid, params.trait, params.count || 0);
@@ -189,5 +189,7 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		}
 	};
 
+	interactions.init();
+	
 	return interactions;
 });

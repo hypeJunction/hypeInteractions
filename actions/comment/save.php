@@ -195,8 +195,11 @@ if ($new_comment) {
 }
 
 if (elgg_is_xhr()) {
+	elgg_push_context('comments');
 	if ($comment_guid) {
-		$view = elgg_view_entity($comment);
+		$view = elgg_view_entity($comment, [
+			'full_view' => true,
+		]);
 	} else {
 		$view = elgg_view('framework/interactions/comments', array(
 			'entity' => $entity,
@@ -210,6 +213,7 @@ if (elgg_is_xhr()) {
 	);
 
 	echo json_encode($output);
+	elgg_pop_context();
 }
 
 system_message(elgg_echo('generic_comment:posted'));

@@ -56,3 +56,5 @@ if ($active_tab) {
 echo elgg_format_element('div', array(
 	'class' => 'interactions' . (($active_tab) ? ' interactions-has-active-tab' : ''),
 		), $controls . $component);
+?>
+<script>require(['page/components/interactions']);</script>

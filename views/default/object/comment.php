@@ -56,19 +56,19 @@ if ($full) {
 		'class' => 'interactions-image-block',
 	));
 
-	$attrs = elgg_format_attributes(array(
+	$attrs = [
 		'data-guid' => $comment->guid,
-		'class' => implode(' ', array_filter(array(
-			elgg_extract('class', $vars, null),
+		'class' => [
+			elgg_extract('class', $vars),
 			'interactions-comment',
-		))),
-	));
+		],
+	];
 
-	echo "<article $attrs>$body</article>";
+	echo elgg_format_element('div', $attrs, $body);
 } else {
 
 	$friendlytime = elgg_view_friendly_time($comment->time_created);
-	
+
 	$commenter = $comment->getOwnerEntity();
 	$commenter_icon = elgg_view_entity_icon($commenter, 'tiny');
 	$commenter_link = "<a href=\"{$commenter->getURL()}\">$commenter->name</a>";
@@ -79,11 +79,6 @@ if ($full) {
 	$excerpt = elgg_get_excerpt($comment->description, 80);
 	$posted = elgg_echo('generic_comment:on', array($commenter_link, $entity_link));
 
-	$body = <<<HTML
-<span class="elgg-subtext">
-	$posted ($friendlytime): $excerpt
-</span>
-HTML;
-
+	$body = elgg_format_element('span', ['class' => 'elgg-subtext'], "$posted ($friendlytime): $excerpt");
 	echo elgg_view_image_block($commenter_icon, $body);
 }

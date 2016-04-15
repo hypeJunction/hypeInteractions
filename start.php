@@ -84,7 +84,6 @@ function init() {
 	 * CSS & JS
 	 */
 	elgg_extend_view('css/elgg', 'css/framework/interactions/stylesheet.css');
-	elgg_extend_view('js/elgg', 'js/framework/interactions/elgg.js');
 
 	elgg_extend_view('object/blog', 'object/blog/interactions');
 
