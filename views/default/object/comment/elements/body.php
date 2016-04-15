@@ -2,8 +2,6 @@
 
 namespace hypeJunction\Interactions;
 
-use ElggUser;
-
 $entity = elgg_extract('entity', $vars);
 /* @var $entity Comment */
 
@@ -22,22 +20,8 @@ $body = elgg_format_element('span', array(
 	'data-role' => 'comment-text',
 		), $body);
 
-$owner = $entity->getOwnerEntity();
-/* @var $owner ElggUser */
-
-$owner_link = '';
-if ($owner) {
-	$owner_link = elgg_view('output/url', array(
-		'href' => $owner->getURL(),
-		'text' => $owner->getDisplayName(),
-		'class' => 'interactions-comment-author-link',
-	));
-}
-
-$body = elgg_echo('interactions:comment:body', array($owner_link, $body));
-
-$time = elgg_view('object/comment/elements/time', $vars);
+//$body = elgg_echo('interactions:comment:body', array($owner_link, $body));
 
 echo elgg_format_element('div', array(
 	'class' => 'interactions-comment-body',
-), $body . $time);
+), $body);
