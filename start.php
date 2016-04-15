@@ -48,8 +48,6 @@ function init() {
 	elgg_register_action('likes/add', $actions_path . 'likes/add.php');
 	elgg_register_action('likes/delete', $actions_path . 'likes/delete.php');
 
-	elgg_register_action("$handler/detach", $actions_path . 'interactions/detach.php');
-
 	/**
 	 * HOOKS
 	 */

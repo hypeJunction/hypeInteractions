@@ -117,3 +117,14 @@ function get_linked_entity_name($entity) {
 	}
 	return '';
 }
+
+/**
+ * Check if attachments are enabled
+ * @return bool
+ */
+function can_attach_files() {
+	if (!elgg_is_active_plugin('hypeAttachments')) {
+		return false;
+	}
+	return (bool) elgg_get_plugin_setting('enable_attachments', 'hypeInteractions', true);
+}

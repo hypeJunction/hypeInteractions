@@ -23,6 +23,8 @@ $english = array(
 	'interactions:settings:comments_load_limit' => 'Number of comments to load per iteration',
 	'interactions:settings:default_expand' => 'Expand comments tab',
 	'interactions:settings:default_expand:help' => 'By default, comments are not shown in summary/river listings until user selects a tab',
+	'interactions:settings:enable_attachments' => 'Enable file attachments',
+	'interactions:settings:enable_attachments:help' => 'Allow users to attach files to comments',
 
 	/**
 	 * PAGES
@@ -39,7 +41,6 @@ $english = array(
 	'interactions:likes:after' => 'Unlike',
 	'interactions:comment:subject' => 'comment by %s',
 	'interactions:comment:body' => '%s<span>: </span>%s',
-	'interactions:comment:upload' => 'Upload a file',
 	/**
 	 * NOTIFICATIONS
 	 */

@@ -1,9 +1,6 @@
 hypeInteractions
 ================
-![Elgg 1.9](https://img.shields.io/badge/Elgg-1.9.x-orange.svg?style=flat-square)
-![Elgg 1.10](https://img.shields.io/badge/Elgg-1.10.x-orange.svg?style=flat-square)
-![Elgg 1.11](https://img.shields.io/badge/Elgg-1.11.x-orange.svg?style=flat-square)
-![Elgg 1.12](https://img.shields.io/badge/Elgg-1.12.x-orange.svg?style=flat-square)
+![Elgg 2.1](https://img.shields.io/badge/Elgg-2.1.x-orange.svg?style=flat-square)
 
 Enhanced commenting and liking UX for Elgg
 
@@ -15,6 +12,7 @@ Enhanced commenting and liking UX for Elgg
 
 * Extendable interactions module
 * Real-time comments and likes (requires hypeLists)
+* Comment attachments (requires hypeAttachments)
 * Multi-level comment threads
 
 ## Notes

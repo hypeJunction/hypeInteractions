@@ -80,3 +80,18 @@ echo elgg_view('input/dropdown', array(
 	),
 ));
 echo '</div>';
+
+if (elgg_is_active_plugin('hypeAttachments')) {
+	echo '<div>';
+	echo '<label>' . elgg_echo('interactions:settings:enable_attachments') . '</label>';
+	echo '<div class="elgg-text-help">' . elgg_echo('interactions:settings:enable_attachments:help') . '</div>';
+	echo elgg_view('input/dropdown', array(
+		'name' => 'params[enable_attachments]',
+		'value' => $entity->enable_attachments,
+		'options_values' => array(
+			0 => elgg_echo('option:no'),
+			1 => elgg_echo('option:yes'),
+		),
+	));
+	echo '</div>';
+}

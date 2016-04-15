@@ -9,16 +9,12 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 			$(document).on('click', '.interactions-form:not(.elgg-state-expanded)', interactions.expandForm);
 			$(document).on('click', '.interactions-state-toggler', interactions.toggleState);
 
-			$(document).on('click', '.interactions-form-control-uploads', interactions.showUploadsForm);
-
 			$(document).on('click', '.elgg-menu-interactions-tabs > li > a', interactions.triggerTabSwitch);
 			$(document).on('click', '.elgg-menu-interactions .elgg-menu-item-comments > a', interactions.triggerTabSwitch);
 
 			$(document).off('click', '.elgg-item-object-comment .elgg-menu-item-edit > a'); // disable core js events
 			$(document).on('click', '.elgg-menu-interactions .elgg-menu-item-edit > a', interactions.loadEditForm);
 			$(document).on('submit', '.interactions-form', interactions.saveComment);
-
-			$(document).on('click', '.interactions-detach-action', interactions.detach);
 
 			$(document).on('change', '.interactions-comments-list,.interactions-likes-list', interactions.listChanged);
 
@@ -88,11 +84,6 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 		expandForm: function (e) {
 			$(this).addClass('elgg-state-expanded');
 		},
-		showUploadsForm: function (e) {
-			e.preventDefault();
-			$(this).closest('form').addClass('interactions-form-has-uploads');
-			$(this).closest('form').trigger('initialize');
-		},
 		saveComment: function (e) {
 			e.preventDefault();
 			var $form = $(this);
@@ -105,7 +96,6 @@ define(['jquery', 'elgg', 'jquery.form'], function ($, elgg) {
 					if (response.status >= 0) {
 						$form.siblings().find('.elgg-list').trigger('addFetchedItems', [response.output.view]).trigger('refresh');
 						$form.resetForm();
-						$form.removeClass('elgg-state-expanded interactions-form-has-uploads');
 						$form.trigger('reset');
 					}
 

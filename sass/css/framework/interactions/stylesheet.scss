@@ -238,6 +238,11 @@
 		}
 		.elgg-foot {
 			display: none;
+			& > * {
+				text-align: right;
+				display: inline-block;
+				margin-left: 5px;
+			}
 		}
 		&.elgg-state-expanded {
 			textarea {
@@ -258,37 +263,6 @@
 		padding: 0;
 		margin: 0 0 5px;
 	}
-	.interactions-form-controls {
-		text-align: right;
-	}
-	.interactions-form-fieldset-uploads {
-		display: none;
-	}
-	.interactions-form-control-uploads {
-		display: inline-block;
-	}
-	&.interactions-form-has-uploads {
-		.interactions-form-fieldset-uploads {
-			display: block;
-		}
-		.interactions-form-control-uploads {
-			display: none;
-		}
-	}
-	.interactions-form-controls {
-		& > li {
-			display: inline-block;
-			&:after {
-				content: "|";
-				color: $lighter-border-color;
-				display: inline-block;
-				padding: 0 5px;
-			}
-			&:last-of-type:after {
-				display: none;
-			}
-		}
-	}
 
 	.interactions-component > & {
 		&.interactions-edit-comment-form {
@@ -305,35 +279,6 @@
 		}
 	}
 }
-.interactions-attachments {
-	@include clearfix;
-	& > li {
-		position: relative;
-		@include box-sizing(border-box);
-		@media #{$medium} {
-			float: left;
-			width: 25%;
-			padding: 5px;
-			margin: 0;
-			&:nth-of-type(1n) {clear: none;}
-			&:nth-of-type(4n+1) { clear:both; }
-		}
-		.interactions-detach-action {
-			display: none;
-			position: absolute;
-			top: 0;
-			right: 0;
-			margin: -5px;
-			.elgg-icon {
-				color: $alert-color;
-			}
-		}
-		&:hover .interactions-detach-action {
-			display: block;
-		}
-	}
-}
-
 .interactions-comment {
 	.interactions-comment-body {
 		margin: 0;
