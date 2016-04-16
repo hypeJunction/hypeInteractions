@@ -35,6 +35,7 @@ if ($full) {
 		'entity' => $comment->getContainerEntity(),
 		'comment' => $comment,
 		'active_tab' => elgg_extract('active_tab', $vars),
+		'level' => elgg_extract('level', $vars),
 	));
 
 	$poster = $comment->getOwnerEntity();

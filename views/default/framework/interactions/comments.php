@@ -81,6 +81,7 @@ $options = array(
 	'no_results' => elgg_echo('interactions:comments:no_results'),
 	'data-guid' => $entity->guid,
 	'data-trait' => 'comments',
+	'level' => elgg_extract('level', $vars) ? : 1,
 );
 
 elgg_push_context('comments');

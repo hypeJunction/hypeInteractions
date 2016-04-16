@@ -8,9 +8,13 @@ $entity = elgg_extract('entity', $vars, false);
 $full_view = elgg_extract('full_view', $vars, false);
 
 $expand_form = $full_view;
+$level = elgg_extract('level', $vars) + 1;
+$vars['level'] = $level;
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
-if (!$active_tab) {
-	if ($entity->countComments()) {
+if (!isset($active_tab)) {
+	if (elgg_in_context('activity') && $level > 1) {
+		$active_tab = false;
+	} else if ($entity->countComments()) {
 		if ($full_view) {
 			$active_tab = 'comments';
 			$expand_form = true;
