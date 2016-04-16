@@ -58,7 +58,7 @@ if ($order == 'asc') {
 	$reversed = true;
 } else {
 	$order_by = 'e.time_created DESC';
-	$reversed = true;
+	$reversed = false;
 }
 
 $options = array(
