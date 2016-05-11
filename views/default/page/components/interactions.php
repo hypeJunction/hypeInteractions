@@ -15,12 +15,9 @@ if (!isset($active_tab)) {
 	if (elgg_in_context('activity') && $level > 1) {
 		$active_tab = false;
 	} else if ($entity->countComments()) {
-		if ($full_view) {
+		if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
 			$active_tab = 'comments';
 			$expand_form = true;
-		} else if (elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
-			$active_tab = 'comments';
-			$expand_form = false;
 		}
 	}
 }
