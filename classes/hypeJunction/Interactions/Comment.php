@@ -83,7 +83,7 @@ class Comment extends ElggComment {
 	 */
 	public function getOriginalContainer() {
 		$container = $this;
-		while ($container instanceof self) {
+		while ($container instanceof Comment) {
 			$container = $container->getContainerEntity();
 		}
 		return ($container instanceof Comment) ? $this->getOwnerEntity() : $container;

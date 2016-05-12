@@ -67,111 +67,19 @@ if (elgg_is_active_plugin('hypeAttachments')) {
 }
 
 if ($new_comment) {
-// Notify if poster wasn't owner
+	
 	if ($entity->owner_guid != $poster->guid) {
-		$entity_owner = $entity->getOwnerEntity();
-		$language = $entity_owner->language;
+		// Send a notification to the content owner
 
-		$comment_text = $comment->description;
-		if (elgg_view_exists('output/linkify')) {
-			$comment_text = elgg_view('output/linkify', array(
-				'value' => $comment_text
-			));
-		}
-		$comment_text .= elgg_view('output/attached', array(
-			'entity' => $comment,
-		));
+		$recipient = $entity->getOwnerEntity();
+		$language = $recipient->language;
 
-		$attachments = $comment->getAttachments(array('limit' => 0));
-		if ($attachments && count($attachments)) {
-			$attachments = array_map(__NAMESPACE__ . '\\get_linked_entity_name', $attachments);
-			$attachments_text = implode(', ', array_filter($attachments));
-			if ($attachments_text) {
-				$comment_text .= elgg_echo('interactions:attachments:labelled', array($attachments_text));
-			}
-		}
-
-		$poster_url = elgg_view('output/url', array(
-			'text' => $poster->name,
-			'href' => $poster->getURL(),
-		));
-
-		if ($entity instanceof Comment) {
-			$target = elgg_echo('interactions:comment');
-			$original_entity = $entity->getOriginalContainer();
-			$original_entity_owner = $original_entity->getOwnerEntity();
-			if (is_callable(array($original_entity, 'getDisplayName'))) {
-				$original_entity_title = $original_entity->getDisplayName();
-			} else {
-				$original_entity_title = $entity->title ? : $entity->name;
-			}
-			$original_entity_url = elgg_view('output/url', array(
-				'text' => $original_entity_title,
-				'href' => elgg_http_add_url_query_elements($original_entity->getURL(), array(
-					'active_tab' => 'comments',
-				)),
-			));
-			$original_entity_url = elgg_echo('interactions:comment:reply_to', array($original_entity_url));
-
-			if ($poster->guid == $original_entity->owner_guid) {
-				$entity_url = elgg_echo('interactions:ownership:own', array($target), $language) . ' ' . $original_entity_url;
-			} else if ($poster->guid == $recipient->guid) {
-				$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $original_entity_url;
-			} else {
-				$entity_url = elgg_echo('interactions:ownership:owner', array($original_entity_owner->name, $target), $language) . ' ' . $original_entity_url;
-			}
-		} else {
-			$target = elgg_echo('interactions:post');
-			if (is_callable(array($entity, 'getDisplayName'))) {
-				$entity_title = $entity->getDisplayName();
-			} else {
-				$entity_title = $entity->title ? : $entity->name;
-			}
-			$entity_url = elgg_view('output/url', array(
-				'text' => $entity_title,
-				'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
-					'active_tab' => 'comments',
-				)),
-			));
-			$entity_url = elgg_echo('interactions:ownership:your', array($target), $language) . ' ' . $entity_url;
-		}
-
-		$entity_ownership = elgg_echo('interactions:ownership:your', array($target), $language);
-		$entity_ownership_url = elgg_view('output/url', array(
-			'text' => $entity_ownership,
-			'href' => elgg_http_add_url_query_elements($entity->getURL(), array(
-				'active_tab' => 'comments',
-			)),
-		));
-
-		if ($entity instanceof Comment) {
-			$summary = elgg_echo('interactions:reply:email:subject', array($poster_url, $entity_ownership_url), $language);
-			$subject = strip_tags($summary);
-			$message = elgg_echo('interactions:reply:email:body', array(
-				$poster_url,
-				$entity_url,
-				$comment_text,
-				$original_entity->getURL(),
-				$poster->name,
-				$poster->getURL()
-					), $language);
-		} else {
-			$summary = elgg_echo('interactions:comment:email:subject', array($poster_url, $entity_ownership_url), $language);
-			$subject = strip_tags($summary);
-			$message = elgg_echo('interactions:comment:email:body', array(
-				$poster_url,
-				$entity_url,
-				$comment_text,
-				$entity->getURL(),
-				$poster->name,
-				$poster->getURL()
-					), $language);
-		}
-
-		notify_user($entity_owner->guid, $poster->guid, $subject, $message, array(
+		$messages = (new NotificationFormatter($comment, $recipient, $language))->prepare();
+		
+		notify_user($recipient->guid, $poster->guid, $messages->subject, $messages->body, array(
 			'object' => $comment,
 			'action' => 'create',
-			'summary' => $summary,
+			'summary' => $messages->summary,
 		));
 	}
 

@@ -47,24 +47,15 @@ $english = array(
 	 * NOTIFICATIONS
 	 */
 	'interactions:attachments:labelled' => 'Attachments: ',
-	'interactions:reply:email:subject' => '%s replied to %s',
-	'interactions:reply:email:body' => "%s replied to %s:
+	'interactions:response:email:subject' => '%s %s %s',
+	'interactions:response:email:body' => "%s %s %s:
 
 %s
 
-To reply or view the original item, click here:
+To reply, click here:
 %s
 
-To view %s's profile, click here:
-%s
-
-Please do not reply to this email.",
-	'interactions:comment:email:subject' => '%s commented on %s',
-	'interactions:comment:email:body' => "%s commented on %s:
-
-%s
-
-To reply or view the original item, click here:
+To view the original item, click here:
 %s
 
 To view %s's profile, click here:
@@ -84,9 +75,26 @@ or view %s\'s profile here:
 	'interactions:post' => 'post',
 	'interactions:comment' => 'comment',
 	'interactions:comment:reply_to' => 'on %s',
+	'interactions:comment:in_thread' => 'in %s',
 	'interactions:ownership:own' => 'their %s',
 	'interactions:ownership:your' => 'your %s',
 	'interactions:ownership:owner' => '%s\'s %s',
+	'interactions:action:comment:on:object' => 'commented on',
+	'interactions:action:comment:on:object:comment' => 'replied to',
+	'interactions:action:comment:on:object:discussion_reply' => 'replied to',
+	'interactions:action:discussion_reply:on:object:discussion' => 'replied to',
+
+	'interactions:object:comment' => 'comment',
+	'interactions:object:discussion' => 'discussion topic',
+	'interactions:object:discussion_reply' => 'discussion reply',
+	'interactions:object:page_top' => 'page',
+	'interactions:object:page' => 'page',
+	'interactions:object:blog' => 'blog post',
+	'interactions:object:file' => 'file',
+	'interactions:object:hjwall' => 'wall post',
+	'interactions:object:bookmarks' => 'bookmarked item',
+	'interactions:group:default' => 'group',
+	'interactions:user:default' => 'user',
 	/**
 	 * ACTIONS
 	 */
