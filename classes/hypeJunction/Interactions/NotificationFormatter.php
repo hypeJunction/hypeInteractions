@@ -109,7 +109,7 @@ class NotificationFormatter {
 		));
 
 		$action_type = $this->getActionType();
-		
+
 		$notification = new \stdClass();
 		$notification->summary = elgg_echo('interactions:response:email:subject', array(
 			$author_link,
@@ -198,7 +198,7 @@ class NotificationFormatter {
 			}
 		}
 
-		return $comment_body;
+		return strip_tags($comment_body, '<p><strong><em><span><ul><li><ol><blockquote><img><a>');
 	}
 
 }
