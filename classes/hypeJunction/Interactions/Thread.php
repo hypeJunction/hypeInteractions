@@ -10,7 +10,7 @@ class Thread {
 	protected $comment;
 
 	const LIMIT = 10;
-	
+
 	/**
 	 * Construct a magic comments thread
 	 * @param Comment $comment Comment entity
@@ -24,13 +24,13 @@ class Thread {
 
 	/**
 	 * Get options for {@link elgg_get_entities()}
-	 * 
+	 *
 	 * @param array $options Default options array
 	 * @return array
 	 */
 	public function getFilterOptions(array $options = array()) {
-		$options['types'] = Comment::TYPE;
-		$options['subtypes'] = array(Comment::SUBTYPE, 'hjcomment');
+		$options['types'] = $this->comment->getType();
+		$options['subtypes'] = array($this->comment->getSubtype(), 'hjcomment');
 		$options['container_guids'] = $this->comment->container_guid;
 		if (!isset($options['order_by'])) {
 			$options['order_by'] = 'e.guid ASC';
@@ -54,7 +54,7 @@ class Thread {
 
 	/**
 	 * Get comments in a thread
-	 * 
+	 *
 	 * @param array $options Default options array
 	 * @return Comment[]|false
 	 */
@@ -64,7 +64,7 @@ class Thread {
 
 	/**
 	 * Get count of comments in a thread
-	 * 
+	 *
 	 * @param array $options Default options array
 	 * @return int
 	 */
@@ -75,7 +75,7 @@ class Thread {
 
 	/**
 	 * Delete all comments in a thread
-	 * 
+	 *
 	 * @param bool $recursive Delete recursively
 	 * @return bool
 	 */
@@ -93,7 +93,7 @@ class Thread {
 
 	/**
 	 * Get all comments as batch
-	 * 
+	 *
 	 * @param string $getter  Callable getter
 	 * @param array  $options Getter options
 	 * @return ElggBatch
@@ -162,7 +162,7 @@ class Thread {
 
 	/**
 	 * Returns a count of attachments in the thread
-	 * 
+	 *
 	 * @param array $options Additional options
 	 * @return int
 	 */
