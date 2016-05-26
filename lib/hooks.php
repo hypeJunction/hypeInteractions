@@ -208,6 +208,10 @@ function url_handler($hook, $type, $url, $params) {
 	/* @var ElggEntity $entity */
 
 	if ($entity instanceof Comment) {
+		$container = $entity->getContainerEntity();
+		if ($container instanceof Comment) {
+			return $container->getURL();
+		}
 		return elgg_normalize_url(implode('/', array(
 					'stream',
 					'comments',
@@ -317,7 +321,7 @@ function format_notification($hook, $type, $notification, $params) {
 	}
 
 	$messages = (new NotificationFormatter($comment, $recipient, $language))->prepare();
-	
+
 	$notification->summary = $messages->summary;
 	$notification->subject = $messages->subject;
 	$notification->body = $messages->body;
