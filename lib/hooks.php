@@ -353,5 +353,11 @@ function get_subscriptions($hook, $type, $return, $params) {
 	$original_container = $object->getOriginalContainer();
 	$subscriptions = elgg_get_subscriptions_for_container($original_container->container_guid);
 
-	return ($return + $subscriptions);
+	$all_subscriptions = $return + $subscriptions;
+
+	// Notification has already been sent to the owner of the container in the save action
+	$container = $object->getContainerEntity();
+	unset($all_subscriptions[$container->guid]);
+
+	return $all_subscriptions;
 }
