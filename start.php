@@ -8,7 +8,7 @@
  * @subpackage hypeJunction\Interactions
  *
  * @author Ismayil Khayredinov <info@hypejunction.com>
- * @copyright Copyright (c) 2011-2014, Ismayil Khayredinov
+ * @copyright Copyright (c) 2011-2016, Ismayil Khayredinov
  */
 
 namespace hypeJunction\Interactions;

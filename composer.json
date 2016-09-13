@@ -17,9 +17,6 @@
 	},
 	"require": {
 		"composer/installers": "~1.0",
-		"hypejunction/hypeapps": ">=4.0"
-	},
-	"suggest": {
 		"hypejunction/hypelists": ">=3.5"
 	},
 	"autoload": {
