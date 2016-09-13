@@ -83,22 +83,13 @@ if ($new_comment) {
 		));
 	}
 
-	if ($entity instanceof Comment) {
-		$original_entity = $entity->getOriginalContainer();
-		$river_action_type = 'comment:reply';
-		$river_target_guid = $original_entity->guid;
-	} else {
-		$river_action_type = 'comment';
-		$river_target_guid = $entity->guid;
-	}
-
 	// Add to river
 	elgg_create_river_item(array(
 		'view' => 'river/object/comment/create',
-		'action_type' => $river_action_type,
+		'action_type' => 'create',
 		'subject_guid' => $poster->guid,
-		'object_guid' => $guid,
-		'target_guid' => $river_target_guid,
+		'object_guid' => $comment->guid,
+		'target_guid' => $entity->owner_guid,
 	));
 }
 
