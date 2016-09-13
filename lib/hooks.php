@@ -358,6 +358,7 @@ function get_subscriptions($hook, $type, $return, $params) {
 	// Notification has already been sent to the owner of the container in the save action
 	$container = $object->getContainerEntity();
 	unset($all_subscriptions[$container->guid]);
+	unset($all_subscriptions[$container->owner_guid]);
 
 	return $all_subscriptions;
 }
