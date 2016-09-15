@@ -1,36 +1,10 @@
 @import "compass/css3"; // compass css3 helpers
-@import "../../../../../sass/global/variables";
 @import "variables";
 
 [class~=interactions] {
 	&, & * {
 		@include box-sizing(border-box);
 	}
-}
-
-.interactions-icon-comments {
-	@include icon($fa-var-comments-o);
-}
-.interactions-icon-likes {
-	@include icon($fa-var-thumbs-o-up);
-}
-.interactions-icon-bookmarks {
-	@include icon($fa-var-bookmark-o);
-}
-.interactions-icon-shares {
-	@include icon($fa-var-retweet);
-}
-.interactions-icon-substream {
-	@include icon($fa-var-history);
-}
-.interactions-icon-upload {
-	@include icon($fa-var-cloud-upload);
-}
-.interactions-icon-attach {
-	@include icon($fa-var-paperclip);
-}
-.interactions-icon-pencil {
-	@include icon($fa-var-pencil);
 }
 
 .interactions {

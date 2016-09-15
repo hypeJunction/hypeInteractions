@@ -13,9 +13,17 @@ if ($text) {
 }
 
 if ($icon) {
-	$text = elgg_format_element('span', array(
-				'class' => "interactions-icon interactions-icon-$icon"
-			)) . $text;
+	$map = [
+		'comments' => 'comments-o',
+		'likes' => 'thumbs-o-up',
+		'bookmarks' => 'bookmark-o',
+		'shares' => 'retweet',
+		'substream' => 'history',
+		'upload' => 'cloud-upload',
+		'attach' => 'paperclip',
+		'pencil' => 'pencil',
+	];
+	$text = elgg_view_icon(elgg_extract($icon, $map, $icon), 'interactions-icon') . $text;
 }
 
 $badge = elgg_format_element('span', array(
