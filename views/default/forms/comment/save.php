@@ -32,34 +32,29 @@ $icon = elgg_view_entity_icon($owner, 'small', array(
 	'use_link' => false,
 		));
 
-$body = elgg_view('input/plaintext', array(
+$body = elgg_view_input('interactions/comment', array(
 	'name' => 'generic_comment',
 	'value' => $comment->description,
-	'rows' => 2,
-	'placeholder' => elgg_echo('generic_comments:add'),
 		));
 
 if (can_attach_files()) {
 	$params = $vars;
 	$params['expand'] = false;
-	$body .= elgg_view('input/attachments', $params);
+	$body .= elgg_view_input('attachments', $params);
 }
 
 $footer = '';
-if ($comment instanceof Comment) {
+$footer .= elgg_view('input/submit', array(
+	'value' => $comment ? elgg_echo('interactions:reply:create') : elgg_echo('generic_comments:post'),
+		));
+
+if ($comment) {
 	$footer .= elgg_view('input/button', array(
 		'value' => elgg_echo('cancel'),
-		'class' => 'elgg-button-cancel',
+		'class' => 'elgg-button-cancel mll',
 		'href' => $comment->getURL(),
 	));
-	$submit_label = elgg_echo('interactions:reply:create');
-} else {
-	$submit_label = elgg_echo('generic_comments:post');
 }
-
-$footer .= elgg_view('input/submit', array(
-	'value' => $submit_label,
-		));
 
 $footer = elgg_format_element('div', array(
 	'class' => 'elgg-foot text-right',
