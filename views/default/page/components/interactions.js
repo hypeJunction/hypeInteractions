@@ -17,8 +17,7 @@ define(function (require) {
 			$(document).on('click', '.interactions-form:not(.elgg-state-expanded)', interactions.expandForm);
 			$(document).on('click', '.interactions-state-toggler', interactions.toggleState);
 
-			$(document).on('click', '.elgg-menu-interactions-tabs > li > a', interactions.triggerTabSwitch);
-			$(document).on('click', '.elgg-menu-interactions .elgg-menu-item-comments > a', interactions.triggerTabSwitch);
+			$(document).on('click', '.elgg-menu-interactions > li > a', interactions.triggerTabSwitch);
 
 			$(document).off('click', '.elgg-item-object-comment .elgg-menu-item-edit > a'); // disable core js events
 			$(document).on('click', '.elgg-item-object-comment .elgg-menu-item-edit > a', interactions.loadEditForm);
@@ -147,7 +146,7 @@ define(function (require) {
 			var $elem = $(this);
 
 			if ($elem.is('.elgg-menu-item-comments > a')) {
-				$elem = $elem.closest('.interactions-controls').find('.elgg-menu-interactions-tabs').find('a[data-trait="comments"]');
+				$elem = $elem.closest('.interactions-controls').find('.elgg-menu-interactions').find('.interactions-tab > a[data-trait="comments"]');
 			}
 
 			var trait = $elem.data('trait');

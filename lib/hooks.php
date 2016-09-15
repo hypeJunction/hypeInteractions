@@ -60,29 +60,29 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 
 	if ($can_comment) {
 		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'comments',
-					'text' => ($entity instanceof Comment) ? elgg_echo('interactions:reply:create') : elgg_echo('interactions:comment:create'),
-					'href' => "stream/comments/$entity->guid",
-					'priority' => 100,
-					'data-trait' => 'comments',
-					'section' => 'actions',
+			'name' => 'comments',
+			'text' => ($entity instanceof Comment) ? elgg_echo('interactions:reply:create') : elgg_echo('interactions:comment:create'),
+			'href' => "stream/comments/$entity->guid",
+			'priority' => 200,
+			'data-trait' => 'comments',
+			'item_class' => 'interactions-action',
 		));
 	}
 
 	if ($can_comment || $comments_count) {
 		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'comments:badge',
-					'text' => elgg_view('framework/interactions/elements/badge', array(
-						'entity' => $entity,
-						'icon' => 'comments',
-						'type' => 'comments',
-						'count' => $comments_count,
-					)),
-					'href' => "stream/comments/$entity->guid",
-					'selected' => ($active_tab == 'comments'),
-					'priority' => 500,
-					'data-trait' => 'comments',
-					'section' => 'tabs',
+			'name' => 'comments:badge',
+			'text' => elgg_view('framework/interactions/elements/badge', array(
+				'entity' => $entity,
+				'icon' => 'comments',
+				'type' => 'comments',
+				'count' => $comments_count,
+			)),
+			'href' => "stream/comments/$entity->guid",
+			'selected' => ($active_tab == 'comments'),
+			'priority' => 100,
+			'data-trait' => 'comments',
+			'item_class' => 'interactions-tab',
 		));
 	}
 
@@ -98,34 +98,34 @@ function interactions_menu_setup($hook, $type, $menu, $params) {
 			$after_text = elgg_echo('interactions:likes:after');
 
 			$menu[] = ElggMenuItem::factory(array(
-						'name' => 'likes',
-						'text' => ($does_like) ? $after_text : $before_text,
-						'href' => "action/stream/like?guid=$entity->guid",
-						'is_action' => true,
-						'priority' => 200,
-						'section' => 'actions',
-						'link_class' => 'interactions-state-toggler',
-						// Attrs for JS toggle
-						'data-guid' => $entity->guid,
-						'data-trait' => 'likes',
-						'data-state' => ($does_like) ? 'after' : 'before',
+				'name' => 'likes',
+				'text' => ($does_like) ? $after_text : $before_text,
+				'href' => "action/stream/like?guid=$entity->guid",
+				'is_action' => true,
+				'priority' => 400,
+				'link_class' => 'interactions-state-toggler',
+				'item_class' => 'interactions-action',
+				// Attrs for JS toggle
+				'data-guid' => $entity->guid,
+				'data-trait' => 'likes',
+				'data-state' => ($does_like) ? 'after' : 'before',
 			));
 		}
 
 		if ($can_like || $likes_count) {
 			$menu[] = ElggMenuItem::factory(array(
-						'name' => 'likes:badge',
-						'text' => elgg_view('framework/interactions/elements/badge', array(
-							'entity' => $entity,
-							'icon' => 'likes',
-							'type' => 'likes',
-							'count' => $likes_count,
-						)),
-						'href' => "stream/likes/$entity->guid",
-						'selected' => ($active_tab == 'likes'),
-						'data-trait' => 'likes',
-						'priority' => 600,
-						'section' => 'tabs',
+				'name' => 'likes:badge',
+				'text' => elgg_view('framework/interactions/elements/badge', array(
+					'entity' => $entity,
+					'icon' => 'likes',
+					'type' => 'likes',
+					'count' => $likes_count,
+				)),
+				'href' => "stream/likes/$entity->guid",
+				'selected' => ($active_tab == 'likes'),
+				'data-trait' => 'likes',
+				'priority' => 300,
+				'item_class' => 'interactions-tab',
 			));
 		}
 	}
@@ -152,27 +152,27 @@ function entity_menu_setup($hook, $type, $menu, $params) {
 
 	if ($entity->canEdit()) {
 		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'edit',
-					'text' => elgg_echo('edit'),
-					'href' => "stream/edit/$entity->guid",
-					'priority' => 800,
-					'data' => [
-						'icon' => 'pencil',
-					]
+			'name' => 'edit',
+			'text' => elgg_echo('edit'),
+			'href' => "stream/edit/$entity->guid",
+			'priority' => 800,
+			'data' => [
+				'icon' => 'pencil',
+			]
 		));
 	}
 
 	if ($entity->canDelete()) {
 		$menu[] = ElggMenuItem::factory(array(
-					'name' => 'delete',
-					'text' => elgg_echo('delete'),
-					'href' => "action/comment/delete?guid=$entity->guid",
-					'is_action' => true,
-					'priority' => 900,
-					'confirm' => true,
-					'data' => [
-						'icon' => 'delete',
-					]
+			'name' => 'delete',
+			'text' => elgg_echo('delete'),
+			'href' => "action/comment/delete?guid=$entity->guid",
+			'is_action' => true,
+			'priority' => 900,
+			'confirm' => true,
+			'data' => [
+				'icon' => 'delete',
+			]
 		));
 	}
 
@@ -213,17 +213,17 @@ function url_handler($hook, $type, $url, $params) {
 			return $container->getURL();
 		}
 		return elgg_normalize_url(implode('/', array(
-					'stream',
-					'comments',
-					$entity->container_guid,
-					$entity->guid,
-				))) . "#elgg-object-$entity->guid";
+			'stream',
+			'comments',
+			$entity->container_guid,
+			$entity->guid,
+		))) . "#elgg-object-$entity->guid";
 	} else if ($entity instanceof RiverObject) {
 		return elgg_normalize_url(implode('/', array(
-					'activity',
-					'view',
-					$entity->river_id,
-				))) . "#item-river-$entity->guid";
+			'activity',
+			'view',
+			$entity->river_id,
+		))) . "#item-river-$entity->guid";
 	}
 
 	return $url;

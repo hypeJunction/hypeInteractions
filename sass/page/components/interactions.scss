@@ -1,189 +1,73 @@
 @import "compass/css3"; // compass css3 helpers
 @import "variables";
 
-[class~=interactions] {
-	&, & * {
-		@include box-sizing(border-box);
+.interactions.interactions-has-active-tab {
+	& > .interactions-component {
+		border: 1px solid $light-border-color;
+		@include border-radius($border-radius);
+		&.elgg-ajax-loader {
+			padding: 30px;
+			margin: 0;
+		}
 	}
 }
 
-.interactions {
-	&.interactions-has-active-tab {
-		& > .interactions-controls {
-			.elgg-menu-interactions-tabs {
-				& > li {
-					border-bottom: 0;
-					&, & a {
-						@include border-bottom-left-radius(0);
-						@include border-bottom-right-radius(0);
-					}
-				}
-			}
-		}
-		& > .interactions-component {
-			border: 1px solid $lighter-border-color;
-			padding: $comment-padding;
-			@include border-radius($border-radius);
-			&.elgg-ajax-loader {
-				padding: 30px;
-				margin: 0;
-			}
-		}
-	}
-}
 .interactions-controls {
 	@include clearfix;
-	height: $tabs-padding * 2 + $tabs-icon-size - 1px; // 1px border
+	margin-top: 10px;
+	height: $tabs-padding * 2 + $tabs-icon-size + 1px;
 }
 
-.elgg-menu-interactions-actions {
-	float: left;
+.elgg-menu-interactions {
 	& > li {
-		margin: 0;
+		margin: 0 3px 0 0;
 		font-size: $tabs-font-size;
-		&:after {
-			content: "|";
-			display: inline-block;
-			color: $lighter-border-color;
-		}
-		&:last-of-type:after {
-			content: "";
-		}
 		a {
-			padding: $tabs-padding;
+			padding: $tabs-padding $tabs-padding*2;
 			line-height: $tabs-icon-size;
 			display: inline-block;
 		}
-		&.elgg-menu-item-edit, &.elgg-menu-item-delete {
-			a {
-				color: $badge-inactive-color;
-			}
-		}
-	}
-}
-
-.elgg-menu-interactions-tabs {
-	float: right;
-	text-align: right;
-	overflow: visible;
-	margin-right: $tabs-padding;
-	& > li {
-		margin: 0;
-		font-size: $tabs-font-size;
-		border-width: 1px 1px 1px 0;
-		border-style: solid;
-		border-color: $lighter-border-color;
-		&:last-of-type {
-			&, & a {
-				@include border-top-right-radius($border-radius);
-				@include border-bottom-right-radius($border-radius);
-			}
-		}
-		&:first-of-type {
-			border-left-width: 1px;
-			&, & a {
-				@include border-top-left-radius($border-radius);
-				@include border-bottom-left-radius($border-radius);
-			}
-		}
-		a {
-			position: relative;
-			background: $tabs-inactive-bg-color;
-			display: inline-block;
-			.interactions-icon {
-				font-size: $tabs-icon-size;
-			}
-		}
-		&.elgg-state-selected, &:hover {
-			a {
-				background: $tabs-active-bg-color;
-			}
-		}
 		&.elgg-state-selected {
+			border-width: 1px 1px 0 1px;
+			border-style: solid;
+			border-color: $light-border-color;
+			@include border-top-right-radius($border-radius);
+			@include border-top-left-radius($border-radius);
 			a {
+				background: $components-bg-color;
 				top: 1px;
 			}
 		}
 	}
 }
 
-.interactions-badge {
-	position: relative;
-	font-size: $badge-font-size;
-	line-height: $badge-icon-size - 4px;
-	padding: $badge-padding $badge-padding * 2;
-	display: inline-block;
-	.interactions-icon {
-		font-size: $badge-icon-size;
-		color: $badge-inactive-color;
-		& + span {
-			margin-left: 5px;
-		}
-	}
-	.interactions-badge-indicator {
-		position: absolute;
-		top: 0;
-		right: 0;
-		margin: -$tabs-padding;
-		color: $badge-inactive-color;
-		background: $badge-indicator-bg-color;
-		padding: $badge-indicator-padding $badge-indicator-padding * 2;
-		font-size: $badge-indicator-font-size;
-		font-weight: bold;
-		line-height: $badge-indicator-size - $badge-indicator-padding * 2;
-		height: $badge-indicator-size;
-		min-width: $badge-indicator-size;
-		text-align: center;
-		z-index: 2;
-		@include border-radius(1000px);
-		@include box-sizing(border-box);
-	}
-	.elgg-state-selected > &, &:hover {
-		.interactions-icon, .interactions-badge-indicator {
-			color: $badge-active-color;
-		}
-	}
+.interactions-icon {
+	font-size: $tabs-icon-size;
+	line-height: $tabs-icon-size;
+	vertical-align: middle;
 }
+.interactions-badge-indicator {
+	margin-left: 5px;
+	font-size: $tabs-font-size;
+	line-height: $tabs-icon-size;
+	vertical-align: middle;
+}
+
 .interactions-component {
 	display: none;
 	background-color: $components-bg-color;
 	&.elgg-state-selected {
 		display: block;
 	}
-	.interactions-comments-list, .interactions-likes-list {
+	.elgg-list {
 		margin: 0;
-		font-size: 12px;
-		border: none;
 		& > li {
 			padding: $comment-padding;
-			margin: 0;
-			font-size: $comment-font-size;
-			border: none;
-			&.elgg-discoverable {
-				border-bottom: 1px solid $lighter-border-color;
-				&:last-of-type {
-					border-bottom: 0;
-				}
-			}
-			.elgg-image-block {
-				padding: 0;
-			}
 		}
 	}
-	.elgg-pagination {
-		padding: 0;
-		&.elgg-pagination-before {
-			border-bottom: 1px solid $lighter-border-color;
-		}
-		&.elgg-pagination-after {
-			border-top: 1px solid $lighter-border-color;
-		}
-		& > li > a {
-			border: none;
-			&:before, &:after {
-				content: "";
-			}
-		}
+	.elgg-no-results {
+		padding: $comment-padding;
+		margin: 0;
 	}
 }
 
@@ -191,85 +75,13 @@
 	@include image-block($comment-avatar-size, $comment-padding);
 }
 
-.interactions-form {
-	&, .elgg-river-item & {
+.elgg-form.interactions-form {
+	border: none!important;
+	padding: $comment-padding;
+	.elgg-foot {
+		margin-top: 5px;
+	}
+	input[type="submit"] {
 		margin: 0;
-		padding: $comment-padding;
-		background: none;
-		border: none;
-		textarea {
-			min-height: $comment-avatar-size;
-			height: $comment-avatar-size;
-			padding: $comment-padding;
-			font-size: $comment-font-size;
-			line-height: $comment-avatar-size - $comment-padding * 2 - 2px; // 1px border top and bottom
-			resize: none;
-			overflow: hidden;
-			margin: 0;
-		}
-		input[type="submit"] {
-			margin: 0;
-		}
-		.elgg-foot {
-			display: none;
-			& > * {
-				text-align: right;
-				display: inline-block;
-				margin-left: 5px;
-			}
-		}
-		&.elgg-state-expanded {
-			textarea {
-				height: auto;
-				margin-bottom: 5px;
-				line-height: normal;
-				resize: both;
-				overflow: auto;
-			}
-			.elgg-foot {
-				display: block;
-			}
-		}
-	}
-
-	fieldset {
-		border: none;
-		padding: 0;
-		margin: 0 0 5px;
-	}
-
-	.interactions-component > & {
-		&.interactions-edit-comment-form {
-			padding: 0;
-		}
-		&:first-of-type {
-			border-bottom: 1px solid $lighter-border-color;
-		}
-		&:last-of-type {
-			border-top: 1px solid $lighter-border-color;
-		}
-		&:only-of-type {
-			border: none;
-		}
-	}
-}
-.interactions-comment {
-	.interactions-comment-body {
-		margin: 0;
-
-		a, span {
-			display: inline-block;
-			font-size: $comment-font-size;
-			line-height: normal;
-			margin: 0;
-			&.interactions-comment-text {
-				padding: 0 5px;
-			}
-			&.interactions-comment-time {
-				color: #666;
-				font-style: italic;
-				font-size: 85%;
-			}
-		}
 	}
 }

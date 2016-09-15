@@ -1,69 +1,30 @@
-[class~=interactions], [class~=interactions] * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-
-.interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li { border-bottom: 0; }
-.interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li, .interactions.interactions-has-active-tab > .interactions-controls .elgg-menu-interactions-tabs > li a { -moz-border-radius-bottomleft: 0; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; -moz-border-radius-bottomright: 0; -webkit-border-bottom-right-radius: 0; border-bottom-right-radius: 0; }
-.interactions.interactions-has-active-tab > .interactions-component { border: 1px solid #eeeeee; padding: 10px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.interactions.interactions-has-active-tab > .interactions-component { border: 1px solid #dddddd; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 .interactions.interactions-has-active-tab > .interactions-component.elgg-ajax-loader { padding: 30px; margin: 0; }
 
-.interactions-controls { *zoom: 1; height: 31px; }
+.interactions-controls { *zoom: 1; margin-top: 10px; height: 29px; }
 .interactions-controls:before, .interactions-controls:after { content: " "; display: table; }
 .interactions-controls:after { clear: both; }
 
-.elgg-menu-interactions-actions { float: left; }
-.elgg-menu-interactions-actions > li { margin: 0; font-size: 14px; }
-.elgg-menu-interactions-actions > li:after { content: "|"; display: inline-block; color: #eeeeee; }
-.elgg-menu-interactions-actions > li:last-of-type:after { content: ""; }
-.elgg-menu-interactions-actions > li a { padding: 6px; line-height: 20px; display: inline-block; }
-.elgg-menu-interactions-actions > li.elgg-menu-item-edit a, .elgg-menu-interactions-actions > li.elgg-menu-item-delete a { color: #999999; }
+.elgg-menu-interactions > li { margin: 0 3px 0 0; font-size: 14px; }
+.elgg-menu-interactions > li a { padding: 5px 10px; line-height: 18px; display: inline-block; }
+.elgg-menu-interactions > li.elgg-state-selected { border-width: 1px 1px 0 1px; border-style: solid; border-color: #dddddd; -moz-border-radius-topright: 3px; -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; -moz-border-radius-topleft: 3px; -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px; }
+.elgg-menu-interactions > li.elgg-state-selected a { background: #ffffff; top: 1px; }
 
-.elgg-menu-interactions-tabs { float: right; text-align: right; overflow: visible; margin-right: 6px; }
-.elgg-menu-interactions-tabs > li { margin: 0; font-size: 14px; border-width: 1px 1px 1px 0; border-style: solid; border-color: #eeeeee; }
-.elgg-menu-interactions-tabs > li:last-of-type, .elgg-menu-interactions-tabs > li:last-of-type a { -moz-border-radius-topright: 3px; -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; }
-.elgg-menu-interactions-tabs > li:first-of-type { border-left-width: 1px; }
-.elgg-menu-interactions-tabs > li:first-of-type, .elgg-menu-interactions-tabs > li:first-of-type a { -moz-border-radius-topleft: 3px; -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; }
-.elgg-menu-interactions-tabs > li a { position: relative; background: #fafafa; display: inline-block; }
-.elgg-menu-interactions-tabs > li a .interactions-icon { font-size: 20px; }
-.elgg-menu-interactions-tabs > li.elgg-state-selected a, .elgg-menu-interactions-tabs > li:hover a { background: #ffffff; }
-.elgg-menu-interactions-tabs > li.elgg-state-selected a { top: 1px; }
+.interactions-icon { font-size: 18px; line-height: 18px; vertical-align: middle; }
 
-.interactions-badge { position: relative; font-size: 14px; line-height: 16px; padding: 5px 10px; display: inline-block; }
-.interactions-badge .interactions-icon { font-size: 20px; color: #999999; }
-.interactions-badge .interactions-icon + span { margin-left: 5px; }
-.interactions-badge .interactions-badge-indicator { position: absolute; top: 0; right: 0; margin: -6px; color: #999999; background: #f4f4f4; padding: 2px 4px; font-size: 10px; font-weight: bold; line-height: 14px; height: 18px; min-width: 18px; text-align: center; z-index: 2; -moz-border-radius: 1000px; -webkit-border-radius: 1000px; border-radius: 1000px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-.elgg-state-selected > .interactions-badge .interactions-icon, .elgg-state-selected > .interactions-badge .interactions-badge-indicator, .interactions-badge:hover .interactions-icon, .interactions-badge:hover .interactions-badge-indicator { color: #4690D6; }
+.interactions-badge-indicator { margin-left: 5px; font-size: 14px; line-height: 18px; vertical-align: middle; }
 
 .interactions-component { display: none; background-color: #ffffff; }
 .interactions-component.elgg-state-selected { display: block; }
-.interactions-component .interactions-comments-list, .interactions-component .interactions-likes-list { margin: 0; font-size: 12px; border: none; }
-.interactions-component .interactions-comments-list > li, .interactions-component .interactions-likes-list > li { padding: 10px; margin: 0; font-size: 14px; border: none; }
-.interactions-component .interactions-comments-list > li.elgg-discoverable, .interactions-component .interactions-likes-list > li.elgg-discoverable { border-bottom: 1px solid #eeeeee; }
-.interactions-component .interactions-comments-list > li.elgg-discoverable:last-of-type, .interactions-component .interactions-likes-list > li.elgg-discoverable:last-of-type { border-bottom: 0; }
-.interactions-component .interactions-comments-list > li .elgg-image-block, .interactions-component .interactions-likes-list > li .elgg-image-block { padding: 0; }
-.interactions-component .elgg-pagination { padding: 0; }
-.interactions-component .elgg-pagination.elgg-pagination-before { border-bottom: 1px solid #eeeeee; }
-.interactions-component .elgg-pagination.elgg-pagination-after { border-top: 1px solid #eeeeee; }
-.interactions-component .elgg-pagination > li > a { border: none; }
-.interactions-component .elgg-pagination > li > a:before, .interactions-component .elgg-pagination > li > a:after { content: ""; }
+.interactions-component .elgg-list { margin: 0; }
+.interactions-component .elgg-list > li { padding: 10px; }
+.interactions-component .elgg-no-results { padding: 10px; margin: 0; }
 
-.interactions-image-block { display: -webkit-flex; display: flex; -webkit-align-items: flex-start; align-items: flex-start; }
+.interactions-image-block { padding: 0; display: -webkit-flex; display: flex; -webkit-align-items: flex-start; align-items: flex-start; }
 .interactions-image-block > .elgg-image { -webkit-order: 1; order: 1; -webkit-flex: 0 0 30px; flex: 0 0 30px; margin-right: 10px; }
 .interactions-image-block > .elgg-image-alt { -webkit-order: 3; order: 3; -webkit-flex: 0 0 auto; flex: 0 0 auto; margin-left: 10px; }
 .interactions-image-block > .elgg-body { -webkit-order: 2; order: 2; -webkit-flex: 1 1 auto; flex: 1 1 auto; }
 
-.interactions-form, .elgg-river-item .interactions-form { margin: 0; padding: 10px; background: none; border: none; }
-.interactions-form textarea, .elgg-river-item .interactions-form textarea { min-height: 30px; height: 30px; padding: 10px; font-size: 14px; line-height: 8px; resize: none; overflow: hidden; margin: 0; }
-.interactions-form input[type="submit"], .elgg-river-item .interactions-form input[type="submit"] { margin: 0; }
-.interactions-form .elgg-foot, .elgg-river-item .interactions-form .elgg-foot { display: none; }
-.interactions-form .elgg-foot > *, .elgg-river-item .interactions-form .elgg-foot > * { text-align: right; display: inline-block; margin-left: 5px; }
-.interactions-form.elgg-state-expanded textarea, .elgg-river-item .interactions-form.elgg-state-expanded textarea { height: auto; margin-bottom: 5px; line-height: normal; resize: both; overflow: auto; }
-.interactions-form.elgg-state-expanded .elgg-foot, .elgg-river-item .interactions-form.elgg-state-expanded .elgg-foot { display: block; }
-.interactions-form fieldset { border: none; padding: 0; margin: 0 0 5px; }
-.interactions-component > .interactions-form.interactions-edit-comment-form { padding: 0; }
-.interactions-component > .interactions-form:first-of-type { border-bottom: 1px solid #eeeeee; }
-.interactions-component > .interactions-form:last-of-type { border-top: 1px solid #eeeeee; }
-.interactions-component > .interactions-form:only-of-type { border: none; }
-
-.interactions-comment .interactions-comment-body { margin: 0; }
-.interactions-comment .interactions-comment-body a, .interactions-comment .interactions-comment-body span { display: inline-block; font-size: 14px; line-height: normal; margin: 0; }
-.interactions-comment .interactions-comment-body a.interactions-comment-text, .interactions-comment .interactions-comment-body span.interactions-comment-text { padding: 0 5px; }
-.interactions-comment .interactions-comment-body a.interactions-comment-time, .interactions-comment .interactions-comment-body span.interactions-comment-time { color: #666; font-style: italic; font-size: 85%; }
+.elgg-form.interactions-form { border: none !important; padding: 10px; }
+.elgg-form.interactions-form .elgg-foot { margin-top: 5px; }
+.elgg-form.interactions-form input[type="submit"] { margin: 0; }

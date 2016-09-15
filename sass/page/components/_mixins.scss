@@ -1,7 +1,7 @@
 @mixin image-block($size: 30px, $padding: 5px) {
+	padding: 0;
 	@include display-flex;
 	@include align-items(flex-start);
-
 	& > .elgg-image {
 		@include order(1);
 		@include flex(0 0 $size);

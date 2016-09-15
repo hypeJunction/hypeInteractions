@@ -18,26 +18,13 @@ $lighter-border-color: #eeeeee !default;
 
 $global-radius: 3px !default;
 
-$components-bg-color: #ffffff !default;
-
-$tabs-padding: 6px !default;
-$tabs-font-size: 14px !default;
-$tabs-icon-size: 20px !default;
-$tabs-active-bg-color: $components-bg-color !default;
-$tabs-inactive-bg-color: $lighter-bg-color !default;
-
 $border-radius: $global-radius !default;
 
-$badge-padding: $tabs-padding - 1px !default;
-$badge-active-color: $primary-color !default;
-$badge-inactive-color: #999999 !default;
-$badge-font-size: $tabs-font-size !default;
-$badge-icon-size: $tabs-icon-size !default;
-$badge-indicator-size: 18px !default;
-$badge-indicator-font-size: 10px !default;
-$badge-indicator-padding: 2px !default;
-$badge-indicator-bg-color: $light-bg-color !default;
+$components-bg-color: #ffffff !default;
+
+$tabs-padding: 5px !default;
+$tabs-font-size: 14px !default;
+$tabs-icon-size: 18px !default;
 
 $comment-padding: 10px !default;
 $comment-avatar-size: 30px !default;
-$comment-font-size: 14px !default;
