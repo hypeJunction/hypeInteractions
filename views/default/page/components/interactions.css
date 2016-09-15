@@ -19,6 +19,7 @@
 .interactions-component .elgg-list { margin: 0; }
 .interactions-component .elgg-list > li { padding: 10px; }
 .interactions-component .elgg-no-results { padding: 10px; margin: 0; }
+.interactions-component .attachments-toggler { float: none; }
 
 .interactions-image-block { padding: 0; display: -webkit-flex; display: flex; -webkit-align-items: flex-start; align-items: flex-start; }
 .interactions-image-block > .elgg-image { -webkit-order: 1; order: 1; -webkit-flex: 0 0 30px; flex: 0 0 30px; margin-right: 10px; }
