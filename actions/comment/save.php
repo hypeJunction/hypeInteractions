@@ -89,17 +89,19 @@ if ($new_comment) {
 		'action_type' => 'create',
 		'subject_guid' => $poster->guid,
 		'object_guid' => $comment->guid,
-		'target_guid' => $entity->owner_guid,
+		'target_guid' => $entity->guid,
 	));
 }
 
 if (elgg_is_xhr()) {
 	elgg_push_context('comments');
 	if ($comment_guid) {
+		// editing a comment
 		$view = elgg_view_entity($comment, [
 			'full_view' => true,
 		]);
 	} else {
+		// new comment
 		$view = elgg_view('framework/interactions/comments', array(
 			'entity' => $entity,
 			'comment' => $comment,

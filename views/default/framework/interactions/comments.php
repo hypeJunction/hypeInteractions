@@ -19,7 +19,7 @@ $expand_form = elgg_extract('expand_form', $vars, true);
 
 $order = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions') ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
 $style = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions') ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
-if (elgg_is_xhr()) {
+if (elgg_is_xhr() || elgg_in_context('activity')) {
 	$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
 	if (!$limit || $limit > 100) {
 		$limit = 3;
@@ -38,7 +38,7 @@ $count = $entity->countComments();
 if (is_null($offset)) {
 	if ($comment instanceof Comment) {
 		$thread = new Thread($comment);
-		$offset = $thread->getOffset($limit);
+		$offset = (int) $thread->getOffset($limit, $order);
 	} else {
 		if (($order == 'asc' && $style == 'load_older') || ($order == 'desc' && $style == 'load_newer')) {
 			// show last page
@@ -67,7 +67,7 @@ $options = array(
 	'container_guid' => $entity->guid,
 	'list_id' => "interactions-comments-{$entity->guid}",
 	'list_class' => 'interactions-comments-list',
-	'base_url' => "stream/comments/$entity->guid",
+	'base_url' => elgg_normalize_url("stream/comments/$entity->guid"),
 	'order_by' => $order_by,
 	'limit' => $limit,
 	'offset' => $offset,
@@ -83,7 +83,7 @@ $options = array(
 	'data-trait' => 'comments',
 	'level' => elgg_extract('level', $vars) ? : 1,
 );
-
+	
 elgg_push_context('comments');
 $list = elgg_list_entities($options);
 elgg_pop_context();

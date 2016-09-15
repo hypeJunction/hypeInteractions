@@ -17,7 +17,8 @@ define(function (require) {
 			$(document).on('click', '.interactions-form:not(.elgg-state-expanded)', interactions.expandForm);
 			$(document).on('click', '.interactions-state-toggler', interactions.toggleState);
 
-			$(document).on('click', '.elgg-menu-interactions > li > a', interactions.triggerTabSwitch);
+			$(document).on('click', '.elgg-menu-interactions > .interactions-tab > a', interactions.triggerTabSwitch);
+			$(document).on('click', '.elgg-menu-interactions > .elgg-menu-item-comments > a', interactions.triggerTabSwitch);
 
 			$(document).off('click', '.elgg-item-object-comment .elgg-menu-item-edit > a'); // disable core js events
 			$(document).on('click', '.elgg-item-object-comment .elgg-menu-item-edit > a', interactions.loadEditForm);
@@ -86,7 +87,12 @@ define(function (require) {
 		},
 		toggleState: function (e) {
 			e.preventDefault();
-			elgg.action($(this).attr('href'), interactions.preloader($(this)));
+			var options = interactions.preloader($(this));
+			options.success = function(response) {
+				var data = response.output;
+				interactions.updateStats(data.guid, data.stats);
+			};
+			elgg.action($(this).attr('href'), options);
 		},
 		expandForm: function (e) {
 			$(this).addClass('elgg-state-expanded');
@@ -102,7 +108,7 @@ define(function (require) {
 				dataType: 'json',
 				success: function (response) {
 					if (response.status >= 0) {
-						$form.siblings().find('.elgg-list').trigger('addFetchedItems', [response.output.view]).trigger('refresh');
+						$form.siblings().find('.elgg-list').first().trigger('addFetchedItems', [response.output.view, null, true]).trigger('refresh');
 						$form.resetForm();
 						$form.trigger('reset');
 					}
@@ -129,7 +135,7 @@ define(function (require) {
 				success: function (data) {
 					var $form = $(data);
 					$item.append($form);
-					$form.trigger('initialize');
+					$form.trigger('initialize')
 					$form.siblings().hide();
 					$form.find('textrea,input[type="text"]').first().focus().trigger('click');
 					$form.addClass('elgg-form-edit')
@@ -145,11 +151,11 @@ define(function (require) {
 
 			var $elem = $(this);
 
-			if ($elem.is('.elgg-menu-item-comments > a')) {
-				$elem = $elem.closest('.interactions-controls').find('.elgg-menu-interactions').find('.interactions-tab > a[data-trait="comments"]');
-			}
-
 			var trait = $elem.data('trait');
+
+			if ($elem.closest('.interactions-controls').find('.elgg-menu-interactions').find('.interactions-tab > a[data-trait="' + trait + '"]').length) {
+				$elem = $elem.closest('.interactions-controls').find('.elgg-menu-interactions').find('.interactions-tab > a[data-trait="' + trait + '"]');
+			}
 
 			$elem.parent().addClass('elgg-state-selected').siblings().removeClass('elgg-state-selected');
 
@@ -165,9 +171,7 @@ define(function (require) {
 
 			if ($traitComponent.length) {
 				$traitComponent.addClass('elgg-state-selected');
-				if ($(e.target).parents().andSelf().is('.elgg-menu-item-comments > a')) {
-					$traitComponent.children('.interactions-form').show().find('[name="generic_comment"]').focus().trigger('click');
-				}
+				$traitComponent.children('.interactions-form').show().find('.elgg-input-comment').focus().trigger('click');
 			} else {
 				$traitComponent = $('<div></div>').addClass('interactions-component elgg-state-selected elgg-ajax-loader').data('trait', trait).attr('data-trait', trait);
 				$controls.after($traitComponent);
@@ -175,9 +179,7 @@ define(function (require) {
 					success: function (data) {
 						$traitComponent.removeClass('elgg-ajax-loader').html(data);
 						$traitComponent.find('.elgg-list').trigger('refresh');
-						if ($(e.target).parents().andSelf().is('.elgg-menu-item-comments > a')) {
-							$traitComponent.children('.interactions-form').show().find('[name="generic_comment"]').focus().trigger('click');
-						}
+						$traitComponent.children('.interactions-form').show().find('.elgg-input-comment').focus().trigger('click');
 					}
 				});
 			}

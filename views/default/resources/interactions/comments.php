@@ -31,6 +31,8 @@ if (elgg_is_xhr()) {
 			'entity' => $entity,
 			'comment' => $comment,
 			'active_tab' => ($comment_guid) ? 'comments' : false,
+			'show_add_form' => true,
+			'expand_form' => true,
 		));
 	}
 	$layout = elgg_view_layout('content', array(

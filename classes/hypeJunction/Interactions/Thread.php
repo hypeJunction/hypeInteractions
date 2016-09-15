@@ -42,13 +42,18 @@ class Thread {
 	 * Calculate a page offset to the given comment
 	 *
 	 * @param int $limit Items per page
+	 * @param int $order Ordering
 	 * @return int
 	 */
-	public function getOffset($limit = self::LIMIT) {
+	public function getOffset($limit = self::LIMIT, $order = 'desc') {
 		if ($limit === 0) {
 			return 0;
 		}
-		$before = $this->getCommentsBefore(array('count' => true, 'offset' => 0));
+		if ($order == 'asc') {
+			$before = $this->getCommentsBefore(array('count' => true, 'offset' => 0));
+		} else {
+			$before = $this->getCommentsAfter(array('count' => true, 'offset' => 0));
+		}
 		return floor($before / $limit) * $limit;
 	}
 
@@ -111,8 +116,10 @@ class Thread {
 	 * @return mixed
 	 */
 	public function getCommentsBefore(array $options = array()) {
-		$options['wheres'][] = "e.guid < {$this->comment->guid}";
-		$options['order_by'] = 'e.guid DESC';
+		$options['wheres'][] = "
+			e.time_created < {$this->comment->time_created}
+		";
+		$options['order_by'] = 'e.time_created ASC';
 		$comments = elgg_get_entities_from_metadata($this->getFilterOptions($options));
 		if (is_array($comments)) {
 			return array_reverse($comments);
@@ -127,7 +134,11 @@ class Thread {
 	 * @return mixed
 	 */
 	public function getCommentsAfter(array $options = array()) {
-		$options['wheres'][] = "e.guid > {$this->comment->guid}";
+		$options['wheres'][] = "
+			e.time_created >= {$this->comment->time_created}
+				AND e.guid != {$this->comment->guid}
+		";
+		$options['order_by'] = 'e.time_created ASC';
 		return elgg_get_entities_from_metadata($this->getFilterOptions($options));
 	}
 

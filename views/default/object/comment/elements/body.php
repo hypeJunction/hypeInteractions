@@ -5,9 +5,9 @@ namespace hypeJunction\Interactions;
 $entity = elgg_extract('entity', $vars);
 /* @var $entity Comment */
 
-$body = $entity->description;
-$body = filter_tags($body);
-$body = elgg_autop($body);
+$body = elgg_view('output/longtext', [
+	'value' => $entity->description,
+]);
 
 if (elgg_view_exists('output/linkify')) {
 	$body = elgg_view('output/linkify', array(
@@ -18,7 +18,7 @@ if (elgg_view_exists('output/linkify')) {
 $body = elgg_format_element('span', array(
 	'class' => 'interactions-comment-text',
 	'data-role' => 'comment-text',
-		), $body);
+), $body);
 
 //$body = elgg_echo('interactions:comment:body', array($owner_link, $body));
 

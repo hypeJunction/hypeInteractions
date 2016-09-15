@@ -29,7 +29,9 @@ echo elgg_format_element('textarea', $vars, $value);
 if (elgg_is_active_plugin('ckeditor')) {
 	?>
 	<script>
-		require(['input/interactions/comment']);
+		require(['input/interactions/comment'], function (input) {
+			input.init();
+		});
 	</script>
 	<?php
 

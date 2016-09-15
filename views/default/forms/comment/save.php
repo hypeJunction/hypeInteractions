@@ -48,7 +48,7 @@ $footer .= elgg_view('input/submit', array(
 	'value' => $comment ? elgg_echo('interactions:reply:create') : elgg_echo('generic_comments:post'),
 		));
 
-if ($comment) {
+if ($comment instanceof Comment) {
 	$footer .= elgg_view('input/button', array(
 		'value' => elgg_echo('cancel'),
 		'class' => 'elgg-button-cancel mll',
