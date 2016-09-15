@@ -1,3 +1,20 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/hypeJunction/hypeInteractions/compare/4.0.0...v4.1.0) (2016-09-15)
+
+
+### Bug Fixes
+
+* **js:** updates to client-side UX, API fixes ([e67e0b4](https://github.com/hypeJunction/hypeInteractions/commit/e67e0b4))
+* **ui:** hide attachments form by default ([bf859c5](https://github.com/hypeJunction/hypeInteractions/commit/bf859c5))
+
+### Features
+
+* **css:** use FA icons, update some styles ([f143dde](https://github.com/hypeJunction/hypeInteractions/commit/f143dde))
+* **input:** add a comment input better integrated with ckeditor ([99e1591](https://github.com/hypeJunction/hypeInteractions/commit/99e1591))
+* **interactions:** simplify interactions menu and component styling ([1b60d15](https://github.com/hypeJunction/hypeInteractions/commit/1b60d15))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/hypeJunction/hypeInteractions/compare/3.5.0...v4.0.0) (2016-09-13)
 
