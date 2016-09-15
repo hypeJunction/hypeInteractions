@@ -40,7 +40,9 @@ $body = elgg_view('input/plaintext', array(
 		));
 
 if (can_attach_files()) {
-	$body .= elgg_view('input/attachments', $vars);
+	$params = $vars;
+	$params['expand'] = false;
+	$body .= elgg_view('input/attachments', $params);
 }
 
 $footer = '';
