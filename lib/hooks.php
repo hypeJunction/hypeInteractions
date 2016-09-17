@@ -269,7 +269,9 @@ function can_comment($hook, $type, $permission, $params) {
 		return $permission;
 	}
 
-	return ($entity->getDepthToOriginalContainer() < (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions'));
+	if ($entity->getDepthToOriginalContainer() >= (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions')) {
+		return false;
+	}
 }
 
 /**
