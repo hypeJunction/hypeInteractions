@@ -10,92 +10,56 @@
  * @author Ismayil Khayredinov <info@hypejunction.com>
  * @copyright Copyright (c) 2011-2016, Ismayil Khayredinov
  */
-
-namespace hypeJunction\Interactions;
+use hypeJunction\Interactions\InteractionsService;
+use hypeJunction\Interactions\Menus;
+use hypeJunction\Interactions\Notifications;
+use hypeJunction\Interactions\Permissions;
+use hypeJunction\Interactions\Router;
 
 require_once __DIR__ . '/autoloader.php';
 
-require_once __DIR__ . "/lib/functions.php";
-require_once __DIR__ . "/lib/events.php";
-require_once __DIR__ . "/lib/hooks.php";
-require_once __DIR__ . "/lib/page_handlers.php";
+elgg_register_event_handler('init', 'system', function() {
 
-elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
+	elgg_extend_view('elgg.css', 'css/framework/interactions/stylesheet.css');
 
-/**
- * Initialize the plugin
- * @return void
- */
-function init() {
+	// URL and page handling
+	elgg_register_page_handler('stream', [Router::class, 'handleStream']);
+	elgg_register_plugin_hook_handler('entity:url', 'object', [Router::class, 'urlHandler']);
+	elgg_register_plugin_hook_handler('entity:icon:url', 'object', [Router::class, 'iconUrlHandler']);
 
-	/**
-	 * PAGE HANDLERS
-	 */
-	elgg_register_page_handler('stream', __NAMESPACE__ . '\\page_handler');
+	// Register/replace actions
+	elgg_register_action('comment/save', __DIR__ . '/actions/comment/save.php');
+	elgg_register_action('comment/delete', __DIR__ . '/actions/comment/delete.php');
+	elgg_register_action("stream/like", __DIR__ . '/actions/interactions/like.php');
+	elgg_register_action('likes/add', __DIR__ . '/actions/likes/add.php');
+	elgg_register_action('likes/delete', __DIR__ . '/actions/likes/delete.php');
 
-	/**
-	 * ACTIONS
-	 */
-	$actions_path = __DIR__ . '/actions/';
+	// Replace comments block
+	elgg_register_plugin_hook_handler('comments', 'all', [InteractionsService::class, 'replaceCommentsBlock']);
 
-	elgg_register_action('comment/save', $actions_path . 'comment/save.php');
-	elgg_register_action('comment/delete', $actions_path . 'comment/delete.php');
+	// Create an actionable river object
+	elgg_register_event_handler('created', 'river', [InteractionsService::class, 'createRiverObject']);
 
-	elgg_register_action("stream/like", $actions_path . 'interactions/like.php');
-	elgg_register_action('likes/add', $actions_path . 'likes/add.php');
-	elgg_register_action('likes/delete', $actions_path . 'likes/delete.php');
+	// Configure permissions
+	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', [Permissions::class, 'canComment']);
+	elgg_register_plugin_hook_handler('permissions_check', 'annotation', [Permissions::class, 'canEditAnnotation']);
 
-	/**
-	 * HOOKS
-	 */
-	// COMPONENTS
-	elgg_register_plugin_hook_handler('comments', 'all', __NAMESPACE__ . '\\comments_view_hook');
+	// Setup menus
+	elgg_register_plugin_hook_handler('register', 'menu:entity', [Menus::class, 'entityMenuSetup']);
+	elgg_register_plugin_hook_handler('register', 'menu:interactions', [Menus::class, 'interactionsMenuSetup']);
+	elgg_register_plugin_hook_handler('register', 'menu:river', [Menus::class, 'riverMenuSetup']);
 
-	// URLs
-	elgg_register_plugin_hook_handler('entity:url', 'object', __NAMESPACE__ . '\\url_handler');
-	elgg_register_plugin_hook_handler('entity:icon:url', 'object', __NAMESPACE__ . '\\icon_url_handler');
-
-	// PERMISSIONS
-	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', __NAMESPACE__ . '\\can_comment');
-	elgg_register_plugin_hook_handler('permissions_check', 'annotation', __NAMESPACE__ . '\\can_edit_annotation');
-
-	// MENUS
-	elgg_register_plugin_hook_handler('register', 'menu:entity', __NAMESPACE__ . '\\entity_menu_setup');
-	elgg_register_plugin_hook_handler('register', 'menu:interactions', __NAMESPACE__ . '\\interactions_menu_setup');
-	elgg_register_plugin_hook_handler('register', 'menu:river', __NAMESPACE__ . '\\river_menu_setup');
-
-	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
-	elgg_unregister_plugin_hook_handler('register', 'menu:river', 'likes_river_menu_setup');
-
-	// NOTIFICATIONS
+	// Prepare notifications
 	elgg_register_notification_event('object', 'comment', array('create'));
-	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', __NAMESPACE__ . '\\format_notification');
-	elgg_register_plugin_hook_handler('get', 'subscriptions', __NAMESPACE__ . '\\get_subscriptions');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', [Notifications::class, 'format']);
+	elgg_register_plugin_hook_handler('get', 'subscriptions', [Notifications::class, 'getSubscriptions']);
 
-	/**
-	 * EVENTS
-	 */
-	elgg_register_event_handler('created', 'river', __NAMESPACE__ . '\\created_river_event');
-	elgg_register_event_handler('upgrade', 'system', __NAMESPACE__ . '\\upgrade');
-
-	/**
-	 * CSS & JS
-	 */
-	elgg_extend_view('css/elgg', 'css/framework/interactions/stylesheet.css');
-
+	// Custom logic for blogs
 	elgg_extend_view('object/blog', 'object/blog/interactions');
 
-	// remove default likes behaviour
-	elgg_unextend_view('css/elgg', 'likes/css');
-	elgg_unextend_view('js/elgg', 'likes/js');
-}
-
-/**
- * Run upgrade scripts
- * @return void
- */
-function upgrade() {
-	if (elgg_is_admin_logged_in()) {
-		include_once __DIR__ . '/lib/upgrades.php';
-	}
-}
+	// Clean up
+	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
+	elgg_unregister_plugin_hook_handler('register', 'menu:river', 'likes_river_menu_setup');
+	elgg_unextend_view('elgg.css', 'likes/css');
+	elgg_unextend_view('elgg.js', 'likes/js');
+});

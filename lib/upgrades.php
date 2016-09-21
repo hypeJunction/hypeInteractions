@@ -1,8 +1,12 @@
 <?php
 
-run_function_once('interactions_20141227a');
-run_function_once('interactions_20141231a');
-run_function_once('interactions_20150106a');
+elgg_register_event_handler('upgrade', 'system', function() {
+	if (elgg_is_admin_logged_in()) {
+		run_function_once('interactions_20141227a');
+		run_function_once('interactions_20141231a');
+		run_function_once('interactions_20150106a');
+	}
+});
 
 /**
  * Import relevant hypeAlive plugin settings

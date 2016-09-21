@@ -12,28 +12,10 @@ use ElggRiverItem;
  * 
  * @param ElggRiverItem $river River item
  * @return RiverObject|false
+ * @deprecated 4.2
  */
 function create_actionable_river_object(ElggRiverItem $river) {
-
-	if (!$river instanceof ElggRiverItem) {
-		return false;
-	}
-
-	$object = $river->getObjectEntity();
-	if (!$object instanceof ElggObject) {
-		$ia = elgg_set_ignore_access(true);
-
-		$object = new RiverObject();
-		$object->owner_guid = $river->subject_guid;
-		$object->container_guid = $river->subject_guid;
-		$object->access_id = $river->access_id;
-		$object->river_id = $river->id;
-		$object->save();
-
-		elgg_set_ignore_access($ia);
-	}
-
-	return $object;
+	return InteractionsService::createActionableRiverObject($river);
 }
 
 /**
@@ -42,40 +24,10 @@ function create_actionable_river_object(ElggRiverItem $river) {
  *
  * @param ElggRiverItem $river River item
  * @return ElggObject|false
+ * @deprecated 4.2
  */
 function get_river_object(ElggRiverItem $river) {
-
-	if (!$river instanceof ElggRiverItem) {
-		return false;
-	}
-
-	$object = $river->getObjectEntity();
-	if ($object instanceof ElggObject) {
-		return $object;
-	}
-
-	// wrapping this in ignore access so that we do not accidentally create duplicate
-	// river objects
-	$ia = elgg_set_ignore_access(true);
-	$objects = elgg_get_entities_from_metadata(array(
-		'types' => RiverObject::TYPE,
-		'subtypes' => array(RiverObject::SUBTYPE, 'hjstream'),
-		'metadata_name_value_pairs' => array(
-			'name' => 'river_id',
-			'value' => $river->id,
-			'operand' => '='
-		),
-		'limit' => 1,
-	));
-	$guid = ($objects) ? $objects[0]->guid : false;
-	elgg_set_ignore_access($ia);
-
-	if (!$guid) {
-		$object = create_actionable_river_object($river);
-		$guid = $object->guid;
-	}
-
-	return get_entity($guid);
+	return InteractionsService::getRiverObject($river);
 }
 
 /**
@@ -83,48 +35,26 @@ function get_river_object(ElggRiverItem $river) {
  *
  * @param ElggEntity $entity Entity
  * @return array
+ * @deprecated 4.2
  */
 function get_stats($entity) {
-
-	if (!$entity instanceof ElggEntity) {
-		return array();
-	}
-
-	$stats = array(
-		'comments' => array(
-			'count' => $entity->countComments()
-		),
-		'likes' => array(
-			'count' => $entity->countAnnotations('likes'),
-			'state' => (elgg_annotation_exists($entity->guid, 'likes')) ? 'after' : 'before',
-		)
-	);
-
-	return elgg_trigger_plugin_hook('get_stats', 'interactions', array('entity' => $entity), $stats);
+	return InteractionsService::getStats($entity);
 }
 
 /**
  * Get entity URL wrapped in an <a></a> tag
  * @return string
+ * @deprecated 4.2
  */
 function get_linked_entity_name($entity) {
-	if (elgg_instanceof($entity)) {
-		return elgg_view('output/url', array(
-			'text' => $entity->getDisplayName(),
-			'href' => $entity->getURL(),
-			'is_trusted' => true,
-		));
-	}
-	return '';
+	return InteractionsService::getLinkedEntityName($entity);
 }
 
 /**
  * Check if attachments are enabled
  * @return bool
+ * @deprecated 4.2
  */
 function can_attach_files() {
-	if (!elgg_is_active_plugin('hypeAttachments')) {
-		return false;
-	}
-	return (bool) elgg_get_plugin_setting('enable_attachments', 'hypeInteractions', true);
+	return Permissions::canAttachFiles();
 }
