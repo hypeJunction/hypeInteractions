@@ -20,12 +20,15 @@
 .interactions-component .elgg-list > li { padding: 10px; }
 .interactions-component .elgg-no-results { padding: 10px; margin: 0; }
 .interactions-component .attachments-toggler { float: none; }
+.interactions-component .elgg-pagination-infinite { margin: 0 auto; padding: 10px; border-bottom: 1px solid #dddddd; }
+.interactions-component .elgg-pagination-infinite .elgg-before, .interactions-component .elgg-pagination-infinite .elgg-after { border: none; padding: 0; }
+.interactions-component .elgg-pagination-infinite .elgg-before:after, .interactions-component .elgg-pagination-infinite .elgg-before:before, .interactions-component .elgg-pagination-infinite .elgg-after:after, .interactions-component .elgg-pagination-infinite .elgg-after:before { content: none; }
+.interactions-component .elgg-form { border: none; padding: 10px; }
+.interactions-component .elgg-form .elgg-foot { margin-top: 5px; }
+.interactions-component .elgg-form input[type="submit"] { margin: 0; }
+.interactions-component .elgg-form + * { border-top: 1px solid #dddddd; }
 
 .interactions-image-block { padding: 0; display: -webkit-flex; display: flex; -webkit-align-items: flex-start; align-items: flex-start; }
 .interactions-image-block > .elgg-image { -webkit-order: 1; order: 1; -webkit-flex: 0 0 30px; flex: 0 0 30px; margin-right: 10px; }
 .interactions-image-block > .elgg-image-alt { -webkit-order: 3; order: 3; -webkit-flex: 0 0 auto; flex: 0 0 auto; margin-left: 10px; }
 .interactions-image-block > .elgg-body { -webkit-order: 2; order: 2; -webkit-flex: 1 1 auto; flex: 1 1 auto; }
-
-.elgg-form.interactions-form { border: none !important; padding: 10px; }
-.elgg-form.interactions-form .elgg-foot { margin-top: 5px; }
-.elgg-form.interactions-form input[type="submit"] { margin: 0; }

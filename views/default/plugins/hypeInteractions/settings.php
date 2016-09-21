@@ -69,6 +69,19 @@ echo elgg_view('input/text', array(
 echo '</div>';
 
 echo '<div>';
+echo '<label>' . elgg_echo('interactions:settings:comment_sort') . '</label>';
+echo '<div class="elgg-text-help">' . elgg_echo('interactions:settings:comment_sort:help') . '</div>';
+echo elgg_view('input/dropdown', array(
+	'name' => 'params[comment_sort]',
+	'value' => $entity->comment_sort,
+	'options_values' => array(
+		0 => elgg_echo('option:no'),
+		1 => elgg_echo('option:yes'),
+	),
+));
+echo '</div>';
+
+echo '<div>';
 echo '<label>' . elgg_echo('interactions:settings:default_expand') . '</label>';
 echo '<div class="elgg-text-help">' . elgg_echo('interactions:settings:default_expand:help') . '</div>';
 echo elgg_view('input/dropdown', array(

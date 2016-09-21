@@ -72,19 +72,35 @@
 	.attachments-toggler {
 		float: none;
 	}
+
+	.elgg-pagination-infinite {
+		margin: 0 auto;
+		padding: 10px;
+		border-bottom: 1px solid $light-border-color;
+		.elgg-before, .elgg-after {
+			border: none;
+			padding: 0;
+			&:after, &:before {
+				content: none;
+			}
+		}
+	}
+
+	.elgg-form {
+		border: none;
+		padding: $comment-padding;
+		.elgg-foot {
+			margin-top: 5px;
+		}
+		input[type="submit"] {
+			margin: 0;
+		}
+		& + * {
+			border-top: 1px solid $light-border-color;
+		}
+	}
 }
 
 .interactions-image-block {
 	@include image-block($comment-avatar-size, $comment-padding);
-}
-
-.elgg-form.interactions-form {
-	border: none!important;
-	padding: $comment-padding;
-	.elgg-foot {
-		margin-top: 5px;
-	}
-	input[type="submit"] {
-		margin: 0;
-	}
 }

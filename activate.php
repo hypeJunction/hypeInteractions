@@ -12,7 +12,7 @@ $defaults = array(
 	'comments_order' => 'asc',
 	'comments_load_style' => 'load_older',
 	'comments_limit' => 3,
-	'comments_load_limit' => 100,
+	'comments_load_limit' => 20,
 );
 
 foreach ($defaults as $name => $value) {

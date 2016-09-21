@@ -5,9 +5,17 @@ namespace hypeJunction\Interactions;
 $entity = elgg_extract('entity', $vars);
 /* @var $entity Comment */
 
-$body = elgg_view('output/longtext', [
+if (elgg_is_active_plugin('search') && get_input('query')) {
+	if ($entity->getVolatileData('search_matched_description')) {
+		$body = $entity->getVolatileData('search_matched_description');
+	} else {
+		$body = search_get_highlighted_relevant_substrings($entity->description, get_input('query'), 5, 5000);
+	}
+} else {
+	$body = elgg_view('output/longtext', [
 	'value' => $entity->description,
 ]);
+}
 
 if (elgg_view_exists('output/linkify')) {
 	$body = elgg_view('output/linkify', array(

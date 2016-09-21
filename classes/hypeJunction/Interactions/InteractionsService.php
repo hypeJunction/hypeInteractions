@@ -6,6 +6,9 @@ use ElggEntity;
 use ElggObject;
 use ElggRiverItem;
 
+/**
+ * @access private
+ */
 class InteractionsService {
 
 	/**
@@ -145,6 +148,85 @@ class InteractionsService {
 			));
 		}
 		return '';
+	}
+
+	/**
+	 * Get configured comments order
+	 * @return string
+	 */
+	public static function getCommentsSort() {
+		$user_setting = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
+		$setting = $user_setting ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+		if ($setting == 'asc') {
+			$setting = 'time_created::asc';
+		} else if ($setting == 'desc') {
+			$setting = 'time_created::desc';
+		}
+		return $setting;
+	}
+
+	/**
+	 * Get configured loading style
+	 * @return string
+	 */
+	public static function getLoadStyle() {
+		$user_setting = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
+		return $user_setting ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+	}
+
+	/**
+	 * Get comment form position
+	 * @return string
+	 */
+	public static function getCommentsFormPosition() {
+		$user_setting = elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
+		return $user_setting ? : elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+	}
+	/**
+	 * Get number of comments to show
+	 *
+	 * @param string $partial Partial or full view
+	 * @return string
+	 */
+	public static function getLimit($partial = true) {
+		if ($partial) {
+			$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
+			return $limit ? : 3;
+		} else {
+			$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
+			return $limit && $limit < 20 ? $limit : 20;
+		}
+	}
+
+	/**
+	 * Calculate offset till the page that contains the comment
+	 *
+	 * @param int     $count   Number of comments in the list
+	 * @param int     $limit   Number of comments to display
+	 * @param Comment $comment Comment entity
+	 * @return int
+	 */
+	public static function calculateOffset($count, $limit, $comment = null) {
+
+		$order = self::getCommentsSort();
+		$style = self::getLoadStyle();
+
+		if ($comment instanceof Comment) {
+			$thread = new Thread($comment);
+			$offset = $thread->getOffset($limit, $order);
+		} else if (($order == 'time_created::asc' && $style == 'load_older')
+			|| ($order == 'time_created::desc' && $style == 'load_newer')) {
+			// show last page
+			$offset = $count - $limit;
+			if ($offset < 0) {
+				$offset = 0;
+			}
+		} else {
+			// show first page
+			$offset = 0;
+		}
+
+		return (int) $offset;
 	}
 
 }
