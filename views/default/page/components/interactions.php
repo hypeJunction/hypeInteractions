@@ -49,11 +49,6 @@ $controls = elgg_format_element('div', array(
 	'class' => 'interactions-controls',
 		), $menu);
 
-$modules = array_filter(array(
-	'comments',
-	'likes',
-		));
-
 $class = ['interactions'];
 
 if ($active_tab) {
