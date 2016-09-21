@@ -1,3 +1,20 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/hypeJunction/hypeInteractions/compare/4.1.0...v4.2.0) (2016-09-21)
+
+
+### Bug Fixes
+
+* **css:** style elgg notice box ([632289b](https://github.com/hypeJunction/hypeInteractions/commit/632289b))
+* **permissions:** fix can comment permissions for logged out users ([6c6668d](https://github.com/hypeJunction/hypeInteractions/commit/6c6668d))
+* **river:** users can now reply to comments from the river ([2df315d](https://github.com/hypeJunction/hypeInteractions/commit/2df315d))
+
+### Features
+
+* **comments:** comments can now be searched and filtered within the comments block ([b80597a](https://github.com/hypeJunction/hypeInteractions/commit/b80597a))
+* **core:** upgrade API to new coding standards ([477788a](https://github.com/hypeJunction/hypeInteractions/commit/477788a))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/hypeJunction/hypeInteractions/compare/4.0.0...v4.1.0) (2016-09-15)
 
