@@ -104,3 +104,9 @@
 .interactions-image-block {
 	@include image-block($comment-avatar-size, $comment-padding);
 }
+
+.interactions-component .elgg-box {
+    margin: 10px;
+    padding: 10px;
+	@include border-radius($border-radius);
+}

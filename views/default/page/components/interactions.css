@@ -32,3 +32,5 @@
 .interactions-image-block > .elgg-image { -webkit-order: 1; order: 1; -webkit-flex: 0 0 30px; flex: 0 0 30px; margin-right: 10px; }
 .interactions-image-block > .elgg-image-alt { -webkit-order: 3; order: 3; -webkit-flex: 0 0 auto; flex: 0 0 auto; margin-left: 10px; }
 .interactions-image-block > .elgg-body { -webkit-order: 2; order: 2; -webkit-flex: 1 1 auto; flex: 1 1 auto; }
+
+.interactions-component .elgg-box { margin: 10px; padding: 10px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
