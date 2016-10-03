@@ -13,8 +13,8 @@ if (elgg_is_active_plugin('search') && get_input('query')) {
 	}
 } else {
 	$body = elgg_view('output/longtext', [
-	'value' => $entity->description,
-]);
+		'value' => $entity->description,
+	]);
 }
 
 if (elgg_view_exists('output/linkify')) {
