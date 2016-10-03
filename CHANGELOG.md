@@ -1,3 +1,16 @@
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/hypeJunction/hypeInteractions/compare/4.2.0...v4.2.1) (2016-10-03)
+
+
+### Bug Fixes
+
+* **js:** comment editing no longer presumes that menu is within the comment object view ([7d630c6](https://github.com/hypeJunction/hypeInteractions/commit/7d630c6))
+* **ui:** comments are highlighted once again when their hash is present in the URL ([71c9cbc](https://github.com/hypeJunction/hypeInteractions/commit/71c9cbc))
+* **ux:** comment posted date is now a permalink again ([8129c00](https://github.com/hypeJunction/hypeInteractions/commit/8129c00))
+* **ux:** URL hash now takes to comments component ([90d3736](https://github.com/hypeJunction/hypeInteractions/commit/90d3736))
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/hypeJunction/hypeInteractions/compare/4.1.0...v4.2.0) (2016-09-21)
 
