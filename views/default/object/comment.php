@@ -42,8 +42,12 @@ if ($full) {
 	/* @var $owner ElggUser */
 
 	$poster_text = elgg_echo('byline', array($poster->name));
-	$date = elgg_view_friendly_time($comment->time_created);
-
+	$posted = elgg_view_friendly_time($comment->time_created);
+	$date = elgg_view('output/url', [
+		'text' => $posted,
+		'href' => $comment->getURL(),
+	]);
+	
 	$metadata = '';
 	if (!elgg_in_context('widgets')) {
 		$metadata = elgg_view_menu('entity', [
