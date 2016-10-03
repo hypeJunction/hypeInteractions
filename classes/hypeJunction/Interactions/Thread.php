@@ -49,11 +49,12 @@ class Thread {
 		if ($limit === 0) {
 			return 0;
 		}
-		if ($order == 'asc') {
+		if ($order == 'asc' || $order == 'time_created::asc') {
 			$before = $this->getCommentsBefore(array('count' => true, 'offset' => 0));
 		} else {
 			$before = $this->getCommentsAfter(array('count' => true, 'offset' => 0));
 		}
+		
 		return floor($before / $limit) * $limit;
 	}
 

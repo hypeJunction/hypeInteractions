@@ -25,6 +25,10 @@ $show_form = elgg_extract('show_add_form', $vars, true) && $entity->canComment()
 $expand_form = elgg_extract('expand_form', $vars, !elgg_in_context('widgets'));
 
 $sort = InteractionsService::getCommentsSort();
+if ($comment && !in_array($sort, ['time_created::asc', 'time_created::desc'])) {
+	$sort = 'time_created::desc';
+}
+
 $style = InteractionsService::getLoadStyle();
 $form_position = InteractionsService::getCommentsFormPosition();
 $limit = elgg_extract('limit', $vars, InteractionsService::getLimit(!$full_view));
