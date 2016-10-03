@@ -1,3 +1,13 @@
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/hypeJunction/hypeInteractions/compare/4.2.1...v4.2.2) (2016-10-03)
+
+
+### Bug Fixes
+
+* **order:** correct offset calculation ([3c5e538](https://github.com/hypeJunction/hypeInteractions/commit/3c5e538))
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/hypeJunction/hypeInteractions/compare/4.2.0...v4.2.1) (2016-10-03)
 
