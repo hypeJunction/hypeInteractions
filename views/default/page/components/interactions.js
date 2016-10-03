@@ -11,6 +11,9 @@ define(function (require) {
 	var interactions = {
 		ready: false,
 		init: function () {
+			// Strip core comments functionality
+			elgg.comments.init = elgg.nullFunction;
+			
 			if (interactions.ready) {
 				return;
 			}
@@ -20,8 +23,8 @@ define(function (require) {
 			$(document).on('click', '.elgg-menu-interactions > .interactions-tab > a', interactions.triggerTabSwitch);
 			$(document).on('click', '.elgg-menu-interactions > .elgg-menu-item-comments > a', interactions.triggerTabSwitch);
 
-			$(document).off('click', '.elgg-item-object-comment .elgg-menu-item-edit > a'); // disable core js events
-			$(document).on('click', '.elgg-item-object-comment .elgg-menu-item-edit > a', interactions.loadEditForm);
+			$(document).off('click', '.interactions-edit > a'); // disable core js events
+			$(document).on('click', '.interactions-edit > a', interactions.loadEditForm);
 			$(document).on('submit', '.interactions-form', interactions.saveComment);
 
 			$(document).on('change', '.interactions-comments-list,.interactions-likes-list', interactions.listChanged);
@@ -130,7 +133,19 @@ define(function (require) {
 		loadEditForm: function (e) {
 			e.preventDefault();
 			var $elem = $(this);
-			var $item = $elem.closest('.elgg-list > li');
+			// If the menu was displayed in a popup module,
+			// we need to connect it properly to the original element
+			var $menu = $elem.closest('.elgg-menu');
+			var $item;
+			if ($menu.is('.elgg-state-popped')) {
+				var $trigger = $menu.data('trigger');
+				if ($trigger.length) {
+					$item = $trigger.closest('.elgg-list > li');
+				}
+			}
+			if (!$item) {
+				var $item = $menu.closest('.elgg-list > li');
+			}
 			elgg.ajax($elem.attr('href'), $.extend({}, interactions.preloader($elem), {
 				success: function (data) {
 					var $form = $(data);
