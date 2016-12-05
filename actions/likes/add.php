@@ -86,7 +86,8 @@ if ($entity->owner_guid != $user->guid) {
 		$user_url,
 		$entity_url,
 		$entity->getURL(),
-		$user->getURL()
+		$user->getDisplayName(),
+		$user->getURL(),
 			), $owner->language);
 
 	notify_user($entity->owner_guid, $user->guid, $subject, $body, array(
