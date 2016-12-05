@@ -1,3 +1,13 @@
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/hypeJunction/hypeInteractions/compare/4.2.2...v4.2.3) (2016-12-05)
+
+
+### Bug Fixes
+
+* **notifications:** add missing param to notification body sprintf ([8c90445](https://github.com/hypeJunction/hypeInteractions/commit/8c90445)), closes [#6](https://github.com/hypeJunction/hypeInteractions/issues/6)
+
+
+
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/hypeJunction/hypeInteractions/compare/4.2.1...v4.2.2) (2016-10-03)
 
