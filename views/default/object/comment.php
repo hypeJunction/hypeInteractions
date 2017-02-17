@@ -15,8 +15,13 @@ if (!$comment instanceof Comment) {
 	return true;
 }
 
+$commenter = $comment->getOwnerEntity();
 $entity = $comment->getContainerEntity();
 /* @var \ElggEntity $entity */
+
+if (!$entity || !$commenter) {
+	return;
+}
 
 $full = elgg_extract('full_view', $vars, true);
 
@@ -82,7 +87,6 @@ if ($full) {
 
 	$friendlytime = elgg_view_friendly_time($comment->time_created);
 
-	$commenter = $comment->getOwnerEntity();
 	$commenter_icon = elgg_view_entity_icon($commenter, 'tiny');
 	$commenter_link = "<a href=\"{$commenter->getURL()}\">$commenter->name</a>";
 
