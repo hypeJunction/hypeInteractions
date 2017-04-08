@@ -21,6 +21,7 @@ $english = array(
 	'interactions:settings:comments_load_style:load_newer' => 'Show older comments with a link to load newer comments',
 	'interactions:settings:comments_limit' => 'Number of comments to show in a partial/summary listing',
 	'interactions:settings:comments_load_limit' => 'Number of comments to show in a full listing',
+	'interactions:settings:comments_visual_editor' => 'Enable visual editor by default',
 	'interactions:settings:default_expand' => 'Expand comments tab',
 	'interactions:settings:default_expand:help' => 'By default, comments are not shown in summary/river listings until user selects a tab',
 	'interactions:settings:comment_sort' => 'Allow searching and filtering',

@@ -64,6 +64,17 @@ echo elgg_view_field([
 
 echo elgg_view_field([
 	'#type' => 'select',
+	'#label' => elgg_echo('interactions:settings:comments_visual_editor'),
+	'name' => 'params[comments_visual_editor]',
+	'value' => $entity->comments_visual_editor,
+	'options_values' => array(
+		0 => elgg_echo('option:no'),
+		1 => elgg_echo('option:yes'),
+	)
+]);
+
+echo elgg_view_field([
+	'#type' => 'select',
 	'#label' => elgg_echo('interactions:settings:comment_sort'),
 	'#help' => elgg_echo('interactions:settings:comment_sort:help'),
 	'name' => 'params[comment_sort]',
