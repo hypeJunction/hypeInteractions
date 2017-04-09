@@ -1,3 +1,26 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/hypeJunction/hypeInteractions/compare/4.2.3...v5.0.0) (2017-04-09)
+
+
+### Bug Fixes
+
+* **comment:** URL previews are rendered once again ([c73b7dc](https://github.com/hypeJunction/hypeInteractions/commit/c73b7dc))
+* **ux:** popup menu now hides itself before loading the form ([bb94c4b](https://github.com/hypeJunction/hypeInteractions/commit/bb94c4b))
+* **views:** bail if comment owner or entity can not be loaded ([35540b0](https://github.com/hypeJunction/hypeInteractions/commit/35540b0))
+
+### Features
+
+* **editor:** add a setting to use visual editor by default ([9cc66cd](https://github.com/hypeJunction/hypeInteractions/commit/9cc66cd))
+* **elgg:** now requires Elgg 2.3 ([2121c4f](https://github.com/hypeJunction/hypeInteractions/commit/2121c4f))
+* **settings:** update settings form to latest fields API ([61297a1](https://github.com/hypeJunction/hypeInteractions/commit/61297a1))
+
+
+### BREAKING CHANGES
+
+* elgg: The plugin now requires Elgg 2.3+
+
+
+
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/hypeJunction/hypeInteractions/compare/4.2.2...v4.2.3) (2016-12-05)
 
