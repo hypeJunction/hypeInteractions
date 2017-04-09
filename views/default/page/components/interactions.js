@@ -142,6 +142,9 @@ define(function (require) {
 				if ($trigger.length) {
 					$item = $trigger.closest('.elgg-list > li');
 				}
+				require(['elgg/popup'], function(popup) {
+					popup.close();
+				});
 			}
 			if (!$item) {
 				var $item = $menu.closest('.elgg-list > li');
