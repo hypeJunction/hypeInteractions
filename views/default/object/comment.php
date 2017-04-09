@@ -32,7 +32,7 @@ if ($full) {
 
 	$attachments = elgg_view('object/comment/elements/attachments', $vars);
 
-	if (elgg_get_plugin_setting('enable_url_previews', 'hypeInteractions')) {
+	if (elgg_get_plugin_setting('enable_url_preview', 'hypeInteractions')) {
 		$attachments .= elgg_view('object/comment/elements/embeds', $vars);
 	}
 

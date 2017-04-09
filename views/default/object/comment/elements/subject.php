@@ -1,10 +1,12 @@
 <?php
 
-namespace hypeJunction\Inbox;
+use hypeJunction\Interactions\Comment;
 
 $entity = elgg_extract('entity', $vars);
-/* @var Comment $comment */
+if (!$entity instanceof Comment) {
+	return;
+}
 
-echo elgg_format_element('span', array(
+echo elgg_format_element('span', [
 	'class' => 'interactions-comment-subject',
-		), $entity->getDisplayName());
+		], $entity->getDisplayName());
