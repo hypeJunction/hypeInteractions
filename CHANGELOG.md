@@ -1,3 +1,13 @@
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/hypeJunction/hypeInteractions/compare/5.0.0...v5.1.0) (2017-04-14)
+
+
+### Features
+
+* **river:** actionable river objects work again ([6194dac](https://github.com/hypeJunction/hypeInteractions/commit/6194dac))
+
+
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/hypeJunction/hypeInteractions/compare/4.2.3...v5.0.0) (2017-04-09)
 
