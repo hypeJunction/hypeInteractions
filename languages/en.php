@@ -110,6 +110,18 @@ or view %s\'s profile here:
 	'interactions:like:object:default' => '%s liked %s',
 	'interactions:comments:no_results' => 'No comments have been made yet',
 	'interactions:likes:no_results' => 'This item hasn\'t been liked yet',
+	/**
+	 * STREAM OBJECT
+	 */
+	'interactions:settings:actionable_stream_object' => 'Detached comment threads',
+	'interactions:settings:actionable_stream_object:help' => '
+		By default, only river items with an object can be commented on or liked.
+		Here you can enable commenting for specific views, which do not have a commentable object,
+		or where an object is a user or a group (e.g. User x has a new avatar),
+		or where river comments should be kept separate from main object comments.
+	',
+	'interactions:river_object:title' => 'activity',
+	'interactions:river_object:title_subject' => 'activity by %s',
 );
 
 add_translation("en", $english);

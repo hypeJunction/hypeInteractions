@@ -39,6 +39,7 @@ elgg_register_event_handler('init', 'system', function() {
 
 	// Create an actionable river object
 	elgg_register_event_handler('created', 'river', [InteractionsService::class, 'createRiverObject']);
+	elgg_register_event_handler('delete:after', 'river', [InteractionsService::class, 'deleteRiverObject']);
 
 	// Configure permissions
 	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', [Permissions::class, 'canComment']);
@@ -62,4 +63,7 @@ elgg_register_event_handler('init', 'system', function() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:river', 'likes_river_menu_setup');
 	elgg_unextend_view('elgg.css', 'likes/css');
 	elgg_unextend_view('elgg.js', 'likes/js');
+
+	// Actionable river items
+	elgg_register_plugin_hook_handler('likes:is_likable', 'object:river_object', [Elgg\Values::class, 'getTrue']);
 });

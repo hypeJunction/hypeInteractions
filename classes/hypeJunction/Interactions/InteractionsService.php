@@ -28,14 +28,44 @@ class InteractionsService {
 	/**
 	 * Creates a commentable object associated with river items whose object is not ElggObject
 	 *
-	 * @param string $event
-	 * @param string $type
-	 * @param ElggRiverItem $river
+	 * @param string        $event "created"
+	 * @param string        $type  "river"
+	 * @param ElggRiverItem $river River item
 	 * @return true
 	 */
 	public static function createRiverObject($event, $type, $river) {
 		create_actionable_river_object($river);
-		return true;
+	}
+
+	/**
+	 * Deletes a commentable object associated with river items whose object is not ElggObject
+	 *
+	 * @param string        $event "delete:after"
+	 * @param string        $type  "river"
+	 * @param ElggRiverItem $river River item
+	 * @return true
+	 */
+	public static function deleteRiverObject($event, $type, $river) {
+		$ia = elgg_set_ignore_access(true);
+
+		$objects = elgg_get_entities_from_metadata(array(
+			'types' => RiverObject::TYPE,
+			'subtypes' => array(RiverObject::SUBTYPE, 'hjstream'),
+			'metadata_name_value_pairs' => array(
+				'name' => 'river_id',
+				'value' => $river->id,
+			),
+			'limit' => 0,
+			'batch' => true,
+		));
+
+		$objects->setIncrementOffset(false);
+
+		foreach ($objects as $object) {
+			$object->delete();
+		}
+
+		elgg_set_ignore_access($ia);
 	}
 
 	/**
@@ -52,18 +82,22 @@ class InteractionsService {
 		}
 
 		$object = $river->getObjectEntity();
-		if (!$object instanceof ElggObject) {
-			$ia = elgg_set_ignore_access(true);
 
-			$object = new RiverObject();
-			$object->owner_guid = $river->subject_guid;
-			$object->container_guid = $river->subject_guid;
-			$object->access_id = $river->access_id;
-			$object->river_id = $river->id;
-			$object->save();
-
-			elgg_set_ignore_access($ia);
+		$views = self::getActionableViews();
+		if (!in_array($river->view, $views)) {
+			return $object;
 		}
+
+		$ia = elgg_set_ignore_access(true);
+
+		$object = new RiverObject();
+		$object->owner_guid = $river->subject_guid;
+		$object->container_guid = $object->guid;
+		$object->access_id = $object->access_id;
+		$object->river_id = $river->id;
+		$object->save();
+
+		elgg_set_ignore_access($ia);
 
 		return $object;
 	}
@@ -82,7 +116,10 @@ class InteractionsService {
 		}
 
 		$object = $river->getObjectEntity();
-		if ($object instanceof ElggObject) {
+
+		$views = self::getActionableViews();
+
+		if (!in_array($river->view, $views)) {
 			return $object;
 		}
 
@@ -95,19 +132,22 @@ class InteractionsService {
 			'metadata_name_value_pairs' => array(
 				'name' => 'river_id',
 				'value' => $river->id,
-				'operand' => '='
 			),
 			'limit' => 1,
 		));
+		
 		$guid = ($objects) ? $objects[0]->guid : false;
-		elgg_set_ignore_access($ia);
 
 		if (!$guid) {
 			$object = create_actionable_river_object($river);
 			$guid = $object->guid;
 		}
 
-		return get_entity($guid);
+		$object = get_entity($guid);
+		
+		elgg_set_ignore_access($ia);
+
+		return $object;
 	}
 
 	/**
@@ -156,7 +196,7 @@ class InteractionsService {
 	 */
 	public static function getCommentsSort() {
 		$user_setting = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
-		$setting = $user_setting ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+		$setting = $user_setting ?: elgg_get_plugin_setting('comments_order', 'hypeInteractions');
 		if ($setting == 'asc') {
 			$setting = 'time_created::asc';
 		} else if ($setting == 'desc') {
@@ -171,7 +211,7 @@ class InteractionsService {
 	 */
 	public static function getLoadStyle() {
 		$user_setting = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
-		return $user_setting ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+		return $user_setting ?: elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
 	}
 
 	/**
@@ -180,8 +220,9 @@ class InteractionsService {
 	 */
 	public static function getCommentsFormPosition() {
 		$user_setting = elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
-		return $user_setting ? : elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+		return $user_setting ?: elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
 	}
+
 	/**
 	 * Get number of comments to show
 	 *
@@ -191,7 +232,7 @@ class InteractionsService {
 	public static function getLimit($partial = true) {
 		if ($partial) {
 			$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
-			return $limit ? : 3;
+			return $limit ?: 3;
 		} else {
 			$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
 			return $limit && $limit < 20 ? $limit : 20;
@@ -214,8 +255,7 @@ class InteractionsService {
 		if ($comment instanceof Comment) {
 			$thread = new Thread($comment);
 			$offset = $thread->getOffset($limit, $order);
-		} else if (($order == 'time_created::asc' && $style == 'load_older')
-			|| ($order == 'time_created::desc' && $style == 'load_newer')) {
+		} else if (($order == 'time_created::asc' && $style == 'load_older') || ($order == 'time_created::desc' && $style == 'load_newer')) {
 			// show last page
 			$offset = $count - $limit;
 			if ($offset < 0) {
@@ -227,6 +267,34 @@ class InteractionsService {
 		}
 
 		return (int) $offset;
+	}
+
+	/**
+	 * Get views, which custom threads should be created for
+	 * @return array
+	 */
+	public static function getActionableViews() {
+		static $views;
+		if (isset($views)) {
+			return $views;
+		}
+
+		$views = [];
+
+		$plugin = elgg_get_plugin_from_id('hypeInteractions');
+		$settings = $plugin->getAllSettings();
+		foreach ($settings as $key => $value) {
+			if (!$value) {
+				continue;
+			}
+			list ($prefix, $view) = explode(':', $key);
+			if ($prefix !== 'stream_object') {
+				continue;
+			}
+			$views[] = $view;
+		}
+
+		return $views;
 	}
 
 }

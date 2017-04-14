@@ -10,6 +10,8 @@ class RiverObject extends ElggObject {
 	const TYPE = 'object';
 	const SUBTYPE = 'river_object';
 
+	private $_river_item;
+	
 	/**
 	 * {@inheritdoc}
 	 */
@@ -23,6 +25,11 @@ class RiverObject extends ElggObject {
 	 * @return ElggRiverItem|false
 	 */
 	public function getRiverItem() {
+
+		if (isset($this->_river_item)) {
+			return $this->_river_item;
+		}
+
 		$id = $this->river_id;
 
 		$items = elgg_get_river(array(
@@ -30,7 +37,21 @@ class RiverObject extends ElggObject {
 			'limit' => 1,
 		));
 
-		return (is_array($items) && count($items)) ? $items[0] : false;
+		$this->_river_item = (is_array($items) && count($items)) ? $items[0] : false;
+		return $this->_river_item;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getDisplayName() {
+		$item = $this->getRiverItem();
+		if (!$item) {
+			return elgg_echo('interactions:river_object:title');
+		}
+
+		$subject = $item->getSubjectEntity();
+		return elgg_echo('interactions:river_object:title_subject', [$subject->getDisplayName()]);
 	}
 
 }

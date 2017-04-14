@@ -125,3 +125,26 @@ if (elgg_is_active_plugin('hypeScraper')) {
 		),
 	]);
 }
+
+$dbprefix = elgg_get_config('dbprefix');
+$query = "SELECT DISTINCT view FROM {$dbprefix}river";
+$data = get_data($query);
+
+$view_fields = [];
+foreach ($data as $row) {
+	$view = $row->view;
+	$view_fields[] = [
+		'#type' => 'checkbox',
+		'label' => $view,
+		'name' => "params[stream_object:$view]",
+		'checked' => (bool) $entity->{"stream_object:$view"},
+		'value' => 1,
+	];
+}
+
+echo elgg_view_field([
+	'#type' => 'fieldset',
+	'#label' => elgg_echo('interactions:settings:actionable_stream_object'),
+	'#help' => elgg_echo('interactions:settings:actionable_stream_object:help'),
+	'fields' => $view_fields,
+]);

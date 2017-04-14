@@ -79,8 +79,8 @@ class Router {
 		} else if ($entity instanceof RiverObject) {
 			return elgg_normalize_url(implode('/', array(
 				'activity',
-				'view',
-				$entity->river_id,
+				'owner',
+				$entity->getOwnerEntity()->username,
 			))) . "#item-river-$entity->guid";
 		}
 
