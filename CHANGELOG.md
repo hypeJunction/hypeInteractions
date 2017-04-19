@@ -1,3 +1,13 @@
+<a name="5.1.1"></a>
+## [5.1.1](https://github.com/hypeJunction/hypeInteractions/compare/5.1.0...v5.1.1) (2017-04-19)
+
+
+### Bug Fixes
+
+* **cs:** canComment declaration now matches that of ElggObject ([0715bf4](https://github.com/hypeJunction/hypeInteractions/commit/0715bf4)), closes [#8](https://github.com/hypeJunction/hypeInteractions/issues/8)
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/hypeJunction/hypeInteractions/compare/5.0.0...v5.1.0) (2017-04-14)
 
