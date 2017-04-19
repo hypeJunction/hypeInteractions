@@ -23,8 +23,8 @@ class Comment extends ElggComment {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function canComment($user_guid = 0) {
-		return ElggObject::canComment($user_guid);
+	public function canComment($user_guid = 0, $default = null) {
+		return ElggObject::canComment($user_guid, $default);
 	}
 
 	/**
