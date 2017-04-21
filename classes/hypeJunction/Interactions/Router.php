@@ -46,6 +46,13 @@ class Router {
 					'guid' => $guid,
 				]);
 				return true;
+
+			case 'view' :
+				set_input('guid', $guid);
+				echo elgg_view_resource('interactions/view', [
+					'guid' => $guid,
+				]);
+				return true;
 		}
 
 		return false;
@@ -71,17 +78,17 @@ class Router {
 				return $container->getURL();
 			}
 			return elgg_normalize_url(implode('/', array(
-				'stream',
-				'comments',
-				$entity->container_guid,
-				$entity->guid,
-			))) . "#elgg-object-$entity->guid";
+						'stream',
+						'comments',
+						$entity->container_guid,
+						$entity->guid,
+					))) . "#elgg-object-$entity->guid";
 		} else if ($entity instanceof RiverObject) {
 			return elgg_normalize_url(implode('/', array(
-				'activity',
-				'owner',
-				$entity->getOwnerEntity()->username,
-			))) . "#item-river-$entity->guid";
+				'stream',
+				'view',
+				$entity->guid
+			)));
 		}
 
 		return $url;
