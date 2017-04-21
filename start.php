@@ -40,6 +40,7 @@ elgg_register_event_handler('init', 'system', function() {
 	// Create an actionable river object
 	elgg_register_event_handler('created', 'river', [InteractionsService::class, 'createRiverObject']);
 	elgg_register_event_handler('delete:after', 'river', [InteractionsService::class, 'deleteRiverObject']);
+	elgg_register_plugin_hook_handler('update:after', 'all', [InteractionsService::class, 'syncRiverObjectAccess']);
 
 	// Configure permissions
 	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', [Permissions::class, 'canComment']);

@@ -2,6 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
+use ElggBatch;
 use ElggEntity;
 use ElggObject;
 use ElggRiverItem;
@@ -135,7 +136,7 @@ class InteractionsService {
 			),
 			'limit' => 1,
 		));
-		
+
 		$guid = ($objects) ? $objects[0]->guid : false;
 
 		if (!$guid) {
@@ -144,7 +145,7 @@ class InteractionsService {
 		}
 
 		$object = get_entity($guid);
-		
+
 		elgg_set_ignore_access($ia);
 
 		return $object;
@@ -295,6 +296,42 @@ class InteractionsService {
 		}
 
 		return $views;
+	}
+
+	/**
+	 * Update river object access to match that of the container
+	 *
+	 * @param string     $event  'update:after'
+	 * @param string     $type   'all'
+	 * @param ElggEntity $entity The updated entity
+	 * @return bool
+	 */
+	public static function syncRiverObjectAccess($event, $type, $entity) {
+		if (!$entity instanceof \ElggEntity) {
+			return;
+		}
+
+		// need to override access in case comments ended up with ACCESS_PRIVATE
+		// and to ensure write permissions
+		$ia = elgg_set_ignore_access(true);
+		$options = array(
+			'type' => 'object',
+			'subtype' => RiverObject::class,
+			'container_guid' => $entity->guid,
+			'wheres' => array(
+				"e.access_id != {$entity->access_id}"
+			),
+			'limit' => 0,
+		);
+
+		$batch = new ElggBatch('elgg_get_entities', $options, null, 25, false);
+		foreach ($batch as $river_object) {
+			// Update comment access_id
+			$river_object->access_id = $entity->access_id;
+			$river_object->save();
+		}
+
+		elgg_set_ignore_access($ia);
 	}
 
 }
