@@ -1,3 +1,20 @@
+<a name="5.1.2"></a>
+## [5.1.2](https://github.com/hypeJunction/hypeInteractions/compare/5.0.0...v5.1.2) (2017-04-21)
+
+
+### Bug Fixes
+
+* **access:** make sure river object access is in sync with container ([be162bc](https://github.com/hypeJunction/hypeInteractions/commit/be162bc))
+* **access:** river object access is now correctly set and respected in views ([88de0bc](https://github.com/hypeJunction/hypeInteractions/commit/88de0bc))
+* **cs:** canComment declaration now matches that of ElggObject ([0715bf4](https://github.com/hypeJunction/hypeInteractions/commit/0715bf4)), closes [#8](https://github.com/hypeJunction/hypeInteractions/issues/8)
+* **river:** river object page now displayed correctly ([e48d559](https://github.com/hypeJunction/hypeInteractions/commit/e48d559))
+
+### Features
+
+* **river:** actionable river objects work again ([6194dac](https://github.com/hypeJunction/hypeInteractions/commit/6194dac))
+
+
+
 <a name="5.1.1"></a>
 ## [5.1.1](https://github.com/hypeJunction/hypeInteractions/compare/5.1.0...v5.1.1) (2017-04-19)
 
