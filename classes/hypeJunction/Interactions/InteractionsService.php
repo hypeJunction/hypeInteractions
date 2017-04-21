@@ -4,8 +4,10 @@ namespace hypeJunction\Interactions;
 
 use ElggBatch;
 use ElggEntity;
+use ElggGroup;
 use ElggObject;
 use ElggRiverItem;
+use ElggUser;
 
 /**
  * @access private
@@ -35,7 +37,7 @@ class InteractionsService {
 	 * @return true
 	 */
 	public static function createRiverObject($event, $type, $river) {
-		create_actionable_river_object($river);
+		InteractionsService::createActionableRiverObject($river);
 	}
 
 	/**
@@ -89,17 +91,24 @@ class InteractionsService {
 			return $object;
 		}
 
+		$access_id = $object->access_id;
+		if ($object instanceof ElggUser) {
+			$access_id = ACCESS_FRIENDS;
+		} else if ($object instanceof ElggGroup) {
+			$access_id = $object->group_acl;
+		}
+
 		$ia = elgg_set_ignore_access(true);
 
 		$object = new RiverObject();
 		$object->owner_guid = $river->subject_guid;
 		$object->container_guid = $object->guid;
-		$object->access_id = $object->access_id;
+		$object->access_id = $access_id;
 		$object->river_id = $river->id;
 		$object->save();
 
 		elgg_set_ignore_access($ia);
-
+		
 		return $object;
 	}
 
@@ -140,15 +149,13 @@ class InteractionsService {
 		$guid = ($objects) ? $objects[0]->guid : false;
 
 		if (!$guid) {
-			$object = create_actionable_river_object($river);
+			$object = InteractionsService::createActionableRiverObject($river);
 			$guid = $object->guid;
 		}
 
-		$object = get_entity($guid);
-
 		elgg_set_ignore_access($ia);
 
-		return $object;
+		return get_entity($guid);
 	}
 
 	/**
@@ -307,7 +314,8 @@ class InteractionsService {
 	 * @return bool
 	 */
 	public static function syncRiverObjectAccess($event, $type, $entity) {
-		if (!$entity instanceof \ElggEntity) {
+		if (!$entity instanceof \ElggObject) {
+			// keep user and group entries as is
 			return;
 		}
 
