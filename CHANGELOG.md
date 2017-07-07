@@ -1,3 +1,13 @@
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/hypeJunction/hypeInteractions/compare/5.1.2...v5.2.0) (2017-07-07)
+
+
+### Features
+
+* **ui:** integrate with hypeUI ([b76ffac](https://github.com/hypeJunction/hypeInteractions/commit/b76ffac))
+
+
+
 <a name="5.1.2"></a>
 ## [5.1.2](https://github.com/hypeJunction/hypeInteractions/compare/5.0.0...v5.1.2) (2017-04-21)
 
