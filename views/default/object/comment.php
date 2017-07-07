@@ -36,43 +36,51 @@ if ($full) {
 		$attachments .= elgg_view('object/comment/elements/embeds', $vars);
 	}
 
-	$comments = elgg_view_comments($comment, true, array(
+	$comments = elgg_view_comments($comment, true, [
 		'entity' => $comment->getContainerEntity(),
 		'comment' => $comment,
 		'active_tab' => elgg_extract('active_tab', $vars),
 		'level' => elgg_extract('level', $vars),
-	));
+	]);
 
 	$poster = $comment->getOwnerEntity();
 	/* @var $owner ElggUser */
 
-	$poster_text = elgg_echo('byline', array($poster->name));
+	$poster_text = elgg_echo('byline', [$poster->name]);
 	$posted = elgg_view_friendly_time($comment->time_created);
 	$date = elgg_view('output/url', [
 		'text' => $posted,
 		'href' => $comment->getURL(),
 	]);
-	
+
 	$metadata = '';
-	if (!elgg_in_context('widgets')) {
-		$metadata = elgg_view_menu('entity', [
-			'entity' => $comment,
-			'sort_by' => 'priority',
-			'class' => 'elgg-menu-hz',
+	if (!elgg_is_active_plugin('hypeUI')) {
+		if (!elgg_in_context('widgets')) {
+			$metadata = elgg_view_menu('entity', [
+				'entity' => $comment,
+				'sort_by' => 'priority',
+				'class' => 'elgg-menu-hz',
+			]);
+		}
+		$body = elgg_view('object/elements/summary', $vars + [
+				'title' => false,
+				'subtitle' => "$poster_text $date",
+				'content' => $body . $attachments . $comments,
+				'metadata' => $metadata,
+			]);
+		$body = elgg_view_image_block($icon, $body, [
+			'class' => 'interactions-image-block',
 		]);
+	} else {
+		$body = elgg_view('object/elements/summary', $vars + [
+				'icon' => $icon,
+				'content' => $body,
+				'attachments' => $attachments,
+				'responses' => $comments,
+				'access' => false,
+				'title' => false,
+			]);
 	}
-
-	$body = elgg_view('object/elements/summary', array(
-		'entity' => $comment,
-		'title' => false,
-		'subtitle' => "$poster_text $date",
-		'content' => $body . $attachments . $comments,
-		'metadata' => $metadata,
-	));
-
-	$body = elgg_view_image_block($icon, $body, array(
-		'class' => 'interactions-image-block',
-	));
 
 	$attrs = [
 		'data-guid' => $comment->guid,
@@ -94,7 +102,7 @@ if ($full) {
 	$entity_link = "<a href=\"{$entity->getURL()}\">$entity_title</a>";
 
 	$excerpt = elgg_get_excerpt($comment->description, 80);
-	$posted = elgg_echo('generic_comment:on', array($commenter_link, $entity_link));
+	$posted = elgg_echo('generic_comment:on', [$commenter_link, $entity_link]);
 
 	$body = elgg_format_element('span', ['class' => 'elgg-subtext'], "$posted ($friendlytime): $excerpt");
 	echo elgg_view_image_block($commenter_icon, $body);
