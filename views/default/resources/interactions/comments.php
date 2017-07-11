@@ -28,28 +28,48 @@ if (elgg_is_xhr()) {
 	));
 } else {
 	$title = elgg_echo('interactions:comments:title', array($entity->getDisplayName()));
-	
-	// Show partial entity listing
-	$content = elgg_view_entity($entity, array(
-		'full_view' => false,
-	));
-	
-	// Show comments
-	$content .= elgg_view_comments($entity, true, array(
-		'entity' => $entity,
-		'comment' => $comment,
-		'active_tab' => 'comments',
-		'show_add_form' => true,
-		'expand_form' => true,
-	));
+
+	if (elgg_is_active_plugin('hypeUI')) {
+		// Show comments
+		$responses = elgg_view_comments($entity, true, [
+			'entity' => $entity,
+			'comment' => $comment,
+			'active_tab' => 'comments',
+			'show_add_form' => true,
+			'expand_form' => true,
+		]);
+
+		// Show partial entity listing
+		$content = elgg_view_entity($entity, [
+			'full_view' => true,
+			'responses' => $responses,
+		]);
+	} else {
+		// Show partial entity listing
+		$content = elgg_view_entity($entity, [
+			'full_view' => false,
+			'class' => 'box',
+		]);
+
+		// Show comments
+		$content .= elgg_view_comments($entity, true, [
+			'entity' => $entity,
+			'comment' => $comment,
+			'active_tab' => 'comments',
+			'show_add_form' => true,
+			'expand_form' => true,
+		]);
+	}
 
 	$layout = elgg_view_layout('content', array(
 		'title' => $title,
 		'content' => $content,
+		'entity' => $entity,
 		'filter' => false,
-		'sidebar' => false,
 	));
 
-	echo elgg_view_page($title, $layout);
+	echo elgg_view_page($title, $layout, 'default', [
+		'entity' => $entity,
+	]);
 }
 
