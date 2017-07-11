@@ -1,3 +1,13 @@
+<a name="5.2.1"></a>
+## [5.2.1](https://github.com/hypeJunction/hypeInteractions/compare/5.2.0...v5.2.1) (2017-07-11)
+
+
+### Bug Fixes
+
+* **ui:** integrate comments page with hypeUI ([5be3d88](https://github.com/hypeJunction/hypeInteractions/commit/5be3d88))
+
+
+
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/hypeJunction/hypeInteractions/compare/5.1.2...v5.2.0) (2017-07-07)
 
