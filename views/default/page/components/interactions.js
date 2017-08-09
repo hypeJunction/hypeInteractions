@@ -114,6 +114,8 @@ define(function (require) {
                         $form.siblings().find('.elgg-list').first().trigger('addFetchedItems', [response.output.view, null, true]).trigger('refresh');
                         $form.resetForm();
                         $form.trigger('reset');
+                        // reset ckeditor
+                        $form.find('[data-cke-init]').trigger('reset');
                     }
                     // Hide edit form
                     if ($form.is('.elgg-form-edit')) {
