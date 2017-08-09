@@ -1,3 +1,13 @@
+<a name="5.2.2"></a>
+## [5.2.2](https://github.com/hypeJunction/hypeInteractions/compare/5.2.1...v5.2.2) (2017-08-09)
+
+
+### Bug Fixes
+
+* **js:** properly reset CKEditor editor when comment is saved ([1225be8](https://github.com/hypeJunction/hypeInteractions/commit/1225be8))
+
+
+
 <a name="5.2.1"></a>
 ## [5.2.1](https://github.com/hypeJunction/hypeInteractions/compare/5.2.0...v5.2.1) (2017-07-11)
 
