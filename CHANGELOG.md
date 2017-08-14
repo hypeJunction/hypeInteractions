@@ -1,3 +1,13 @@
+<a name="5.2.3"></a>
+## [5.2.3](https://github.com/hypeJunction/hypeInteractions/compare/5.2.2...v5.2.3) (2017-08-14)
+
+
+### Bug Fixes
+
+* **notifications:** resolve subscriptions for all instances of Interactions\Comment ([0f60024](https://github.com/hypeJunction/hypeInteractions/commit/0f60024))
+
+
+
 <a name="5.2.2"></a>
 ## [5.2.2](https://github.com/hypeJunction/hypeInteractions/compare/5.2.1...v5.2.2) (2017-08-09)
 
