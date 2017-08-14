@@ -55,14 +55,14 @@ class Notifications {
 		}
 
 		$object = $event->getObject();
-		if (!elgg_instanceof($object, 'object', 'comment')) {
+		if (!$object instanceof Comment) {
 			return;
 		}
 
 		$original_container = $object->getOriginalContainer();
 		$subscriptions = elgg_get_subscriptions_for_container($original_container->container_guid);
 
-		$all_subscriptions = $return + $subscriptions;
+		$all_subscriptions = array_merge($return, $subscriptions);
 
 		// Notification has already been sent to the owner of the container in the save action
 		$container = $object->getContainerEntity();
