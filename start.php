@@ -42,6 +42,9 @@ elgg_register_event_handler('init', 'system', function() {
 	elgg_register_event_handler('delete:after', 'river', [InteractionsService::class, 'deleteRiverObject']);
 	elgg_register_plugin_hook_handler('update:after', 'all', [InteractionsService::class, 'syncRiverObjectAccess']);
 
+	// Setup subscriptions
+	elgg_register_event_handler('create', 'object', [Notifications::class, 'subscribe']);
+
 	// Configure permissions
 	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', [Permissions::class, 'canComment']);
 	elgg_register_plugin_hook_handler('permissions_check', 'annotation', [Permissions::class, 'canEditAnnotation']);
