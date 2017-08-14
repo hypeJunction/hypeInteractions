@@ -2,6 +2,8 @@
 
 namespace hypeJunction\Interactions;
 
+use Elgg\Notifications\NotificationEvent;
+
 class Notifications {
 
 	/**
@@ -20,7 +22,7 @@ class Notifications {
 		$recipient = elgg_extract('recipient', $params);
 		$language = elgg_extract('language', $params);
 
-		if (!elgg_instanceof($comment, 'object', 'comment')) {
+		if (!$comment instanceof Comment) {
 			return;
 		}
 
@@ -50,7 +52,7 @@ class Notifications {
 	public static function getSubscriptions($hook, $type, $return, $params) {
 
 		$event = elgg_extract('event', $params);
-		if (!$event instanceof Event) {
+		if (!$event instanceof NotificationEvent) {
 			return;
 		}
 
@@ -59,15 +61,37 @@ class Notifications {
 			return;
 		}
 
+		$subscriptions = [];
+		$actor_subscriptions = [];
+		$group_subscriptions = [];
 		$original_container = $object->getOriginalContainer();
-		$subscriptions = elgg_get_subscriptions_for_container($original_container->container_guid);
+		if ($original_container instanceof \ElggObject) {
+			// Users subscribed to the original post in the thread
+			$subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
+			$group = $original_container->getContainerEntity();
+			if ($group instanceof \ElggGroup) {
+				// Users subscribed to group notifications the thread was started in
+				$group_subscriptions = elgg_get_subscriptions_for_container($group->guid);
+			}
+			// @todo: Do we need to notify users subscribed to a thread within user container?
+			// 		  It doesn't seem that such notifications would make sense, because they are not performed by the user container
+		} else if ($original_container instanceof \ElggGroup) {
+			$group_subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
+		}
 
-		$all_subscriptions = array_merge($return, $subscriptions);
+		$actor = $event->getActor();
+		if ($actor instanceof \ElggUser) {
+			$actor_subscriptions = elgg_get_subscriptions_for_container($actor->guid);
+		}
+
+		$all_subscriptions = $return + $subscriptions + $group_subscriptions + $actor_subscriptions;
 
 		// Notification has already been sent to the owner of the container in the save action
 		$container = $object->getContainerEntity();
 		unset($all_subscriptions[$container->guid]);
 		unset($all_subscriptions[$container->owner_guid]);
+
+		var_dump($all_subscriptions);
 
 		return $all_subscriptions;
 	}
