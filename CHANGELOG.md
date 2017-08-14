@@ -1,3 +1,17 @@
+<a name="5.3.0"></a>
+# [5.3.0](https://github.com/hypeJunction/hypeInteractions/compare/5.2.3...v5.3.0) (2017-08-14)
+
+
+### Bug Fixes
+
+* **notifications:** correctly populate subscribers list for subscription notifications ([ef0d920](https://github.com/hypeJunction/hypeInteractions/commit/ef0d920))
+
+### Features
+
+* **notifications:** add some subscription logic from comment tracker for threaded comments/replies ([fb9dcef](https://github.com/hypeJunction/hypeInteractions/commit/fb9dcef))
+
+
+
 <a name="5.2.3"></a>
 ## [5.2.3](https://github.com/hypeJunction/hypeInteractions/compare/5.2.2...v5.2.3) (2017-08-14)
 
