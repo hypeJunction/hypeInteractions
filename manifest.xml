@@ -18,11 +18,10 @@
 		<version>2.3</version>
 	</requires>
 
-	<suggests>
+	<requires>
 		<type>plugin</type>
 		<name>hypeLists</name>
-		<version>3.5</version>
-	</suggests>
+	</requires>
 
 	<suggests>
 		<type>plugin</type>
