@@ -1,3 +1,15 @@
+<a name="5.3.1"></a>
+## [5.3.1](https://github.com/hypeJunction/hypeInteractions/compare/5.3.0...v5.3.1) (2017-08-28)
+
+
+### Bug Fixes
+
+* **manifest:** document hypeLists as required ([56484d0](https://github.com/hypeJunction/hypeInteractions/commit/56484d0))
+* **notifications:** all notifications are now sent via subscriptions service ([44443b9](https://github.com/hypeJunction/hypeInteractions/commit/44443b9))
+* **notifications:** exclude event actor from subscription notifications ([6062f63](https://github.com/hypeJunction/hypeInteractions/commit/6062f63))
+
+
+
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/hypeJunction/hypeInteractions/compare/5.2.3...v5.3.0) (2017-08-14)
 
