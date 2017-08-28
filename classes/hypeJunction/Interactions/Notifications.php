@@ -66,7 +66,9 @@ class Notifications {
 		$subscriptions = [];
 		$actor_subscriptions = [];
 		$group_subscriptions = [];
+
 		$original_container = $object->getOriginalContainer();
+
 		if ($original_container instanceof \ElggObject) {
 			// Users subscribed to the original post in the thread
 			$subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
@@ -153,6 +155,7 @@ class Notifications {
 		$container = $object->getContainerEntity();
 		unset($all_subscriptions[$container->guid]);
 		unset($all_subscriptions[$container->owner_guid]);
+		unset($all_subscriptions[$actor->guid]);
 
 		return $all_subscriptions;
 	}
