@@ -151,10 +151,7 @@ class Notifications {
 			}
 		}
 
-		// Notification has already been sent to the owner of the container in the save action
-		$container = $object->getContainerEntity();
-		unset($all_subscriptions[$container->guid]);
-		unset($all_subscriptions[$container->owner_guid]);
+		// Do not notify the actor
 		unset($all_subscriptions[$actor->guid]);
 
 		return $all_subscriptions;

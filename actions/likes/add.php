@@ -74,13 +74,7 @@ if ($entity->owner_guid != $user->guid) {
 
 	$subject = strip_tags($summary);
 
-	$site_url = elgg_view('output/url', array(
-		'text' => elgg_get_site_entity()->name,
-		'href' => elgg_get_site_url(),
-	));
-
 	$owner = $entity->getOwnerEntity();
-	$owner_name = $owner->first_name ? : $owner->name;
 
 	$body = elgg_echo('interactions:likes:notifications:body', array(
 		$user_url,

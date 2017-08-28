@@ -67,22 +67,6 @@ if (elgg_is_active_plugin('hypeAttachments')) {
 }
 
 if ($new_comment) {
-	
-	if ($entity->owner_guid != $poster->guid) {
-		// Send a notification to the content owner
-
-		$recipient = $entity->getOwnerEntity();
-		$language = $recipient->language;
-
-		$messages = (new NotificationFormatter($comment, $recipient, $language))->prepare();
-		
-		notify_user($recipient->guid, $poster->guid, $messages->subject, $messages->body, array(
-			'object' => $comment,
-			'action' => 'create',
-			'summary' => $messages->summary,
-		));
-	}
-
 	// Add to river
 	elgg_create_river_item(array(
 		'view' => 'river/object/comment/create',
