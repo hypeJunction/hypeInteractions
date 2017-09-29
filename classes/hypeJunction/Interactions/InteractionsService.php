@@ -243,7 +243,7 @@ class InteractionsService {
 			return $limit ?: 3;
 		} else {
 			$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
-			return $limit && $limit < 20 ? $limit : 20;
+			return min(max((int) $limit, 20), 200);
 		}
 	}
 
