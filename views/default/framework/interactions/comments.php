@@ -39,7 +39,16 @@ $offset = get_input($offset_key, null);
 $count = $entity->countComments();
 
 if (!isset($offset)) {
-	$offset = InteractionsService::calculateOffset($count, $limit, $comment);
+	if ($comment->container_guid != $entity->guid) {
+		// Comment serves as a pointer that allows us to access a specific comment within a tree
+		// Sometimes the comment is erraneously passed to the view by the router,
+		// e.g. when trying to a access a specific 2nd level reply in a thread,
+		// we only need to calculate the offset if the comment we are trying to access is
+		// a direct child of the object we are viewing
+		$offset = InteractionsService::calculateOffset($count, $limit);
+	} else {
+		$offset = InteractionsService::calculateOffset($count, $limit, $comment);
+	}
 }
 
 $level = elgg_extract('level', $vars) ? : 1;
