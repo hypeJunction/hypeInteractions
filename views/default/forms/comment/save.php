@@ -42,6 +42,18 @@ if (can_attach_files()) {
 	$params = $vars;
 	$params['expand'] = false;
 	$params['#type'] = 'attachments';
+	if (isset($params['help'])) {
+		$params['#help'] = $params['help'];
+		unset($params['help']);
+	}
+	if (isset($params['label'])) {
+		$params['#label'] = $params['label'];
+		unset($params['label']);
+	}
+	if (isset($params['field_class'])) {
+		$params['#class'] = $params['field_class'];
+		unset($params['field_class']);
+	}
 	$body .= elgg_view_field($params);
 }
 
