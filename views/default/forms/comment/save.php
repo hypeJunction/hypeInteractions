@@ -19,28 +19,42 @@ if (!elgg_is_logged_in()) {
 
 
 $entity = elgg_extract('entity', $vars);
-/* @var $entity ElggEntity */
+/* @var $entity \ElggEntity */
 
 $comment = elgg_extract('comment', $vars);
 /* @var $comment Comment */
 
 $owner = ($comment instanceof Comment) ? $comment->getOwnerEntity() : elgg_get_logged_in_user_entity();
-/* @var $owner ElggUser */
+/* @var $owner \ElggUser */
 
 $icon = elgg_view_entity_icon($owner, 'small', array(
 	'use_hover' => false,
 	'use_link' => false,
 		));
 
-$body = elgg_view_input('interactions/comment', array(
+$body = elgg_view_field([
+	'#type' => 'interactions/comment',
 	'name' => 'generic_comment',
 	'value' => $comment->description,
-		));
+		]);
 
 if (can_attach_files()) {
 	$params = $vars;
 	$params['expand'] = false;
-	$body .= elgg_view_input('attachments', $params);
+	$params['#type'] = 'attachments';
+	if (isset($params['help'])) {
+		$params['#help'] = $params['help'];
+		unset($params['help']);
+	}
+	if (isset($params['label'])) {
+		$params['#label'] = $params['label'];
+		unset($params['label']);
+	}
+	if (isset($params['field_class'])) {
+		$params['#class'] = $params['field_class'];
+		unset($params['field_class']);
+	}
+	$body .= elgg_view_field($params);
 }
 
 $footer = '';
