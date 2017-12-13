@@ -1,3 +1,18 @@
+<a name="5.4.0"></a>
+# [5.4.0](https://github.com/hypeJunction/hypeInteractions/compare/5.3.1...v5.4.0) (2017-12-13)
+
+
+### Bug Fixes
+
+* **comments:** deep linking no longer breaks sub-threads ([919db91](https://github.com/hypeJunction/hypeInteractions/commit/919db91))
+* **limit:** no longer enforces 20 item limit ([1aaea42](https://github.com/hypeJunction/hypeInteractions/commit/1aaea42))
+
+### Features
+
+* **comments:** improve the display of comments ([e6a1bdc](https://github.com/hypeJunction/hypeInteractions/commit/e6a1bdc))
+
+
+
 <a name="5.3.1"></a>
 ## [5.3.1](https://github.com/hypeJunction/hypeInteractions/compare/5.3.0...v5.3.1) (2017-08-28)
 
