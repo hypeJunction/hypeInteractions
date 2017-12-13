@@ -72,14 +72,17 @@ if ($full) {
 			'class' => 'interactions-image-block',
 		]);
 	} else {
-		$body = elgg_view('object/elements/summary', $vars + [
-				'icon' => $icon,
-				'content' => $body,
-				'attachments' => $attachments,
-				'responses' => $comments,
-				'access' => false,
-				'title' => false,
-			]);
+
+		$body = elgg_view('object/elements/summary', array_merge($vars, [
+			'entity' => $comment,
+			'icon' => elgg_view_entity_icon($commenter, 'small'),
+			'access' => false,
+			'title' => false,
+			'content' => false,
+			'inline_content' => $body . $comments,
+			'social' => false,
+			'class' => 'elgg-comment',
+		]));
 	}
 
 	$attrs = [

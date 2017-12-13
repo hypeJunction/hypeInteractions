@@ -24,25 +24,42 @@ $target_link = elgg_view('output/url', array(
 	'is_trusted' => true,
 ));
 
-$type = $target->getType();
-$subtype = $target->getSubtype() ? $target->getSubtype() : 'default';
-$key = "river:comment:$type:$subtype";
+if ($comment->getSubtype() === 'discussion_reply') {
+	$key = 'river:reply:object:discussion';
+} else {
+	$type = $target->getType();
+	$subtype = $target->getSubtype() ? $target->getSubtype() : 'default';
+	$key = "river:comment:$type:$subtype";
+}
+
 if (!elgg_language_key_exists($key)) {
 	$key = "river:comment:$type:default";
 }
 
-$params = ['entity' => $comment];
+$params = [
+	'entity' => $comment,
+	'full_view' => true,
+];
 
 $body = elgg_view('object/comment/elements/body', $params);
 $attachments = elgg_view('object/comment/elements/attachments', $params);
-if (elgg_get_plugin_setting('enable_url_previews', 'hypeInteractions')) {
+if (elgg_get_plugin_setting('enable_url_preview', 'hypeInteractions')) {
 	$attachments .= elgg_view('object/comment/elements/embeds', $params);
 }
 
 $summary = elgg_echo($key, array($subject_link, $target_link));
 
-echo elgg_view('river/elements/layout', array(
-	'item' => $vars['item'],
-	'message' => $body . $attachments,
-	'summary' => $summary,
-));
+if (elgg_is_active_plugin('hypeUI')) {
+	echo elgg_view('river/elements/layout', [
+		'item' => $vars['item'],
+		'message' => $body,
+		'summary' => $summary,
+		'attachments' => $attachments,
+	]);
+} else {
+	echo elgg_view('river/elements/layout', [
+		'item' => $vars['item'],
+		'message' => $body . $attachments,
+		'summary' => $summary,
+	]);
+}
