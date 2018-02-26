@@ -1,3 +1,13 @@
+<a name="5.4.1"></a>
+## [5.4.1](https://github.com/hypeJunction/hypeInteractions/compare/5.4.0...v5.4.1) (2018-02-26)
+
+
+### Bug Fixes
+
+* **comments:** make menu aware which river item the object belongs to ([4d05b72](https://github.com/hypeJunction/hypeInteractions/commit/4d05b72))
+
+
+
 <a name="5.4.0"></a>
 # [5.4.0](https://github.com/hypeJunction/hypeInteractions/compare/5.3.1...v5.4.0) (2017-12-13)
 
