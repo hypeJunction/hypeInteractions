@@ -129,33 +129,38 @@ class InteractionsService {
 
 		$views = self::getActionableViews();
 
-		if (!in_array($river->view, $views)) {
-			return $object;
+		if (in_array($river->view, $views)) {
+
+			// wrapping this in ignore access so that we do not accidentally create duplicate
+			// river objects
+			$ia = elgg_set_ignore_access(true);
+			$objects = elgg_get_entities_from_metadata([
+				'types' => RiverObject::TYPE,
+				'subtypes' => [RiverObject::SUBTYPE, 'hjstream'],
+				'metadata_name_value_pairs' => [
+					'name' => 'river_id',
+					'value' => $river->id,
+				],
+				'limit' => 1,
+			]);
+
+			$guid = ($objects) ? $objects[0]->guid : false;
+
+			if (!$guid) {
+				$object = InteractionsService::createActionableRiverObject($river);
+				$guid = $object->guid;
+			}
+
+			elgg_set_ignore_access($ia);
+
+			$object = get_entity($guid);
 		}
 
-		// wrapping this in ignore access so that we do not accidentally create duplicate
-		// river objects
-		$ia = elgg_set_ignore_access(true);
-		$objects = elgg_get_entities_from_metadata(array(
-			'types' => RiverObject::TYPE,
-			'subtypes' => array(RiverObject::SUBTYPE, 'hjstream'),
-			'metadata_name_value_pairs' => array(
-				'name' => 'river_id',
-				'value' => $river->id,
-			),
-			'limit' => 1,
-		));
-
-		$guid = ($objects) ? $objects[0]->guid : false;
-
-		if (!$guid) {
-			$object = InteractionsService::createActionableRiverObject($river);
-			$guid = $object->guid;
+		if ($object instanceof ElggEntity) {
+			$object->setVolatileData('river_item', $river);
 		}
 
-		elgg_set_ignore_access($ia);
-
-		return get_entity($guid);
+		return $object;
 	}
 
 	/**
