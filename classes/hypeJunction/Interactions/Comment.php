@@ -158,10 +158,10 @@ class Comment extends ElggComment {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save() {
+	public function save($update_last_action = true) {
 		$result = false;
 		if (elgg_trigger_before_event('create', 'object', $this)) {
-			$result = parent::save();
+			$result = parent::save($update_last_action);
 			if ($result) {
 				elgg_trigger_after_event('create', 'object', $this);
 			}
