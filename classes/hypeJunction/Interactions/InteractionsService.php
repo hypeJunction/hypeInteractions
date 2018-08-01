@@ -51,21 +51,12 @@ class InteractionsService {
 	public static function deleteRiverObject($event, $type, $river) {
 		$ia = elgg_set_ignore_access(true);
 
-		$objects = elgg_get_entities_from_metadata(array(
-			'types' => RiverObject::TYPE,
-			'subtypes' => array(RiverObject::SUBTYPE, 'hjstream'),
-			'metadata_name_value_pairs' => array(
-				'name' => 'river_id',
-				'value' => $river->id,
-			),
-			'limit' => 0,
-			'batch' => true,
-		));
-
-		$objects->setIncrementOffset(false);
-
-		foreach ($objects as $object) {
-			$object->delete();
+		$guid = InteractionsCache::getInstance()->getGuidFromRiverId($river->id);
+		if ($guid) {
+			$object = get_entity($guid);
+			if ($object) {
+				$object->delete();
+			}
 		}
 
 		elgg_set_ignore_access($ia);
@@ -134,17 +125,8 @@ class InteractionsService {
 			// wrapping this in ignore access so that we do not accidentally create duplicate
 			// river objects
 			$ia = elgg_set_ignore_access(true);
-			$objects = elgg_get_entities_from_metadata([
-				'types' => RiverObject::TYPE,
-				'subtypes' => [RiverObject::SUBTYPE, 'hjstream'],
-				'metadata_name_value_pairs' => [
-					'name' => 'river_id',
-					'value' => $river->id,
-				],
-				'limit' => 1,
-			]);
 
-			$guid = ($objects) ? $objects[0]->guid : false;
+			$guid = InteractionsCache::getInstance()->getGuidFromRiverId($river->id);
 
 			if (!$guid) {
 				$object = InteractionsService::createActionableRiverObject($river);
