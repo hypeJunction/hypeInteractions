@@ -1,3 +1,17 @@
+<a name="5.5.0"></a>
+# [5.5.0](https://github.com/hypeJunction/hypeInteractions/compare/5.4.1...v5.5.0) (2018-08-01)
+
+
+### Bug Fixes
+
+* **compatibility:** match comment::save parent declarations ([948543b](https://github.com/hypeJunction/hypeInteractions/commit/948543b))
+
+### Features
+
+* **perf:** add river id cache to reduce queries ([53cd869](https://github.com/hypeJunction/hypeInteractions/commit/53cd869))
+
+
+
 <a name="5.4.1"></a>
 ## [5.4.1](https://github.com/hypeJunction/hypeInteractions/compare/5.4.0...v5.4.1) (2018-02-26)
 
