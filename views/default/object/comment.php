@@ -72,14 +72,13 @@ if ($full) {
 			'class' => 'interactions-image-block',
 		]);
 	} else {
-
 		$body = elgg_view('object/elements/summary', array_merge($vars, [
 			'entity' => $comment,
 			'icon' => elgg_view_entity_icon($commenter, 'small'),
 			'access' => false,
 			'title' => false,
 			'content' => false,
-			'inline_content' => $body . $comments,
+			'inline_content' => $body . $attachments . $comments,
 			'social' => false,
 			'class' => 'elgg-comment',
 		]));
