@@ -1,3 +1,13 @@
+<a name="5.5.1"></a>
+## [5.5.1](https://github.com/hypeJunction/hypeInteractions/compare/5.5.0...v5.5.1) (2018-09-20)
+
+
+### Bug Fixes
+
+* **view:** add missing attachment view ([344331d](https://github.com/hypeJunction/hypeInteractions/commit/344331d))
+
+
+
 <a name="5.5.0"></a>
 # [5.5.0](https://github.com/hypeJunction/hypeInteractions/compare/5.4.1...v5.5.0) (2018-08-01)
 
