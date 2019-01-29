@@ -1,3 +1,13 @@
+<a name="5.5.2"></a>
+## [5.5.2](https://github.com/hypeJunction/hypeInteractions/compare/5.5.1...v5.5.2) (2019-01-29)
+
+
+### Bug Fixes
+
+* **notifications:** validate notification event type ([6820655](https://github.com/hypeJunction/hypeInteractions/commit/6820655))
+
+
+
 <a name="5.5.1"></a>
 ## [5.5.1](https://github.com/hypeJunction/hypeInteractions/compare/5.5.0...v5.5.1) (2018-09-20)
 
