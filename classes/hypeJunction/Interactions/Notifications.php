@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Notifications\NotificationEvent;
+use Elgg\Notifications\SubscriptionNotificationEvent;
 
 class Notifications {
 
@@ -54,7 +54,7 @@ class Notifications {
 	public static function getSubscriptions($hook, $type, $return, $params) {
 
 		$event = elgg_extract('event', $params);
-		if (!$event instanceof NotificationEvent) {
+		if (!$event instanceof SubscriptionNotificationEvent) {
 			return;
 		}
 
