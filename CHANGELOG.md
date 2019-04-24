@@ -1,3 +1,13 @@
+<a name="5.5.6"></a>
+## [5.5.6](https://github.com/hypeJunction/hypeInteractions/compare/5.5.5...v5.5.6) (2019-04-24)
+
+
+### Bug Fixes
+
+* **js:** only target correct sibling when editing ([bfcfdc7](https://github.com/hypeJunction/hypeInteractions/commit/bfcfdc7))
+
+
+
 <a name="5.5.5"></a>
 ## [5.5.5](https://github.com/hypeJunction/hypeInteractions/compare/5.5.4...v5.5.5) (2019-01-29)
 
