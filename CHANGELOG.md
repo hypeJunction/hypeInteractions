@@ -1,3 +1,9 @@
+<a name="5.5.7"></a>
+## [5.5.7](https://github.com/hypeJunction/hypeInteractions/compare/5.5.6...v5.5.7) (2019-04-24)
+
+
+
+
 <a name="5.5.6"></a>
 ## [5.5.6](https://github.com/hypeJunction/hypeInteractions/compare/5.5.5...v5.5.6) (2019-04-24)
 
