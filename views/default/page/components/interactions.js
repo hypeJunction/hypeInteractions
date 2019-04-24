@@ -120,9 +120,9 @@ define(function (require) {
                     // Hide edit form
                     if ($form.is('.elgg-form-edit')) {
                         if (response.status >= 0) {
-                            $form.siblings().replaceWith(response.output.view);
+                            $form.siblings('.interactions-comment').replaceWith(response.output.view);
                         }
-                        $form.siblings().show();
+                        $form.siblings('.interactions-comment').show();
                         $form.remove();
                     }
                     if (response.system_messages) {
@@ -162,11 +162,11 @@ define(function (require) {
                     var $form = $(data);
                     $item.append($form);
                     $form.trigger('initialize')
-                    $form.siblings().hide();
+                    $form.siblings('.interactions-comment').hide();
                     $form.find('textrea,input[type="text"]').first().focus().trigger('click');
                     $form.addClass('elgg-form-edit')
                     $form.find('.elgg-button-cancel').on('click', function () {
-                        $form.siblings().show();
+                        $form.siblings('.interactions-comment').show();
                         $form.remove();
                     });
                 }

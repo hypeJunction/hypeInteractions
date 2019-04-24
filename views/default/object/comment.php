@@ -86,10 +86,7 @@ if ($full) {
 
 	$attrs = [
 		'data-guid' => $comment->guid,
-		'class' => [
-			elgg_extract('class', $vars),
-			'interactions-comment',
-		],
+		'class' => elgg_extract_class($vars, 'interactions-comment'),
 	];
 
 	echo elgg_format_element('div', $attrs, $body);
